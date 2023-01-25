@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 09:38:21 by plouda            #+#    #+#             */
-/*   Updated: 2023/01/25 15:37:56 by plouda           ###   ########.fr       */
+/*   Updated: 2023/01/25 16:16:20 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ char	*set_next_line(char *text)
 	return (next_line);
 }
 
+
+/* why doesn't the malloc here need to be differentiated
+	for i + 1 and i + 2 ('\0' only and '\n' + '\0')?
+	No memory leak? */
 char	*get_current_line(char *text)
 {
 	char			*line;
