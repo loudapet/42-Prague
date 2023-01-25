@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 09:40:38 by plouda            #+#    #+#             */
-/*   Updated: 2023/01/25 16:12:34 by plouda           ###   ########.fr       */
+/*   Updated: 2023/01/25 16:20:14 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ size_t	ft_strlen(const char *c)
 	return (i);
 }
 
-/* why is the first condition needed? it should default to NULL if s doesn't exist 
-	(but it segfaults when the condition isn't there) */
+/* why is the first condition needed? it should default to NULL if s doesn't 
+exist (but it segfaults when the condition isn't there) */
 char	*ft_strchr_custom(const char *s, int c)
 {
 	if (!s)
