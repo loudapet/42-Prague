@@ -6,13 +6,15 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:56:24 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/01 11:38:14 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/02 08:37:02 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 #include <stdio.h>
+
+// cc -Wall -Wextra -Werror -o ft_printf ft_printf_char.c ft_printf_hex.c ft_printf_nbr.c ft_printf_str.c ft_printf_unbr.c ft_printf.c ft_uitoa.c libft.a main.c
 
 int	main (void)
 {
@@ -31,8 +33,8 @@ int	main (void)
 	//printf("Bytes printed: %i", bytes);
 
 	//ft_printf_unbr(42903275);
-	printf("I am 184 in hexadecimal: %x\n", 184);
-	write(1, "\n", 1);
+	//printf("I am 540 in hexadecimal: %x\n", 540);
+	ft_printf_hex(540);
 
 	return 0;
 }
