@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:55:15 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/03 13:28:18 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/03 14:48:57 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ int	ft_printf_hex(unsigned int unb, char flag)
 		else
 			str[i] = (char)(mod + 48);
 		unb = unb / 16;
-		ft_printf_char(str[i]);
-		write(1, "\n", 2);
 		i++;
 	}
 	bytes =	ft_printf_str(ft_strrev(str));
