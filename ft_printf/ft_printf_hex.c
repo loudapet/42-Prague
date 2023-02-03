@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:55:15 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/01 16:24:49 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/03 13:28:18 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	ft_places(unsigned int unb)
 	return (i);
 }
 
-int	ft_printf_hex(unsigned int unb)
+int	ft_printf_hex(unsigned int unb, char flag)
 {
 	char	*str;
 	unsigned int		mod;
@@ -82,17 +82,16 @@ int	ft_printf_hex(unsigned int unb)
 	while (unb > 0)
 	{
 		mod = unb % 16;
-		if (mod > 9)
-		{
+		if (mod > 9 && flag == 'X')
+			str[i] = ft_convert(mod) - 32;
+		else if (mod > 9 && flag == 'x')
 			str[i] = ft_convert(mod);
-		}
 		else
-		{
-			str[i] = mod + '\0';
-		}
+			str[i] = (char)(mod + 48);
 		unb = unb / 16;
+		ft_printf_char(str[i]);
+		write(1, "\n", 2);
 		i++;
-		//printf("%c", str[i]);
 	}
 	bytes =	ft_printf_str(ft_strrev(str));
 	return (bytes);

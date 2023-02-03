@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:56:24 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/02 08:37:02 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/03 13:27:13 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main (void)
 
 	//ft_printf_unbr(42903275);
 	//printf("I am 540 in hexadecimal: %x\n", 540);
-	ft_printf_hex(540);
+	ft_printf_hex(540, 'X');
 
 	return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:01:50 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/01 15:49:27 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/03 13:27:01 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int		ft_printf_str(char *str);
 int		ft_printf_nbr(int nb);
 int		ft_printf_unbr(unsigned int unb);
 char	*ft_uitoa(unsigned int n);
-int	ft_printf_hex(unsigned int unb);
+int		ft_printf_hex(unsigned int unb, char flag);
 
 #endif
