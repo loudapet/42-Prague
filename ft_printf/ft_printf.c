@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:01:05 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/03 14:23:01 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/06 09:44:42 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static int	ft_dispatch(va_list args, char c)
 
 int	ft_printf(const char *str, ...)
 {
-	va_list			args;
-	int	i;
-	int	bytes;
+	va_list	args;
+	int		i;
+	int		bytes;
 
 	i = 0;
 	bytes = 0;

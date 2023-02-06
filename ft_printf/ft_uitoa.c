@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:07:24 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/01 12:09:55 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/06 09:48:16 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static char	*ft_convert(char *str, int i, unsigned int n)
 
 char	*ft_uitoa(unsigned int n)
 {
-	
 	unsigned int	i;
 	char			*str;
 

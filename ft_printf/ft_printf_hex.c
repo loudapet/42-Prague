@@ -6,14 +6,13 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:55:15 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/03 14:48:57 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/06 09:47:26 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "ft_printf.h"
 #include <stdio.h>
-
 
 static char	*ft_strrev(char *str)
 {
@@ -23,7 +22,7 @@ static char	*ft_strrev(char *str)
 
 	i = 0;
 	j = ft_strlen(str) + 1;
-	rev = malloc(j *  sizeof(char));
+	rev = malloc(j * sizeof(char));
 	if (!rev)
 		return (NULL);
 	j--;
@@ -70,10 +69,10 @@ static int	ft_places(unsigned int unb)
 
 int	ft_printf_hex(unsigned int unb, char flag)
 {
-	char	*str;
-	unsigned int		mod;
-	int		i;
-	int		bytes;
+	char			*str;
+	unsigned int	mod;
+	int				i;
+	int				bytes;
 
 	str = malloc((ft_places(unb) + 1) * sizeof(char));
 	if (!str)
@@ -91,6 +90,6 @@ int	ft_printf_hex(unsigned int unb, char flag)
 		unb = unb / 16;
 		i++;
 	}
-	bytes =	ft_printf_str(ft_strrev(str));
+	bytes = ft_printf_str(ft_strrev(str));
 	return (bytes);
 }
