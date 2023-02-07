@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:01:05 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/06 09:44:42 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/07 16:10:38 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static int	ft_dispatch(va_list args, char c)
 		bytes = ft_printf_hex(va_arg(args, unsigned int), 'x');
 	else if (c == 'X')
 		bytes = ft_printf_hex(va_arg(args, unsigned int), 'X');
+	else if (c == 'p')
+		bytes = ft_printf_ptr(va_arg(args, uintptr_t));
 	else if (c == '%')
 		bytes = ft_printf_char(c);
 	return (bytes);

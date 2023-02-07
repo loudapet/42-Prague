@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_hex.c                                    :+:      :+:    :+:   */
+/*   ft_printf_ptr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 11:55:15 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/07 16:01:19 by plouda           ###   ########.fr       */
+/*   Created: 2023/02/06 15:08:36 by plouda            #+#    #+#             */
+/*   Updated: 2023/02/07 16:54:57 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "ft_printf.h"
-#include <stdio.h>
 
 static int	ft_strrev(char *str)
 {
@@ -41,7 +40,7 @@ static int	ft_strrev(char *str)
 	return (bytes);
 }
 
-static char	ft_convert(unsigned int mod)
+static char	ft_convert(uintptr_t mod)
 {
 	if (mod == 10)
 		return ('a');
@@ -71,7 +70,8 @@ static int	ft_places(unsigned int unb)
 	return (i);
 }
 
-int	ft_printf_hex(unsigned int unb, char flag)
+// Why ft_places + 3 and not + 1? (valgrind)
+static int	ft_printf_hexptr(uintptr_t unb, char flag)
 {
 	char			*str;
 	unsigned int	mod;
@@ -80,7 +80,7 @@ int	ft_printf_hex(unsigned int unb, char flag)
 
 	if (unb == 0)
 		return (ft_printf_nbr(0));
-	str = ft_calloc(ft_places(unb) + 1, sizeof(char));
+	str = ft_calloc(ft_places(unb) + 3, sizeof(char));
 	if (!str)
 		return (0);
 	i = 0;
@@ -98,4 +98,15 @@ int	ft_printf_hex(unsigned int unb, char flag)
 	}
 	bytes = ft_strrev(str);
 	return (bytes);
+}
+
+int	ft_printf_ptr(uintptr_t n)
+{
+	if (n == 0)
+	{
+		write(1, "(nil)", 5);
+		return (5);
+	}
+	write(1, "0x", 2);
+	return(ft_printf_hexptr((uintptr_t)n, 'x') + 2);
 }
