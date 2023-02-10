@@ -6,12 +6,13 @@
 #    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/02/10 08:49:56 by plouda           ###   ########.fr        #
+#    Updated: 2023/02/10 14:53:56 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC = ft_printf.c ft_printf_char.c ft_printf_hex.c ft_printf_nbr.c \
-		ft_printf_ptr.c ft_printf_str.c ft_printf_unbr.c ft_uitoa.c
+		ft_printf_ptr.c ft_printf_str.c ft_printf_unbr.c ft_uitoa.c \
+		ft_flag_handler.c
 
 SRCS = $(addprefix $(DIR), $(SRC))
 OBJS = $(SRCS:.c=.o)
@@ -33,6 +34,8 @@ $(NAME): $(OBJS)
 
 .c.o: $(SRCS)
 	$(GCC) $(CFLAGS) -c $< -o $@
+
+bonus: all
 
 clean:
 	rm -f $(OBJS)

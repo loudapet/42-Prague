@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:08:36 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/10 10:37:56 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/10 14:44:14 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	ft_places(uintptr_t unb)
 	return (i);
 }
 
-static int	ft_printf_hexptr(uintptr_t unb)
+static int	ft_printf_hexptr(uintptr_t unb, t_flags flags)
 {
 	char			*str;
 	unsigned int	mod;
@@ -78,7 +78,7 @@ static int	ft_printf_hexptr(uintptr_t unb)
 	int				bytes;
 
 	if (unb == 0)
-		return (ft_printf_nbr(0));
+		return (ft_printf_nbr(0, flags));
 	str = ft_calloc(ft_places(unb) + 1, sizeof(char));
 	if (!str)
 		return (0);
@@ -97,7 +97,7 @@ static int	ft_printf_hexptr(uintptr_t unb)
 	return (bytes);
 }
 
-int	ft_printf_ptr(uintptr_t n)
+int	ft_printf_ptr(uintptr_t n, t_flags flags)
 {
 	if (n == 0)
 	{
@@ -105,5 +105,5 @@ int	ft_printf_ptr(uintptr_t n)
 		return (5);
 	}
 	write(1, "0x", 2);
-	return(ft_printf_hexptr(n) + 2);
+	return(ft_printf_hexptr(n, flags) + 2);
 }
