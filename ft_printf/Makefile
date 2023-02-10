@@ -6,11 +6,12 @@
 #    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/01/31 12:44:21 by plouda           ###   ########.fr        #
+#    Updated: 2023/02/10 08:49:56 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = ft_printf.c main.c
+SRC = ft_printf.c ft_printf_char.c ft_printf_hex.c ft_printf_nbr.c \
+		ft_printf_ptr.c ft_printf_str.c ft_printf_unbr.c ft_uitoa.c
 
 SRCS = $(addprefix $(DIR), $(SRC))
 OBJS = $(SRCS:.c=.o)

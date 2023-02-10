@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:08:36 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/07 16:54:57 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/10 10:24:08 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char	ft_convert(uintptr_t mod)
 	return (mod);
 }
 
-static int	ft_places(unsigned int unb)
+static int	ft_places(uintptr_t unb)
 {
 	int	i;
 
@@ -70,7 +70,6 @@ static int	ft_places(unsigned int unb)
 	return (i);
 }
 
-// Why ft_places + 3 and not + 1? (valgrind)
 static int	ft_printf_hexptr(uintptr_t unb, char flag)
 {
 	char			*str;
@@ -80,7 +79,7 @@ static int	ft_printf_hexptr(uintptr_t unb, char flag)
 
 	if (unb == 0)
 		return (ft_printf_nbr(0));
-	str = ft_calloc(ft_places(unb) + 3, sizeof(char));
+	str = ft_calloc(ft_places(unb) + 1, sizeof(char));
 	if (!str)
 		return (0);
 	i = 0;
