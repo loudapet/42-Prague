@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:01:05 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/14 11:37:23 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/14 12:00:28 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_printf(const char *str, ...)
 	{
 		if (str[i] == '%')
 		{
-			flags = ft_save_flags((char *)&str[i+1]);
+			flags = ft_save_flags((char *)&str[i + 1]);
 			bytes = bytes + ft_dispatch(args, flags.specifier, flags);
 			i = i + flags.count_fill + 1;
 		}

@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:08:36 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/10 14:44:14 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/14 12:00:34 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,5 @@ int	ft_printf_ptr(uintptr_t n, t_flags flags)
 		return (5);
 	}
 	write(1, "0x", 2);
-	return(ft_printf_hexptr(n, flags) + 2);
+	return (ft_printf_hexptr(n, flags) + 2);
 }

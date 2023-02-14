@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:55:15 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/10 14:42:31 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/14 12:01:43 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,12 @@ int	ft_printf_hex(unsigned int unb, char flag, t_flags flags)
 	{
 		mod = unb % 16;
 		if (mod > 9 && flag == 'X')
-			str[i] = ft_convert(mod) - 32;
+			str[i++] = ft_convert(mod) - 32;
 		else if (mod > 9 && flag == 'x')
-			str[i] = ft_convert(mod);
+			str[i++] = ft_convert(mod);
 		else
-			str[i] = (char)(mod + 48);
+			str[i++] = (char)(mod + 48);
 		unb = unb / 16;
-		i++;
 	}
 	bytes = bytes + ft_strrev(str);
 	return (bytes);
