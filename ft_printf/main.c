@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:56:24 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/14 11:52:57 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/16 11:14:17 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	main (void)
 	bytes = printf("I am a char test: %c\n", 'q');
 	printf("Bytes printed: %i\n\n", bytes);
 
-	bytes = ft_printf("I am a str test: %s\n", "string");
+	bytes = ft_printf("I am a str test: %s\n", "str");
 	printf("Bytes printed: %i\n", bytes);
-	bytes = printf("I am a str test: %s\n", "string");
+	bytes = printf("I am a str test: %s\n", "str");
 	printf("Bytes printed: %i\n\n", bytes);
 
 	bytes = ft_printf("I am a decimal/int test: %d %+i\n", -10, 20);

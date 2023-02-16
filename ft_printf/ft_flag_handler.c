@@ -6,12 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 14:06:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/14 12:00:38 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/16 09:52:47 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
 
 static int	ft_printf_space(void)
 {

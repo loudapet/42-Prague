@@ -6,12 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:01:05 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/14 12:00:28 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/16 10:54:41 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
 
 static t_flags	ft_save_flags(char *fill)
 {
@@ -41,6 +40,7 @@ static int	ft_dispatch(va_list args, char c, t_flags flags)
 {
 	int	bytes;
 
+	bytes = 0;
 	if (c == 'c')
 		bytes = ft_printf_char(va_arg(args, int));
 	else if (c == 's')
