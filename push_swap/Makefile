@@ -6,11 +6,11 @@
 #    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/02/24 09:32:15 by plouda           ###   ########.fr        #
+#    Updated: 2023/02/24 12:39:59 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = clist_utils.c
+SRC = clist_utils.c clist_print.c main.c
 SRCS = $(addprefix $(DIR), $(SRC))
 OBJS = $(SRCS:.c=.o)
 DIR = ./
@@ -26,6 +26,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	make -C $(LIBFTPRINTF)
 	mv libftprintf/libftprintf.a .
+	$(GCC) $(CFLAGS) $(OBJS) $(LIBFTPRINTF).a -o $(NAME)
 
 .c.o: $(SRCS)
 	$(GCC) $(CFLAGS) -c $< -o $@
