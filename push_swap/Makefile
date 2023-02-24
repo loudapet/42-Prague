@@ -1,0 +1,47 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
+#    Updated: 2023/02/24 09:32:15 by plouda           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+SRC = clist_utils.c
+SRCS = $(addprefix $(DIR), $(SRC))
+OBJS = $(SRCS:.c=.o)
+DIR = ./
+
+NAME = push_swap
+LIBFTPRINTF = libftprintf
+AR = ar rc
+GCC = gcc
+CFLAGS = -Wall -Wextra -Werror
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	make -C $(LIBFTPRINTF)
+	mv libftprintf/libftprintf.a .
+
+.c.o: $(SRCS)
+	$(GCC) $(CFLAGS) -c $< -o $@
+
+bonus: all
+
+clean:
+	rm -f $(OBJS)
+	make clean -C $(LIBFTPRINTF)
+
+fclean: clean
+	rm -f $(NAME)
+	rm -f libftprintf.a
+	rm -f libftprintf/libft/libft.a
+
+re: fclean all
+
+.PHONY: all clean fclean re
+
