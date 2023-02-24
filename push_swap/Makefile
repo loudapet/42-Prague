@@ -6,11 +6,11 @@
 #    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/02/24 12:39:59 by plouda           ###   ########.fr        #
+#    Updated: 2023/02/24 14:31:16 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = clist_utils.c clist_print.c main.c
+SRC = clist_utils.c clist_print.c main.c operations.c
 SRCS = $(addprefix $(DIR), $(SRC))
 OBJS = $(SRCS:.c=.o)
 DIR = ./

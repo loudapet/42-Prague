@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:43:48 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/24 12:44:55 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/24 15:19:06 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,22 @@ int	main(int argc, const char **argv)
 
 	if (argc == 1)
 		exit(EXIT_SUCCESS);
+	ft_printf("%s", "\n_________TESTING-PROGRAM_________\n");
 	stack_a = create_stack_a(argc, argv);
-	ft_printf("Size of list: %d\n", ft_clstsize_flag(stack_a));
+	ft_printf("Size of list: %d\n\n", ft_clstsize_flag(stack_a));
 	ft_cprev_set(stack_a);
 	print_clist(stack_a);
+	swap_a(stack_a);
+	print_clist_swap(stack_a);
+	swap_a(stack_a);
 	print_clist_rev(stack_a);
+	swap_a(stack_a);
+	print_clist_rev_swap(stack_a);
+	swap_a(stack_a);
+	rotate_a(stack_a);
+	print_clist_rotated(stack_a);
+	reverse_rotate_a(stack_a);
+	print_clist_rev_rotated(stack_a);
+
 	return (0);
 }
