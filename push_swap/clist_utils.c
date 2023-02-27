@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:46:16 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/24 12:23:49 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/27 14:20:30 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,32 @@ void	ft_clstadd_back(t_clist **lst, t_clist *new)
 		*lst = new;
 	else
 		last->next = new;
+}
+
+void	ft_clstadd_front(t_clist **lst, t_clist *new)
+{
+	if (!new)
+		return ;
+	if (!lst)
+	{
+		*lst = new;
+		return ;
+	}
+	if ((*lst)->next == NULL)
+	{
+		(*lst)->next = *lst;
+		(*lst)->prev = *lst;
+		(*lst)->start = 1;
+		(*lst)->value = new->value;
+		return ;
+	}
+	(*lst)->prev->next = new;
+	(*lst)->prev = new;
+	(*lst)->start = 0;
+	new->next = *lst;
+	new->prev = (*lst)->prev;
+	new->start = 1;
+	*lst = new;
 }
 
 t_clist	*ft_clstnew(int value)

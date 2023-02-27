@@ -6,58 +6,93 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 13:43:31 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/24 15:17:20 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/27 14:55:02 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	swap_a(t_clist *lst)
+void	swap_a(t_clist *stack_a)
 {
-	t_clist	*tmp;
+	//t_clist	*tmp;
 	int		value;
 
-	if (!lst || ft_clstsize_flag(lst) == 1)
+	if (!stack_a || ft_clstsize_flag(stack_a) == 1)
 		return;
-	tmp = lst;
-	value = lst->value;
-	lst->value = lst->next->value;
-	lst->next->value = value;
-	lst = tmp;
+	//tmp = stack_a;
+	value = stack_a->value;
+	stack_a->value = stack_a->next->value;
+	stack_a->next->value = value;
+	//stack_a = tmp;
 }
 
-void	rotate_a(t_clist *lst)
+void	rotate_a(t_clist *stack_a)
 {
-	t_clist *tmp;
+	//t_clist *tmp;
 	int		value;
 
-	if (!lst || ft_clstsize_flag(lst) == 1)
+	if (!stack_a || ft_clstsize_flag(stack_a) == 1)
 		return;
-	while (lst->next->start != 1)
+	while (stack_a->next->start != 1)
 	{
-		tmp = lst;
-		value = lst->value;
-		lst->value = lst->prev->value;
-		lst->prev->value = value;
-		lst = tmp;
-		lst = lst->next;
+		//tmp = stack_a;
+		value = stack_a->value;
+		stack_a->value = stack_a->next->value;
+		stack_a->next->value = value;
+		//stack_a = tmp;
+		stack_a = stack_a->next;
 	}
 }
 
-void	reverse_rotate_a(t_clist *lst)
+void	reverse_rotate_a(t_clist *stack_a)
 {
-	t_clist *tmp;
+	//t_clist *tmp;
 	int		value;
 
-	if (!lst || ft_clstsize_flag(lst) == 1)
+	if (!stack_a || ft_clstsize_flag(stack_a) == 1)
 		return;
-	while (lst->prev->start != 1)
+	while (stack_a->prev->start != 1)
 	{
-		tmp = lst;
-		value = lst->value;
-		lst->value = lst->prev->value;
-		lst->prev->value = value;
-		lst = tmp;
-		lst = lst->prev;
+		//tmp = stack_a;
+		value = stack_a->value;
+		stack_a->value = stack_a->prev->value;
+		stack_a->prev->value = value;
+		//stack_a = tmp;
+		stack_a = stack_a->prev;
 	}
+}
+
+
+int	pop_a(t_clist **stack_a)
+{
+	int	popped;
+	t_clist	*del;
+
+	del = *stack_a;
+	if (ft_clstsize_flag(*stack_a) == 1)
+	{
+		// placeholder solution
+		popped = (*stack_a)->value;
+		(*stack_a)->next = NULL;
+		(*stack_a)->prev = NULL;
+		(*stack_a)->start = 0;
+		(*stack_a)->value = 0;
+		return (popped);
+	}
+	popped = (*stack_a)->value;
+	(*stack_a)->prev->next = (*stack_a)->next;
+	(*stack_a)->next->prev = (*stack_a)->prev;
+	(*stack_a) = (*stack_a)->next;
+	(*stack_a)->start = 1;
+	free(del);
+	return (popped);
+}
+
+
+void	push_b(t_clist **stack_a, t_clist **stack_b)
+{
+	int	value_to_push;
+	
+	value_to_push = pop_a(stack_a);
+	ft_clstadd_front(stack_b, ft_clstnew(value_to_push));
 }

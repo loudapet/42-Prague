@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:49:15 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/24 15:16:04 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/27 13:57:05 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,29 @@ typedef struct	s_clist
 {
 	struct s_clist	*next;
 	struct s_clist	*prev;
-	int		value;
-	int		start;
+	int				value;
+	int				start;
 }				t_clist;
 
 int		ft_clstsize(t_clist *lst);
 t_clist	*ft_clstlast(t_clist *lst);
 void	ft_clstadd_back(t_clist **lst, t_clist *new);
 t_clist	*ft_clstnew(int value);
-int	ft_clstsize_flag(t_clist *lst);
+int		ft_clstsize_flag(t_clist *lst);
 t_clist	*ft_clstlast_flag(t_clist *lst);
+void	ft_clstadd_front(t_clist **lst, t_clist *new);
 void	ft_cprev_set(t_clist *lst);
 void	print_clist(t_clist *stack);
 void	print_clist_rev(t_clist *stack);
 void	print_clist_swap(t_clist *stack);
-void	swap_a(t_clist *lst);
+void	swap_a(t_clist *stack_a);
 void	print_clist_rev_swap(t_clist *stack);
-void	rotate_a(t_clist *lst);
+void	rotate_a(t_clist *stack_a);
 void	print_clist_rotated(t_clist *stack);
-void	reverse_rotate_a(t_clist *lst);
+void	reverse_rotate_a(t_clist *stack_a);
 void	print_clist_rev_rotated(t_clist *stack);
+int		pop_a(t_clist **stack_a);
+void	push_b(t_clist **stack_a, t_clist **stack_b);
 
 
 #endif
