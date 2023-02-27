@@ -6,12 +6,13 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:46:16 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/27 14:20:30 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/27 15:38:10 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/*
 void	ft_cprev_set(t_clist *lst)
 {
 	if (lst->start == 1)
@@ -25,6 +26,7 @@ void	ft_cprev_set(t_clist *lst)
 	}
 	lst->next->prev = lst;
 }
+*/
 
 int	ft_clstsize_flag(t_clist *lst)
 {
@@ -134,5 +136,6 @@ t_clist	*ft_clstnew(int value)
 	list->value = value;
 	list->next = NULL;
 	list->prev = NULL;
+	list->start = 0;
 	return (list);
 }
