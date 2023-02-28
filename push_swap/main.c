@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:43:48 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/28 11:20:00 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/28 16:11:22 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,24 +84,25 @@ int	main(int argc, const char **argv)
 	push_b(&stack_a, &stack_b);
 	print_clist_a(stack_a);
 	print_clist_b(stack_b);
-	push_b(&stack_b, &stack_a);
-	push_b(&stack_b, &stack_a);
-	push_b(&stack_b, &stack_a);
-	push_b(&stack_b, &stack_a);
+	push_a(&stack_a, &stack_b);
+	push_a(&stack_a, &stack_b);
+	push_a(&stack_a, &stack_b);
 	print_clist_a(stack_a);
 	print_clist_b(stack_b);
-	swap_a(stack_a);
+	/*
+	swap(stack_a);
 	print_clist_swap(stack_a);
-	swap_a(stack_a);
+	swap(stack_a);
 	print_clist_rev(stack_a);
-	swap_a(stack_a);
+	swap(stack_a);
 	print_clist_rev_swap(stack_a);
-	swap_a(stack_a);
-	rotate_a(stack_a);
+	swap(stack_a);
+	rotate(stack_a);
 	print_clist_rotated(stack_a);
-	reverse_rotate_a(stack_a);
-	reverse_rotate_a(stack_a);
+	reverse_rotate(stack_a);
+	reverse_rotate(stack_a);
 	print_clist_rev_rotated(stack_a);
+	*/
 	free_stack(&stack_a);
 	free_stack(&stack_b);
 

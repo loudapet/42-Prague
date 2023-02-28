@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:49:15 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/28 09:19:22 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/28 15:56:08 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,35 @@ typedef struct	s_clist
 	int				start;
 }				t_clist;
 
+// Operations
+void	swap(t_clist *stack);
+void	rotate(t_clist *stack);
+void	reverse_rotate(t_clist *stack);
+void	push(t_clist **src, t_clist **dest);
+
+// Sub-operations
+void	swap_a(t_clist *stack_a);
+void	swap_b(t_clist *stack_b);
+void	swap_both(t_clist *stack_a, t_clist *stack_b);
+void	rotate_a(t_clist *stack_a);
+void	rotate_b(t_clist *stack_b);
+void	rotate_both(t_clist *stack_a, t_clist *stack_b);
+void	reverse_rotate_a(t_clist *stack_a);
+void	reverse_rotate_b(t_clist *stack_b);
+void	reverse_rotate_both(t_clist *stack_a, t_clist *stack_b);
+void	push_a(t_clist **stack_a, t_clist **stack_b);
+void	push_b(t_clist **stack_a, t_clist **stack_b);
+
+// Testing functions
+void	print_clist_a(t_clist *stack);
+void	print_clist_b(t_clist *stack);
+void	print_clist_rev(t_clist *stack);
+void	print_clist_swap(t_clist *stack);
+void	print_clist_rev_swap(t_clist *stack);
+void	print_clist_rotated(t_clist *stack);
+void	print_clist_rev_rotated(t_clist *stack);
+
+// Utils
 int		ft_clstsize(t_clist *lst);
 t_clist	*ft_clstlast(t_clist *lst);
 void	ft_clstadd_back(t_clist **lst, t_clist *new);
@@ -31,19 +60,5 @@ t_clist	*ft_clstnew(int value);
 int		ft_clstsize_flag(t_clist *lst);
 t_clist	*ft_clstlast_flag(t_clist *lst);
 void	ft_clstadd_front(t_clist **lst, t_clist *new);
-void	ft_cprev_set(t_clist *lst);
-void	print_clist_a(t_clist *stack);
-void	print_clist_b(t_clist *stack);
-void	print_clist_rev(t_clist *stack);
-void	print_clist_swap(t_clist *stack);
-void	swap_a(t_clist *stack_a);
-void	print_clist_rev_swap(t_clist *stack);
-void	rotate_a(t_clist *stack_a);
-void	print_clist_rotated(t_clist *stack);
-void	reverse_rotate_a(t_clist *stack_a);
-void	print_clist_rev_rotated(t_clist *stack);
-int		pop_a(t_clist **stack_a);
-void	push_b(t_clist **stack_a, t_clist **stack_b);
-
 
 #endif
