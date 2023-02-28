@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:49:15 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/27 13:57:05 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/28 09:19:22 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int		ft_clstsize_flag(t_clist *lst);
 t_clist	*ft_clstlast_flag(t_clist *lst);
 void	ft_clstadd_front(t_clist **lst, t_clist *new);
 void	ft_cprev_set(t_clist *lst);
-void	print_clist(t_clist *stack);
+void	print_clist_a(t_clist *stack);
+void	print_clist_b(t_clist *stack);
 void	print_clist_rev(t_clist *stack);
 void	print_clist_swap(t_clist *stack);
 void	swap_a(t_clist *stack_a);

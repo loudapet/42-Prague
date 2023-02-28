@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 13:43:31 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/27 14:55:02 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/28 11:18:05 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,14 @@ void	push_b(t_clist **stack_a, t_clist **stack_b)
 	int	value_to_push;
 	
 	value_to_push = pop_a(stack_a);
-	ft_clstadd_front(stack_b, ft_clstnew(value_to_push));
+	if ((*stack_b)->next == NULL)
+	{
+		(*stack_b)->next = *stack_b;
+		(*stack_b)->prev = *stack_b;
+		(*stack_b)->start = 1;
+		(*stack_b)->value = value_to_push;
+		return ;
+	}
+	else
+		ft_clstadd_front(stack_b, ft_clstnew(value_to_push));
 }

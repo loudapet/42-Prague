@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:46:16 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/27 15:38:10 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/28 11:18:26 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	ft_clstadd_front(t_clist **lst, t_clist *new)
 		*lst = new;
 		return ;
 	}
+	/*
 	if ((*lst)->next == NULL)
 	{
 		(*lst)->next = *lst;
@@ -117,12 +118,13 @@ void	ft_clstadd_front(t_clist **lst, t_clist *new)
 		(*lst)->value = new->value;
 		return ;
 	}
-	(*lst)->prev->next = new;
-	(*lst)->prev = new;
-	(*lst)->start = 0;
+	*/
 	new->next = *lst;
 	new->prev = (*lst)->prev;
 	new->start = 1;
+	(*lst)->prev->next = new;
+	(*lst)->prev = new;
+	(*lst)->start = 0;
 	*lst = new;
 }
 

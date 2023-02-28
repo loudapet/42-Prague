@@ -6,18 +6,41 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 12:26:18 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/27 14:58:54 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/28 09:19:44 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_clist(t_clist *stack)
+void	print_clist_a(t_clist *stack)
 {
 	int	i;
 
 	i = 1;
-	ft_printf("__________FRONT-TO-BACK__________\n");
+	ft_printf("__________STACK A__________\n");
+	if (stack->next == NULL)
+	{
+		ft_printf("%s", "EMPTY\n");
+		return;
+	}
+	ft_printf("(node%d.value:  %i, ", i, stack->value);
+	ft_printf("node%d.start: %i)\n", i++, stack->start);
+	stack = stack->next;
+	while (stack->start != 1)
+	{
+		ft_printf("(node%d.value:  %i, ", i, stack->value);
+		ft_printf("node%d.start: %i)\n", i++, stack->start);
+		stack = stack->next;
+	}
+	write(1, "\n", 1);
+}
+
+void	print_clist_b(t_clist *stack)
+{
+	int	i;
+
+	i = 1;
+	ft_printf("__________STACK B__________\n");
 	if (stack->next == NULL)
 	{
 		ft_printf("%s", "EMPTY\n");
