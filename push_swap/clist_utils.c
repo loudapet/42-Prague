@@ -6,27 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:46:16 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/28 11:18:26 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/28 14:13:55 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-/*
-void	ft_cprev_set(t_clist *lst)
-{
-	if (lst->start == 1)
-	{
-		lst = lst->next;
-	}
-	while (lst->start != 1)
-	{
-		lst->next->prev = lst;
-		lst = lst->next;
-	}
-	lst->next->prev = lst;
-}
-*/
 
 int	ft_clstsize_flag(t_clist *lst)
 {
@@ -109,16 +93,6 @@ void	ft_clstadd_front(t_clist **lst, t_clist *new)
 		*lst = new;
 		return ;
 	}
-	/*
-	if ((*lst)->next == NULL)
-	{
-		(*lst)->next = *lst;
-		(*lst)->prev = *lst;
-		(*lst)->start = 1;
-		(*lst)->value = new->value;
-		return ;
-	}
-	*/
 	new->next = *lst;
 	new->prev = (*lst)->prev;
 	new->start = 1;

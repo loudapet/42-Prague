@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 13:43:31 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/28 11:18:05 by plouda           ###   ########.fr       */
+/*   Updated: 2023/02/28 14:28:02 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,54 +14,44 @@
 
 void	swap_a(t_clist *stack_a)
 {
-	//t_clist	*tmp;
 	int		value;
 
 	if (!stack_a || ft_clstsize_flag(stack_a) == 1)
 		return;
-	//tmp = stack_a;
 	value = stack_a->value;
 	stack_a->value = stack_a->next->value;
 	stack_a->next->value = value;
-	//stack_a = tmp;
 }
 
 void	rotate_a(t_clist *stack_a)
 {
-	//t_clist *tmp;
 	int		value;
 
 	if (!stack_a || ft_clstsize_flag(stack_a) == 1)
 		return;
 	while (stack_a->next->start != 1)
 	{
-		//tmp = stack_a;
 		value = stack_a->value;
 		stack_a->value = stack_a->next->value;
 		stack_a->next->value = value;
-		//stack_a = tmp;
 		stack_a = stack_a->next;
 	}
 }
 
 void	reverse_rotate_a(t_clist *stack_a)
 {
-	//t_clist *tmp;
 	int		value;
 
 	if (!stack_a || ft_clstsize_flag(stack_a) == 1)
 		return;
 	while (stack_a->prev->start != 1)
 	{
-		//tmp = stack_a;
 		value = stack_a->value;
 		stack_a->value = stack_a->prev->value;
 		stack_a->prev->value = value;
-		//stack_a = tmp;
 		stack_a = stack_a->prev;
 	}
 }
-
 
 int	pop_a(t_clist **stack_a)
 {
@@ -105,3 +95,4 @@ void	push_b(t_clist **stack_a, t_clist **stack_b)
 	else
 		ft_clstadd_front(stack_b, ft_clstnew(value_to_push));
 }
+
