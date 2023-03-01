@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:49:15 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/28 15:56:08 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/01 15:55:45 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ void	reverse_rotate_b(t_clist *stack_b);
 void	reverse_rotate_both(t_clist *stack_a, t_clist *stack_b);
 void	push_a(t_clist **stack_a, t_clist **stack_b);
 void	push_b(t_clist **stack_a, t_clist **stack_b);
+
+// Counting functions
+int	count_rota(t_clist *stack, int value);
+int	count_rev_rota(t_clist *stack, int value);
+
+// Counting utils
+int	max_value(t_clist *stack);
+int	min_value(t_clist *stack);
 
 // Testing functions
 void	print_clist_a(t_clist *stack);

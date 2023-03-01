@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:43:48 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/28 16:11:22 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/01 15:57:27 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,11 @@ int	main(int argc, const char **argv)
 	push_a(&stack_a, &stack_b);
 	print_clist_a(stack_a);
 	print_clist_b(stack_b);
+	ft_printf("%d\n", max_value(stack_a));
+	ft_printf("%d\n", min_value(stack_a));
 	/*
+	ft_printf("%d\n", count_rota(stack_a, 5));
+	ft_printf("%d\n", count_rev_rota(stack_a, 5));
 	swap(stack_a);
 	print_clist_swap(stack_a);
 	swap(stack_a);
