@@ -6,12 +6,16 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:55:33 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/28 15:58:44 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/01 14:04:16 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/*
+Shift all elements of the stack down by 1.
+The last element becomes the first one.
+*/
 void	reverse_rotate(t_clist *stack)
 {
 	int		value;

@@ -6,12 +6,16 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:36:17 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/28 15:59:15 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/01 14:05:35 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/*
+ Swap the first 2 elements at the top of the stack.
+Do nothing if there is only one or no elements.
+*/
 void	swap(t_clist *stack)
 {
 	int		value;

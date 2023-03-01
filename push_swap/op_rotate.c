@@ -6,12 +6,16 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:54:58 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/28 15:59:01 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/01 14:04:43 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/*
+Shift all elements of the stack up by 1.
+The first element becomes the last one.
+*/
 void	rotate(t_clist *stack)
 {
 	int		value;

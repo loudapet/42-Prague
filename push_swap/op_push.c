@@ -6,12 +6,18 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:55:54 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/28 15:58:30 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/01 14:02:01 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/*
+Removes a node from the top of the stack, redirects pointers and changes the
+pointer to the head of the stack to the node following the removed one. If the
+stack only contains one node, initializes a placeholder which can be later
+filled with a proper node using f(ft_clst_addfront) from f(push).
+*/
 static int	pop(t_clist **stack)
 {
 	int	popped;
@@ -37,7 +43,13 @@ static int	pop(t_clist **stack)
 	return (popped);
 }
 
-
+/*
+Pushes a node to stack 'dest' using the value of the node removed from the
+top of stack 'src'. If 'dest' is empty (= only contains the placeholder),
+overwrites the placeholder node with actual values and redirects both
+pointers to point at the new node, creating a self-enclosed doubly
+circular linked list on which other clist functions can be executed.
+*/
 void	push(t_clist **src, t_clist **dest)
 {
 	int	value_to_push;
