@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:49:15 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/02 11:48:40 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/02 22:47:11 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,22 @@ void	push_a(t_clist **stack_a, t_clist **stack_b);
 void	push_b(t_clist **stack_a, t_clist **stack_b);
 
 // Counting functions
-int	count_rota(t_clist *stack, int value);
-int	count_rev_rota(t_clist *stack, int value);
-t_count	count_diff(int rota_a, int rota_b, int rev_rota_a, int rev_rota_b);
-t_count	init_count(int rota_a, int rota_b, int rev_rota_a, int rev_rota_b);
+t_count	count_moves(t_clist *stack_a, t_clist *stack_b, int value_a, int value_b);
+int		count_rota(t_clist *stack, int value);
+int		count_rev_rota(t_clist *stack, int value);
+t_count	count_diff(t_count count);
 t_count	resolve_rot_diff(t_count count);
 t_count	resolve_rev_rot(t_count count);
 t_count	resolve_a_b(t_count count);
 
+// Pushing correct value
+int	push_above_nbr(t_clist *stack_b, int value_a);
+int	get_cheapest_nbr(t_clist *stack_a, t_clist *stack_b);
+
 // Counting utils
-int	max_value(t_clist *stack);
-int	min_value(t_clist *stack);
+t_count	init_count(int rota_a, int rota_b, int rev_rota_a, int rev_rota_b);
+int		max_value(t_clist *stack);
+int		min_value(t_clist *stack);
 
 // Testing functions
 void	print_clist_a(t_clist *stack);

@@ -6,30 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 14:13:22 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/02 12:14:17 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/02 22:34:25 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-t_count	init_count(int rota_a, int rota_b, int rev_rota_a, int rev_rota_b)
-{
-	t_count	count;
-
-	count.rota_a = rota_a;
-	count.rota_b = rota_b;
-	count.rev_rota_a = rev_rota_a;
-	count.rev_rota_b = rev_rota_b;
-	count.rot = 0;
-	count.rev_rot = 0;
-	count.diff_a_b = 0;
-	count.diff_b_a = 0;
-	count.fin_rot = 0;
-	count.fin_diff = 0;
-	count.flag_rot_diff = 'x';
-	count.flag_rev_rot_a_b = 'x';
-	return (count);
-}
 
 /*
 flag_rot_diff: decides if the preference is to rotate both stacks at once,
@@ -82,15 +63,12 @@ t_count	resolve_a_b(t_count count)
 	return (count);
 }
 
-t_count	count_diff(int rota_a, int rota_b, int rev_rota_a, int rev_rota_b)
+t_count	count_diff(t_count count)
 {
-	t_count	count;
-
-	count = init_count(rota_a, rota_b, rev_rota_a, rev_rota_b);
 	if (count.rota_a > count.rota_b)
 		count.rot = count.rota_a;
 	else
-		count.rot = rota_b;
+		count.rot = count.rota_b;
 	if (count.rev_rota_a > count.rev_rota_b)
 		count.rev_rot = count.rev_rota_a;
 	else
@@ -105,34 +83,20 @@ t_count	count_diff(int rota_a, int rota_b, int rev_rota_a, int rev_rota_b)
 	return (count);
 }
 
-int	count_rota(t_clist *stack, int value)
+t_count	count_moves(t_clist *stack_a, t_clist *stack_b, int value_a, int value_b)
 {
-	int	i;
+	int	rota_a;
+	int	rota_b;
+	int	rev_rota_a;
+	int	rev_rota_b;
+	t_count	count;
 
-	i = 1;
-	if (stack->value == value)
-		return (0);
-	stack = stack->next;
-	while (stack->value != value && stack->start != 1)
-	{
-		i++;
-		stack = stack->next;
-	}
-	return (i);
-}
-
-int	count_rev_rota(t_clist *stack, int value)
-{
-	int	i;
-
-	i = 1;
-	if (stack->value == value)
-		return (0);
-	stack = stack->prev;
-	while (stack->value != value && stack->start != 1)
-	{
-		i++;
-		stack = stack->prev;
-	}
-	return (i);
+	// stack b needs to know where it will need to place the number beforehand
+	rota_a = count_rota(stack_a, value_a);
+	rota_b = count_rota(stack_b, value_b);
+	rev_rota_a = count_rev_rota(stack_a, value_a);
+	rev_rota_b = count_rev_rota(stack_b, value_b);
+	count = init_count(rota_a, rota_b, rev_rota_a, rev_rota_b);
+	count = count_diff(count);
+	return (count);
 }
