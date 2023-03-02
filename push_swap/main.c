@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:43:48 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/02 12:05:34 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/02 12:15:40 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,21 +92,27 @@ int	main(int argc, const char **argv)
 	print_clist_a(stack_a);
 	print_clist_b(stack_b);
 	count = count_diff(8, 3, 11, 7);
-	ft_printf("Rot diff (d/s): %c\n", count.flag_rot_diff);
+	ft_printf("Together/separately (t/s): %c\n", count.flag_rot_diff);
 	ft_printf("Rev rot a b (a/b/c/d): %c\n", count.flag_rev_rot_a_b);
 	count = count_diff(5, 11, 6, 7);
-	ft_printf("Rot diff (d/s): %c\n", count.flag_rot_diff);
+	ft_printf("Together/separately (t/s): %c\n", count.flag_rot_diff);
 	ft_printf("Rev rot a b (a/b/c/d): %c\n", count.flag_rev_rot_a_b);
 	count = count_diff(8, 7, 5, 11);
-	ft_printf("Rot diff (d/s): %c\n", count.flag_rot_diff);
+	ft_printf("Together/separately (t/s): %c\n", count.flag_rot_diff);
 	ft_printf("Rev rot a b (a/b/c/d): %c\n", count.flag_rev_rot_a_b);
 	count = count_diff(5, 30, 4, 25);
-	ft_printf("Rot diff (d/s): %c\n", count.flag_rot_diff);
+	ft_printf("Together/separately (t/s): %c\n", count.flag_rot_diff);
 	ft_printf("Rev rot a b (a/b/c/d): %c\n", count.flag_rev_rot_a_b);
 	count = count_diff(4, 40, 30, 7);
-	ft_printf("Rot diff (d/s): %c\n", count.flag_rot_diff);
+	ft_printf("Together/separately (t/s): %c\n", count.flag_rot_diff);
 	ft_printf("Rev rot a b (a/b/c/d): %c\n", count.flag_rev_rot_a_b);
-	
+	count = count_diff(40, 4, 30, 7);
+	ft_printf("Together/separately (t/s): %c\n", count.flag_rot_diff);
+	ft_printf("Rev rot a b (a/b/c/d): %c\n", count.flag_rev_rot_a_b);
+		count = count_diff(40, 4, 7, 30);
+	ft_printf("Together/separately (t/s): %c\n", count.flag_rot_diff);
+	ft_printf("Rev rot a b (a/b/c/d): %c\n", count.flag_rev_rot_a_b);
+
 	/*
 	ft_printf("%d\n", max_value(stack_a));
 	ft_printf("%d\n", min_value(stack_a));

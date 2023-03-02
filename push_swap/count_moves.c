@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 14:13:22 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/02 11:53:12 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/02 12:14:17 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ t_count	init_count(int rota_a, int rota_b, int rev_rota_a, int rev_rota_b)
 /*
 flag_rot_diff: decides if the preference is to rotate both stacks at once,
 				or if it is cheaper to rotate them separately
-options:	'd': rotate stacks separately
-			's': rotate stacks together
+options:	's': rotate stacks separately
+			't': rotate stacks together
 */
 t_count	resolve_rot_diff(t_count count)
 {
@@ -48,9 +48,9 @@ t_count	resolve_rot_diff(t_count count)
 	else
 		count.fin_diff = count.diff_a_b;
 	if (count.fin_rot > count.fin_diff)
-		count.flag_rot_diff = 'd';
-	else
 		count.flag_rot_diff = 's';
+	else
+		count.flag_rot_diff = 't';
 	return (count);
 }
 
@@ -98,9 +98,9 @@ t_count	count_diff(int rota_a, int rota_b, int rev_rota_a, int rev_rota_b)
 	count.diff_a_b = count.rota_a + count.rev_rota_b;
 	count.diff_b_a = count.rota_b + count.rev_rota_a;
 	count = resolve_rot_diff(count);
-	if (count.flag_rot_diff == 'd')
+	if (count.flag_rot_diff == 's')
 		count = resolve_rev_rot(count);
-	else if (count.flag_rot_diff == 's')
+	else if (count.flag_rot_diff == 't')
 		count = resolve_a_b(count);
 	return (count);
 }
