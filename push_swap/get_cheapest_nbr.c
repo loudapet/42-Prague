@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_value.c                                       :+:      :+:    :+:   */
+/*   get_cheapest_nbr.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 21:14:25 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/02 23:49:07 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/03 10:57:12 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	push_above_nbr(t_clist *stack_b, int value_a)
 {
 	int	curr_value;
-	int start_value;
+	int	start_value;
 
 	if (value_a > max_value(stack_b) || value_a < min_value(stack_b))
 		return (max_value(stack_b));
@@ -57,37 +57,37 @@ int	get_cost(t_count count)
 	return (cost);
 }
 
+t_values	get_values(t_clist *stack_a, t_clist *stack_b)
+{
+	t_values	values;
+
+	values.value_a = stack_a->value;
+	values.value_b = push_above_nbr(stack_b, values.value_a);
+	return (values);
+}
+
 int	get_cheapest_nbr(t_clist *stack_a, t_clist *stack_b)
 {
-	int	value_a;
-	int	value_b;
-	int	candidate;
-	int	cost;
-	t_count	count;
+	t_values	values;
+	int			candidate;
+	int			cost;
+	int			size;
+	t_count		count;
 
 	cost = -1;
 	candidate = 0;
-	value_a = stack_a->value;
-	value_b = push_above_nbr(stack_b, value_a);
-	count = count_moves(stack_a, stack_b, value_a, value_b);
-	if (cost == -1 || get_cost(count) < cost)
+	size = ft_clstsize_flag(stack_a);
+	while (size >= 1)
 	{
-			cost = get_cost(count);
-			candidate = value_a;
-	}
-	stack_a = stack_a->next;
-	while (stack_a->start != 1)
-	{
-		value_a = stack_a->value;
-		value_b = push_above_nbr(stack_b, value_a);
-		count = count_moves(stack_a, stack_b, value_a, value_b);
+		values = get_values(stack_a, stack_b);
+		count = count_moves(stack_a, stack_b, values.value_a, values.value_b);
 		if (cost == -1 || get_cost(count) < cost)
 		{
 			cost = get_cost(count);
-			candidate = value_a;
+			candidate = values.value_a;
 		}
 		stack_a = stack_a->next;
+		size--;
 	}
 	return (candidate);
 }
-

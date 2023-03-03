@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:43:48 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/02 23:47:28 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/03 10:36:07 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,40 +85,17 @@ int	main(int argc, const char **argv)
 	push_b(&stack_a, &stack_b);
 	push_b(&stack_a, &stack_b);
 	push_b(&stack_a, &stack_b);
-	print_clist_a(stack_a);
-	print_clist_b(stack_b);
 	//push_a(&stack_a, &stack_b);
 	//push_a(&stack_a, &stack_b);
 	//push_a(&stack_a, &stack_b);
 	//push_a(&stack_a, &stack_b);
 	print_clist_a(stack_a);
 	print_clist_b(stack_b);
-	//count = get_rota(stack_a, stack_b, 4);
-	ft_printf("Max value: %d\n", max_value(stack_a));
-	ft_printf("Min value: %d\n", min_value(stack_a));
 	ft_printf("Cheapest number: %d\n", get_cheapest_nbr(stack_a, stack_b));
-	ft_printf("Push above nbr: %d\n", push_above_nbr(stack_b, 5));
+	ft_printf("Push above nbr: %d\n", push_above_nbr(stack_b, get_cheapest_nbr(stack_a, stack_b)));
 	// ./push_swap 0 9 6 7 8 2 1 5 4 10
 	// ./push_swap 38 63 39 84 30 237 843 434 948
 
-	/*
-	ft_printf("%d\n", max_value(stack_a));
-	ft_printf("%d\n", min_value(stack_a));
-	ft_printf("%d\n", count_rota(stack_a, 5));
-	ft_printf("%d\n", count_rev_rota(stack_a, 5));
-	swap(stack_a);
-	print_clist_swap(stack_a);
-	swap(stack_a);
-	print_clist_rev(stack_a);
-	swap(stack_a);
-	print_clist_rev_swap(stack_a);
-	swap(stack_a);
-	rotate(stack_a);
-	print_clist_rotated(stack_a);
-	reverse_rotate(stack_a);
-	reverse_rotate(stack_a);
-	print_clist_rev_rotated(stack_a);
-	*/
 	free_stack(&stack_a);
 	free_stack(&stack_b);
 
