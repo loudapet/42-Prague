@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:43:48 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/03 10:36:07 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/03 12:03:46 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	main(int argc, const char **argv)
 {
 	t_clist		*stack_a;
 	t_clist		*stack_b;
-	//t_count		count;
 
 	if (argc == 1)
 		exit(EXIT_SUCCESS);
@@ -77,22 +76,10 @@ int	main(int argc, const char **argv)
 	stack_a = create_stack_a(argc, argv);
 	stack_b = create_stack_b();
 	ft_printf("Initial size of A: %d\n\n", ft_clstsize_flag(stack_a));
-	print_clist_a(stack_a);
-	print_clist_b(stack_b);
 	push_b(&stack_a, &stack_b);
 	push_b(&stack_a, &stack_b);
-	push_b(&stack_a, &stack_b);
-	push_b(&stack_a, &stack_b);
-	push_b(&stack_a, &stack_b);
-	push_b(&stack_a, &stack_b);
-	//push_a(&stack_a, &stack_b);
-	//push_a(&stack_a, &stack_b);
-	//push_a(&stack_a, &stack_b);
-	//push_a(&stack_a, &stack_b);
-	print_clist_a(stack_a);
-	print_clist_b(stack_b);
-	ft_printf("Cheapest number: %d\n", get_cheapest_nbr(stack_a, stack_b));
-	ft_printf("Push above nbr: %d\n", push_above_nbr(stack_b, get_cheapest_nbr(stack_a, stack_b)));
+	push_value(&stack_a, &stack_b);
+	
 	// ./push_swap 0 9 6 7 8 2 1 5 4 10
 	// ./push_swap 38 63 39 84 30 237 843 434 948
 

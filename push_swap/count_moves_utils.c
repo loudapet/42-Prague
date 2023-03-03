@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 15:50:46 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/02 21:13:37 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/03 16:33:27 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,25 @@ int	min_value(t_clist *stack)
 	return (min);
 }
 
-int	count_rota(t_clist *stack, int value)
+int	count_rota_a(t_clist *stack)
 {
 	int	i;
 
-	i = 1;
-	if (stack->value == value)
-		return (0);
-	stack = stack->next;
-	while (stack->value != value && stack->start != 1)
+	i = 0;
+	while (stack->start != 1)
+	{
+		i++;
+		stack = stack->prev;
+	}
+	return (i);
+}
+
+int	count_rev_rota_a(t_clist *stack)
+{
+	int	i;
+
+	i = 0;
+	while (stack->start != 1)
 	{
 		i++;
 		stack = stack->next;
@@ -77,18 +87,38 @@ int	count_rota(t_clist *stack, int value)
 	return (i);
 }
 
-int	count_rev_rota(t_clist *stack, int value)
+int	count_rota_b(t_clist *stack, int value)
 {
 	int	i;
 
-	i = 1;
-	if (stack->value == value)
+	i = 0;
+	if (stack->value == value && stack->start == 1)
 		return (0);
-	stack = stack->prev;
-	while (stack->value != value && stack->start != 1)
+	if (ft_clstsize_flag(stack) == 2)
+		return (1);
+	while (stack->value != value)
+		stack = stack->prev;
+	while (stack->start != 1)
 	{
 		i++;
 		stack = stack->prev;
+	}
+	return (i);
+}
+
+int	count_rev_rota_b(t_clist *stack, int value)
+{
+	int	i;
+
+	i = 0;
+	if (stack->value == value && stack->start == 1)
+		return (0);
+	while (stack->value != value)
+		stack = stack->next;
+	while (stack->start != 1)
+	{
+		i++;
+		stack = stack->next;
 	}
 	return (i);
 }

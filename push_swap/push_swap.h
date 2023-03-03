@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:49:15 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/03 10:51:38 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/03 15:47:35 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,24 @@ void	push_b(t_clist **stack_a, t_clist **stack_b);
 
 // Counting functions
 t_count	count_moves(t_clist *stack_a, t_clist *stack_b, int value_a, int value_b);
-int		count_rota(t_clist *stack, int value);
-int		count_rev_rota(t_clist *stack, int value);
+int	count_rota_a(t_clist *stack);
+int	count_rev_rota_a(t_clist *stack);
+int	count_rota_b(t_clist *stack, int value);
+int	count_rev_rota_b(t_clist *stack, int value);
 t_count	count_diff(t_count count);
 t_count	resolve_rot_diff(t_count count);
 t_count	resolve_rev_rot(t_count count);
 t_count	resolve_a_b(t_count count);
 
-// Pushing correct value
+// Get cheapest number
 int	push_above_nbr(t_clist *stack_b, int value_a);
 int	get_cheapest_nbr(t_clist *stack_a, t_clist *stack_b);
 t_values	get_values(t_clist *stack_a, t_clist *stack_b);
 int	get_cost(t_count count);
+
+// Pushing correct value
+void	push_value(t_clist **stack_a, t_clist **stack_b);
+void	do_moves(t_clist *stack_a, t_clist *stack_b, t_count count);
 
 // Counting utils
 t_count	init_count(int rota_a, int rota_b, int rev_rota_a, int rev_rota_b);
