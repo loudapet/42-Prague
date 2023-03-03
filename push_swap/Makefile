@@ -6,14 +6,14 @@
 #    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/03/03 10:58:59 by plouda           ###   ########.fr        #
+#    Updated: 2023/03/03 21:39:40 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC = clist_utils.c clist_print.c main.c  \
 		op_swap.c op_push.c op_rotate.c op_reverse_rotate.c \
 		count_moves.c count_moves_utils.c get_cheapest_nbr.c \
-		push_value.c
+		push_value.c sort_3.c
 SRCS = $(addprefix $(DIR), $(SRC))
 OBJS = $(SRCS:.c=.o)
 DIR = ./

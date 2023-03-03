@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:49:15 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/03 15:47:35 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/03 21:39:04 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ int	get_cost(t_count count);
 // Pushing correct value
 void	push_value(t_clist **stack_a, t_clist **stack_b);
 void	do_moves(t_clist *stack_a, t_clist *stack_b, t_count count);
+
+// Sort small
+void	sort_3(t_clist *stack);
 
 // Counting utils
 t_count	init_count(int rota_a, int rota_b, int rev_rota_a, int rev_rota_b);
