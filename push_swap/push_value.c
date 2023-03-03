@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 10:55:48 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/03 16:49:47 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/03 21:16:29 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,31 +100,21 @@ void	push_value(t_clist **stack_a, t_clist **stack_b)
 
 	values.value_a = 0;
 	size = ft_clstsize_flag(*stack_a);
-	print_clist_a(*stack_a);
-	print_clist_b(*stack_b);
-	
 	while (size > 3)
 	{
 		values.value_a = get_cheapest_nbr(*stack_a, *stack_b);
-		ft_printf("CHEAPEST NUMBER: %d\n", values.value_a);
+		//ft_printf("CHEAPEST NUMBER: %d\n", values.value_a);
 		values.value_b = push_above_nbr(*stack_b, values.value_a);
-		ft_printf("Value on stack a: %d\n", (*stack_a)->value);
 		while ((*stack_a)->value != values.value_a)
 			*stack_a = (*stack_a)->next;
 		count = count_moves(*stack_a, *stack_b, values.value_a, values.value_b);
-		ft_printf("Flags of %d before moves: %c\n", values.value_a, count.flag_rev_rot_a_b);
 		while ((*stack_a)->start != 1)
 			*stack_a = (*stack_a)->next;
 		do_moves(*stack_a, *stack_b, count);
-		//ft_printf("Flags of %d: %c\n", values.value_a, count.flag_rev_rot_a_b);
-		//print_clist_a(*stack_a);
-		//print_clist_b(*stack_b);
 		while ((*stack_a)->start != 1)
 			*stack_a = (*stack_a)->next;
 		push_b(stack_a, stack_b);
-		print_clist_a(*stack_a);
-		print_clist_b(*stack_b);
-		ft_printf("Size: %d\n", size);
+		//ft_printf("Size: %d\n", size);
 		size--;
 	}
 	print_clist_a(*stack_a);

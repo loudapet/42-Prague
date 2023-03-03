@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 14:13:22 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/03 16:41:23 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/03 21:03:10 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,11 @@ t_count	count_moves(t_clist *stack_a, t_clist *stack_b, int value_a, int value_b
 	t_count	count;
 
 	value_a = 0 + value_a;
-	//ft_printf("--Value of stack_b--: %d\n", stack_b->value);
 	rota_a = count_rota_a(stack_a);
 	rota_b = count_rota_b(stack_b, value_b);
-	//ft_printf("Value_a: %d, value_b: %d\n", value_a, value_b);
-	//ft_printf("Rota_a: %d, Rota_b: %d\n", rota_a, rota_b);
 	rev_rota_a = count_rev_rota_a(stack_a);
 	rev_rota_b = count_rev_rota_b(stack_b, value_b);
-	//ft_printf("Rev_Rota_a: %d, Rev_Rota_b: %d\n", rev_rota_a, rev_rota_b);
 	count = init_count(rota_a, rota_b, rev_rota_a, rev_rota_b);
 	count = count_diff(count);
-	//ft_printf("Flags on output from count_moves: %c\n", count.flag_rev_rot_a_b);
 	return (count);
 }

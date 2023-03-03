@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:43:48 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/03 12:03:46 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/03 21:16:57 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int	main(int argc, const char **argv)
 	push_b(&stack_a, &stack_b);
 	push_b(&stack_a, &stack_b);
 	push_value(&stack_a, &stack_b);
+	//if (ft_clstsize_flag(stack_a) == 3)
+	//	sort_3(*stack_a);
 	
 	// ./push_swap 0 9 6 7 8 2 1 5 4 10
 	// ./push_swap 38 63 39 84 30 237 843 434 948
