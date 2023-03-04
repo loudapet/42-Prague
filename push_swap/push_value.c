@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 10:55:48 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/03 21:16:29 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/03 23:11:13 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	flag_a(t_clist *stack_a, t_clist *stack_b, t_count count)
 	}
 }
 
-void	do_moves(t_clist *stack_a, t_clist *stack_b, t_count count)
+static void	do_moves(t_clist *stack_a, t_clist *stack_b, t_count count)
 {
 	if (count.flag_rev_rot_a_b == 'a')
 		flag_a(stack_a, stack_b, count);
@@ -117,6 +117,4 @@ void	push_value(t_clist **stack_a, t_clist **stack_b)
 		//ft_printf("Size: %d\n", size);
 		size--;
 	}
-	print_clist_a(*stack_a);
-	print_clist_b(*stack_b);
 }

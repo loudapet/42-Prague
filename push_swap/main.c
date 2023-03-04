@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:43:48 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/03 22:09:52 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/04 13:25:11 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,21 @@ int	main(int argc, const char **argv)
 
 	if (argc == 1)
 		exit(EXIT_SUCCESS);
-	ft_printf("%s", "\n_________TESTING-PROGRAM_________\n");
+	//ft_printf("%s", "\n_________TESTING-PROGRAM_________\n");
 	stack_a = create_stack_a(argc, argv);
 	stack_b = create_stack_b();
-	ft_printf("Initial size of A: %d\n\n", ft_clstsize_flag(stack_a));
+	//ft_printf("Initial size of A: %d\n\n", ft_clstsize_flag(stack_a));
+	//print_clist_a(stack_a);
+	//print_clist_b(stack_b);
 	push_b(&stack_a, &stack_b);
 	push_b(&stack_a, &stack_b);
 	push_value(&stack_a, &stack_b);
 	if (ft_clstsize_flag(stack_a) == 3)
 		sort_3(stack_a);
-	print_clist_a(stack_a);
-	print_clist_b(stack_b);
+	push_value_back(&stack_a, &stack_b);
+	rotate_lowest_up(&stack_a);
+	//print_clist_a(stack_a);
+	//print_clist_b(stack_b);
 	// ./push_swap 0 9 6 7 8 2 1 5 4 10
 	// ./push_swap 38 63 39 84 30 237 843 434 948
 

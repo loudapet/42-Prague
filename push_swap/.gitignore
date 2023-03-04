@@ -4,3 +4,8 @@ libft.a
 libftprintf.a
 a.out
 push_swap
+checker_OS
+push_swap_run_args.log
+push_swap_test.sh
+test_check.txt
+Push-Swap-Tester/
