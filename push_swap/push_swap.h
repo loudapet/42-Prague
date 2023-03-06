@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:49:15 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/04 13:05:45 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/06 12:03:01 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libftprintf/ft_printf.h"
 # include <stdlib.h>
+# include <limits.h>
 
 typedef struct	s_clist
 {
@@ -113,5 +114,9 @@ t_clist	*ft_clstnew(int value);
 int		ft_clstsize_flag(t_clist *lst);
 t_clist	*ft_clstlast_flag(t_clist *lst);
 void	ft_clstadd_front(t_clist **lst, t_clist *new);
+long	ft_atoi_long(const char *nptr);
+
+// Error
+void	print_error(void);
 
 #endif
