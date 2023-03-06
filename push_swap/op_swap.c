@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:36:17 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/01 14:05:35 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/06 17:09:37 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	swap(t_clist *stack)
 	int		value;
 
 	if (!stack || ft_clstsize_flag(stack) == 1)
-		return;
+		return ;
 	value = stack->value;
 	stack->value = stack->next->value;
 	stack->next->value = value;

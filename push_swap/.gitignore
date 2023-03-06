@@ -11,3 +11,4 @@ push_swap_test.sh
 test_check.txt
 Push-Swap-Tester/
 push_swap_tester/
+push_swap_visualizer/

@@ -6,79 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 10:55:48 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/03 23:11:13 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/06 17:15:37 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static void	flag_d(t_clist *stack_a, t_clist *stack_b, t_count count)
-{
-	while (count.rev_rota_a > 0 && count.rev_rota_b > 0)
-	{
-		reverse_rotate_both(stack_a, stack_b);
-		count.rev_rota_a--;
-		count.rev_rota_b--;
-	}
-	while (count.rev_rota_a > 0)
-	{
-		reverse_rotate_a(stack_a);
-		count.rev_rota_a--;
-	}
-	while (count.rev_rota_b > 0)
-	{
-		reverse_rotate_b(stack_b);
-		count.rev_rota_b--;
-	}
-}
-
-static void	flag_c(t_clist *stack_a, t_clist *stack_b, t_count count)
-{
-	while (count.rota_a > 0 && count.rota_b > 0)
-	{
-		rotate_both(stack_a, stack_b);
-		count.rota_a--;
-		count.rota_b--;
-	}
-	while (count.rota_a > 0)
-	{
-		rotate_a(stack_a);
-		count.rota_a--;
-	}
-	while (count.rota_b > 0)
-	{
-		rotate_b(stack_b);
-		count.rota_b--;
-	}
-}
-
-static void	flag_b(t_clist *stack_a, t_clist *stack_b, t_count count)
-{
-	while (count.rota_b > 0)
-	{
-		rotate_b(stack_b);
-		count.rota_b--;
-	}
-	while (count.rev_rota_a > 0)
-	{
-		reverse_rotate_a(stack_a);
-		count.rev_rota_a--;
-	}
-}
-
-static void	flag_a(t_clist *stack_a, t_clist *stack_b, t_count count)
-{
-	while (count.rota_a > 0)
-	{
-		rotate_a(stack_a);
-		count.rota_a--;
-	}
-	while (count.rev_rota_b > 0)
-	{
-		reverse_rotate_b(stack_b);
-		count.rev_rota_b--;
-	}
-}
 
 static void	do_moves(t_clist *stack_a, t_clist *stack_b, t_count count)
 {
@@ -94,16 +26,15 @@ static void	do_moves(t_clist *stack_a, t_clist *stack_b, t_count count)
 
 void	push_value(t_clist **stack_a, t_clist **stack_b)
 {
-	int	size;
-	t_count	count;
-	t_values values;
+	int			size;
+	t_count		count;
+	t_values	values;
 
 	values.value_a = 0;
 	size = ft_clstsize_flag(*stack_a);
 	while (size > 3)
 	{
 		values.value_a = get_cheapest_nbr(*stack_a, *stack_b);
-		//ft_printf("CHEAPEST NUMBER: %d\n", values.value_a);
 		values.value_b = push_above_nbr(*stack_b, values.value_a);
 		while ((*stack_a)->value != values.value_a)
 			*stack_a = (*stack_a)->next;
@@ -114,7 +45,6 @@ void	push_value(t_clist **stack_a, t_clist **stack_b)
 		while ((*stack_a)->start != 1)
 			*stack_a = (*stack_a)->next;
 		push_b(stack_a, stack_b);
-		//ft_printf("Size: %d\n", size);
 		size--;
 	}
 }

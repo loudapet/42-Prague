@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 21:14:25 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/03 21:04:33 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/06 17:08:11 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,7 @@ int	get_cheapest_nbr(t_clist *stack_a, t_clist *stack_b)
 		{
 			cost = get_cost(count);
 			candidate = values.value_a;
-			/*
-			ft_printf("CHANGE OF CANDIDATE: %d\n", candidate);
-			ft_printf("Candidate flags: %c\n", count.flag_rev_rot_a_b);
-			ft_printf("IMPORTANT: Cost of nbr %d: %d\n", values.value_a, get_cost(count));
-			*/
 		}
-
 		stack_a = stack_a->next;
 		size--;
 	}

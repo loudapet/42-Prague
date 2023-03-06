@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 14:13:22 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/03 21:03:10 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/06 17:16:46 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,19 @@ t_count	count_diff(t_count count)
 	return (count);
 }
 
-t_count	count_moves(t_clist *stack_a, t_clist *stack_b, int value_a, int value_b)
+t_count	count_moves(t_clist *st_a, t_clist *st_b, int val_a, int val_b)
 {
-	int	rota_a;
-	int	rota_b;
-	int	rev_rota_a;
-	int	rev_rota_b;
+	int		rota_a;
+	int		rota_b;
+	int		rev_rota_a;
+	int		rev_rota_b;
 	t_count	count;
 
-	value_a = 0 + value_a;
-	rota_a = count_rota_a(stack_a);
-	rota_b = count_rota_b(stack_b, value_b);
-	rev_rota_a = count_rev_rota_a(stack_a);
-	rev_rota_b = count_rev_rota_b(stack_b, value_b);
+	val_a = 0 + val_a;
+	rota_a = count_rota_a(st_a);
+	rota_b = count_rota_b(st_b, val_b);
+	rev_rota_a = count_rev_rota_a(st_a);
+	rev_rota_b = count_rev_rota_b(st_b, val_b);
 	count = init_count(rota_a, rota_b, rev_rota_a, rev_rota_b);
 	count = count_diff(count);
 	return (count);

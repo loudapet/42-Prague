@@ -6,57 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:46:16 by plouda            #+#    #+#             */
-/*   Updated: 2023/02/28 14:13:55 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:50:42 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	ft_clstsize_flag(t_clist *lst)
-{
-	int	i;
-
-	i = 0;
-
-	if (lst->start == 1)
-	{
-		lst = lst->next;
-	}
-	while (lst->start != 1)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i + 1);
-}
-
-t_clist	*ft_clstlast_flag(t_clist *lst)
-{
-	int	i;
-
-	i = ft_clstsize_flag(lst);
-	while (i > 1)
-	{
-		lst = lst->next;
-		i--;
-	}
-	return (lst);
-}
-
-
-int	ft_clstsize(t_clist *lst)
-{
-	int	i;
-
-	i = 0;
-
-	while (lst)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i);
-}
 
 t_clist	*ft_clstlast(t_clist *lst)
 {

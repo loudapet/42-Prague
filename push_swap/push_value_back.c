@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:25:57 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/04 13:07:54 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/06 17:15:14 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,26 +44,29 @@ static int	push_above_nbr_a(t_clist *stack_a, int value_b)
 static void	do_moves(t_clist *stack, t_count count)
 {
 	if (count.rota_b > count.rev_rota_b)
+	{
 		while (count.rev_rota_b > 0)
 		{
 			reverse_rotate_a(stack);
 			count.rev_rota_b--;
 		}
+	}
 	else
+	{
 		while (count.rota_b > 0)
 		{
 			rotate_a(stack);
 			count.rota_b--;
 		}
+	}
 }
 
 void	push_value_back(t_clist **stack_a, t_clist **stack_b)
 {
-	int	size;
-	t_count	count;
-	t_values values;
+	int			size;
+	t_count		count;
+	t_values	values;
 
-	// initialize values?
 	size = ft_clstsize_flag(*stack_b);
 	while (size > 0)
 	{
