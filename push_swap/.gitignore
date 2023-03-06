@@ -5,7 +5,9 @@ libftprintf.a
 a.out
 push_swap
 checker_OS
+checker
 push_swap_run_args.log
 push_swap_test.sh
 test_check.txt
 Push-Swap-Tester/
+push_swap_tester/
