@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 15:50:46 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/07 12:33:24 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/07 14:21:42 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ flag_rot_diff:	decides if the preference is to rotate both stacks at once
 				decides what flags from flag_a_b will be used
 	options:	's':	rotate stacks separately
 				't':	rotate stacks together
-flag_a_b:		flag_rot_diff 's':
+	flag_a_b:	flag_rot_diff 's':
 				decides whether to rotate stack a and rev_rotate
 				stack b or vice versa
 					'a': rotate stack a, reverse rotate stack b
