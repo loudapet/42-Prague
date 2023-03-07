@@ -6,12 +6,15 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 15:53:52 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/06 17:16:11 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/07 12:49:16 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/*
+Checks if the arguments passed are integers. If not, returns 0.
+*/
 int	check_int(char **args, int flag)
 {
 	int	i;
@@ -36,6 +39,9 @@ int	check_int(char **args, int flag)
 	return (1);
 }
 
+/*
+Checks if the arguments passed fit in an integer If not, returns 0.
+*/
 int	check_minmax(char **args, int flag)
 {
 	int		i;
@@ -56,6 +62,9 @@ int	check_minmax(char **args, int flag)
 	return (1);
 }
 
+/*
+Checks if there are duplicate arguments. If so, returns 0.
+*/
 int	check_duplicates(t_clist *stack_a)
 {
 	int	value;
@@ -84,6 +93,9 @@ int	check_duplicates(t_clist *stack_a)
 	return (1);
 }
 
+/*
+Checks if the list is already sorted. If not, return 0.
+*/
 int	is_sorted(t_clist *stack)
 {
 	while (stack->next->start != 1)

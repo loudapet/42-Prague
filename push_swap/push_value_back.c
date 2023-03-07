@@ -6,13 +6,23 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:25:57 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/06 17:15:14 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/07 13:04:46 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	push_above_nbr_a(t_clist *stack_a, int value_b)
+/*
+Figures out above what number in stack a the value from stack b
+should be pushed.
+The rules are as follows:
+If value_b > max_value OR value_b < min_value in stack_b, push value_b
+above min_value in stack a.
+If max_value(stack_a) > value_b > min_value(stack_a), find the closest
+number to value_b in stack a that is larger than value_b, and push value_b
+above said number.
+*/
+int	push_above_nbr_a(t_clist *stack_a, int value_b)
 {
 	int	curr_value;
 	int	start_value;
@@ -41,6 +51,13 @@ static int	push_above_nbr_a(t_clist *stack_a, int value_b)
 	return (curr_value);
 }
 
+/*
+Decides what moves are applicable depending on which is cheaper.
+Unlike for do_moves in push_value, it does not handle rotations
+which are done on both stacks at the same time, as the number
+whihc is being pushed from stack b is always the top number, and
+only stack a must rotate.
+ */
 static void	do_moves(t_clist *stack, t_count count)
 {
 	if (count.rota_b > count.rev_rota_b)
@@ -61,6 +78,15 @@ static void	do_moves(t_clist *stack, t_count count)
 	}
 }
 
+/*
+Pushes the cheapest number from stack a to the correct position
+in stack b. As multiple functions called from push_value rely on
+iterations of stack_b, it also handles resetting the position of
+the head of the stack everytime it is required.
+As opposed to push_value, the arguments passed to functions called
+from push_value_back are reversed, i.e. value_a becomes value_b,
+stack a becomes stack b for the purposes of said functions.
+*/
 void	push_value_back(t_clist **stack_a, t_clist **stack_b)
 {
 	int			size;
@@ -81,38 +107,4 @@ void	push_value_back(t_clist **stack_a, t_clist **stack_b)
 		push_a(stack_a, stack_b);
 		size--;
 	}
-}
-
-static void	move_up(t_clist *stack_a, int rot, int rev_rot)
-{
-	if (rot > rev_rot)
-	{
-		while (rev_rot > 0)
-		{
-			reverse_rotate_a(stack_a);
-			rev_rot--;
-		}
-	}
-	else
-	{
-		while (rot > 0)
-		{
-			rotate_a(stack_a);
-			rot--;
-		}
-	}
-}
-
-void	rotate_lowest_up(t_clist **stack_a)
-{
-	int	rot;
-	int	rev_rot;
-
-	while ((*stack_a)->value != min_value(*stack_a))
-		*stack_a = (*stack_a)->next;
-	rot = count_rota_a(*stack_a);
-	rev_rot = count_rev_rota_a(*stack_a);
-	while ((*stack_a)->start != 1)
-		*stack_a = (*stack_a)->next;
-	move_up(*stack_a, rot, rev_rot);
 }

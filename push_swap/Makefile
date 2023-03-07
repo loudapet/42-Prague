@@ -6,7 +6,7 @@
 #    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/03/06 16:55:23 by plouda           ###   ########.fr        #
+#    Updated: 2023/03/07 12:18:10 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ SRC = clist_utils.c clist_print.c main.c  \
 		count_moves.c count_moves_utils.c get_cheapest_nbr.c \
 		push_value.c sort_3.c push_value_back.c print_error.c \
 		utils.c validators.c create_stacks.c clist_utils_2.c \
-		count_rotas.c push_value_flags.c
+		count_rotas.c push_value_flags.c rotate_lowest_up.c
 SRCS = $(addprefix $(DIR), $(SRC))
 OBJS = $(SRCS:.c=.o)
 DIR = ./

@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:49:15 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/06 17:13:19 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/07 13:05:10 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,21 +87,22 @@ int			count_rota_b(t_clist *stack, int value);
 int			count_rev_rota_b(t_clist *stack, int value);
 
 // Get cheapest number
-int			push_above_nbr(t_clist *stack_b, int value_a);
 int			get_cheapest_nbr(t_clist *stack_a, t_clist *stack_b);
 int			get_cost(t_count count);
 t_values	get_values(t_clist *stack_a, t_clist *stack_b);
 
-// Pushing functions and final sort, flags
+// Pushing functions and final sort
 void		push_value(t_clist **stack_a, t_clist **stack_b);
+int			push_above_nbr(t_clist *stack_b, int value_a);
 void		push_value_back(t_clist **stack_a, t_clist **stack_b);
+int			push_above_nbr_a(t_clist *stack_a, int value_b);
 void		rotate_lowest_up(t_clist **stack_a);
 void		flag_a(t_clist *stack_a, t_clist *stack_b, t_count count);
 void		flag_b(t_clist *stack_a, t_clist *stack_b, t_count count);
 void		flag_c(t_clist *stack_a, t_clist *stack_b, t_count count);
 void		flag_d(t_clist *stack_a, t_clist *stack_b, t_count count);
 
-// Sort small
+// Sort 3 numbers
 void		sort_3(t_clist *stack);
 
 // Validators
@@ -110,27 +111,24 @@ int			check_minmax(char **args, int flag);
 int			check_duplicates(t_clist *stack_a);
 int			is_sorted(t_clist *stack);
 
+// Circular linked list utils
+t_clist		*ft_clstnew(int value);
+t_clist		*ft_clstlast(t_clist *lst);
+void		ft_clstadd_front(t_clist **lst, t_clist *new);
+void		ft_clstadd_back(t_clist **lst, t_clist *new);
+int			ft_clstsize(t_clist *lst);
+int			ft_clstsize_flag(t_clist *lst);
+
+// Utils
+long		ft_atoi_long(const char *nptr);
+int			count_args(char **args);
+char		**parse_args(char *str);
+void		free_args(char **args);
+void		free_stack(t_clist **stack);
+
 // Testing functions
 void		print_clist_a(t_clist *stack);
 void		print_clist_b(t_clist *stack);
-void		print_clist_rev(t_clist *stack);
-void		print_clist_swap(t_clist *stack);
-void		print_clist_rev_swap(t_clist *stack);
-void		print_clist_rotated(t_clist *stack);
-void		print_clist_rev_rotated(t_clist *stack);
-
-// Utils
-int			ft_clstsize(t_clist *lst);
-t_clist		*ft_clstlast(t_clist *lst);
-void		ft_clstadd_back(t_clist **lst, t_clist *new);
-t_clist		*ft_clstnew(int value);
-int			ft_clstsize_flag(t_clist *lst);
-void		ft_clstadd_front(t_clist **lst, t_clist *new);
-long		ft_atoi_long(const char *nptr);
-int			count_args(char **args);
-void		free_args(char **args);
-char		**parse_args(char *str);
-void		free_stack(t_clist **stack);
 
 // Error
 void		print_error(void);

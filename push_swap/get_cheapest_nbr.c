@@ -6,41 +6,16 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 21:14:25 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/06 17:08:11 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/07 12:14:34 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	push_above_nbr(t_clist *stack_b, int value_a)
-{
-	int	curr_value;
-	int	start_value;
-
-	if (value_a > max_value(stack_b) || value_a < min_value(stack_b))
-		return (max_value(stack_b));
-	curr_value = value_a - 1;
-	start_value = stack_b->value;
-	while (curr_value > min_value(stack_b))
-	{
-		stack_b = stack_b->next;
-		while (stack_b->start != 1)
-		{
-			if (curr_value == stack_b->value)
-			{
-				if (start_value > curr_value && start_value <= value_a)
-					curr_value = start_value;
-				return (curr_value);
-			}
-			stack_b = stack_b->next;
-		}
-		curr_value--;
-	}
-	if (start_value > curr_value && start_value <= value_a)
-		curr_value = start_value;
-	return (curr_value);
-}
-
+/*
+Computes how many moves it takes for a number to get pushed
+to the correct position
+*/
 int	get_cost(t_count count)
 {
 	int	cost;
@@ -57,6 +32,10 @@ int	get_cost(t_count count)
 	return (cost);
 }
 
+/*
+Computes what value from stack a is being pushed
+above what number in stack b
+*/
 t_values	get_values(t_clist *stack_a, t_clist *stack_b)
 {
 	t_values	values;
@@ -66,6 +45,12 @@ t_values	get_values(t_clist *stack_a, t_clist *stack_b)
 	return (values);
 }
 
+/*
+Computes what number from stack a is the cheapest to push
+to stack b. The function counts moves for every value in
+stack_a and chooses the value with the lowest cost to save
+as a candidate, which in turn gets passed to push_value.
+*/
 int	get_cheapest_nbr(t_clist *stack_a, t_clist *stack_b)
 {
 	t_values	values;

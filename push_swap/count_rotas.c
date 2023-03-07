@@ -6,12 +6,16 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:52:28 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/06 17:07:46 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/07 11:00:54 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/*
+Counts how many rotations are needed for the number
+to reach the top of the stack a
+*/
 int	count_rota_a(t_clist *stack)
 {
 	int	i;
@@ -25,6 +29,10 @@ int	count_rota_a(t_clist *stack)
 	return (i);
 }
 
+/*
+Counts how many reverse rotations are needed for the number
+to reach the top of the stack a
+*/
 int	count_rev_rota_a(t_clist *stack)
 {
 	int	i;
@@ -38,6 +46,10 @@ int	count_rev_rota_a(t_clist *stack)
 	return (i);
 }
 
+/*
+Counts how many rotations are needed for the number
+to reach the top of the stack b
+*/
 int	count_rota_b(t_clist *stack, int value)
 {
 	int	i;
@@ -57,6 +69,10 @@ int	count_rota_b(t_clist *stack, int value)
 	return (i);
 }
 
+/*
+Counts how many reverse rotations are needed for the number
+to reach the top of the stack b
+*/
 int	count_rev_rota_b(t_clist *stack, int value)
 {
 	int	i;

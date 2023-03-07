@@ -6,12 +6,17 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:37:58 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/06 16:38:07 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/07 11:06:11 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/*
+Initializes stack a by first creating a circular linked list
+and then connecting the empty prev pointers to create
+a doubly circular linked list
+*/
 t_clist	*create_stack_a(int argc, const char **argv, int flag)
 {
 	t_clist	*stack_a;
@@ -37,6 +42,10 @@ t_clist	*create_stack_a(int argc, const char **argv, int flag)
 	return (stack_a);
 }
 
+/*
+Initializes stack b by creating a dummy node that
+gets overwritten during the first push from a to b
+*/
 t_clist	*create_stack_b(void)
 {
 	t_clist	*stack_b;
