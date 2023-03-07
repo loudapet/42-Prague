@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:52:28 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/07 11:00:54 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/07 15:11:36 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 /*
 Counts how many rotations are needed for the number
-to reach the top of the stack a
+to reach the top of the stack a. The head of stack a
+does not necessarily equal the start of the stack.
 */
 int	count_rota_a(t_clist *stack)
 {
@@ -31,7 +32,8 @@ int	count_rota_a(t_clist *stack)
 
 /*
 Counts how many reverse rotations are needed for the number
-to reach the top of the stack a
+to reach the top of the stack a. The head of stack a
+does not necessarily equal the start of the stack.
 */
 int	count_rev_rota_a(t_clist *stack)
 {
@@ -48,7 +50,8 @@ int	count_rev_rota_a(t_clist *stack)
 
 /*
 Counts how many rotations are needed for the number
-to reach the top of the stack b
+to reach the top of the stack b. The head of stack b
+is always equal to the start of the stack.
 */
 int	count_rota_b(t_clist *stack, int value)
 {
@@ -71,7 +74,8 @@ int	count_rota_b(t_clist *stack, int value)
 
 /*
 Counts how many reverse rotations are needed for the number
-to reach the top of the stack b
+to reach the top of the stack b. The head of stack b
+is always equal to the start of the stack.
 */
 int	count_rev_rota_b(t_clist *stack, int value)
 {
