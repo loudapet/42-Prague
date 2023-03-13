@@ -6,11 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:25:57 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/13 12:24:54 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:15:50 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 /*
 Figures out above what number in stack a the value from stack b

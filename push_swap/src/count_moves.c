@@ -6,11 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 14:13:22 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/07 12:49:44 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:15:14 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 /*
 flag_rot_diff: decides if the preference is to rotate both stacks at once,

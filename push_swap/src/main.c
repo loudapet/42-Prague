@@ -6,11 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:43:48 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/13 14:50:17 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:15:29 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 /*
 When stack a and stack b are created, checks for duplicates.

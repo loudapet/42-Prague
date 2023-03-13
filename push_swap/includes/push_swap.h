@@ -6,14 +6,14 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:49:15 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/13 14:49:33 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:16:41 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "libftprintf/ft_printf.h"
+# include "../libftprintf/ft_printf.h"
 # include <stdlib.h>
 # include <limits.h>
 

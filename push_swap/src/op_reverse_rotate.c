@@ -6,11 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:55:33 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/13 15:00:09 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:15:35 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 /*
 Shift all elements of the stack down by 1.

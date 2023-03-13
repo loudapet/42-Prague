@@ -6,7 +6,7 @@
 #    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/03/13 14:56:02 by plouda           ###   ########.fr        #
+#    Updated: 2023/03/13 15:19:57 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC = 	op_swap.c op_push.c op_rotate.c op_reverse_rotate.c \
 		utils.c validators.c create_stacks.c clist_utils_2.c \
 		count_rotas.c push_value_flags.c rotate_lowest_up.c \
 		clist_utils.c clist_print.c parse_arguments.c
-DIR = ./
+DIR = ./src/
 
 NAME = push_swap
 MAIN = main.c

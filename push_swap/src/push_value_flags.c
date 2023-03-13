@@ -6,11 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:54:38 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/07 12:49:59 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:15:53 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 /*
 options:	'a': rotate stack a, reverse rotate stack b

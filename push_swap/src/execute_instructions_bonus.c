@@ -6,11 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:38:23 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/13 14:46:41 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:15:23 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 static int	instr_len(char *instr)
 {

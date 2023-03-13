@@ -6,11 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:55:54 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/13 12:48:24 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:15:32 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 /*
 Removes a node from the top of the stack, redirects pointers and changes the

@@ -6,11 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:37:58 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/07 11:06:11 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:15:19 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 /*
 Initializes stack a by first creating a circular linked list

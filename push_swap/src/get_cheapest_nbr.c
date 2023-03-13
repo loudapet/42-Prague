@@ -6,11 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 21:14:25 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/07 12:14:34 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:15:26 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 /*
 Computes how many moves it takes for a number to get pushed

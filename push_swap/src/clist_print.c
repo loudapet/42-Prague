@@ -6,11 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 12:26:18 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/07 12:52:43 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:14:57 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 /*
 Purely testing functions used in troubleshooting. Both functions

@@ -6,11 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:46:16 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/06 16:50:42 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:15:07 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 t_clist	*ft_clstlast(t_clist *lst)
 {

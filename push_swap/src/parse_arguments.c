@@ -6,11 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:49:59 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/13 14:50:26 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:15:44 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 /*
 Validates and creates stack a from individually passed arguments
