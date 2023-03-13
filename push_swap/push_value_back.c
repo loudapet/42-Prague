@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 22:25:57 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/07 13:04:46 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 12:24:54 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	push_above_nbr_a(t_clist *stack_a, int value_b)
 Decides what moves are applicable depending on which is cheaper.
 Unlike for do_moves in push_value, it does not handle rotations
 which are done on both stacks at the same time, as the number
-whihc is being pushed from stack b is always the top number, and
+which is being pushed from stack b is always the top number, and
 only stack a must rotate.
  */
 static void	do_moves(t_clist *stack, t_count count)
