@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:49:15 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/13 11:19:37 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 14:49:33 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ typedef struct s_values
 	int	value_a;
 	int	value_b;
 }				t_values;
+
+// Parse arguments
+t_clist		*args_as_int(const char **argv, int argc, int flag);
+t_clist		*args_as_str(const char **argv, int flag);
 
 // Create stacks
 t_clist		*create_stack_a(int argc, const char **argv, int flag);
