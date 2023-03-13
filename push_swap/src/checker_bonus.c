@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 09:30:46 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/13 15:15:00 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:25:01 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,9 @@
 /*
 When stack a and stack b are created, checks for duplicates.
 If there are duplicates, frees both stacks and exits the program.
-If there are no duplicates:
-	If there were just two arguments, swaps their values in case
-	they are not sorted, and exits successfully.
-	If there were three arguments, calls function that sorts them
-	in place and exits successfully.
-	If there were more than three arguments to sort and they are not
-	sorted, pushes two numbers from the top of stack a to stack b
-	and calls push_value. When there are only three members remaining
-	in stack a, sorts them and then calls push_value_back. Finally,
-	when stack b is empty, rotates stack a so that the lowest value
-	is located at the top of the stack.
+If there are no duplicates, reads line by line on standard input,
+executes the instructions (or prints error), and finally checks
+whether stack a is sorted and stack b is empty.
 */
 static void	controller(t_clist **stack_a, t_clist **stack_b)
 {
@@ -54,10 +46,11 @@ static void	controller(t_clist **stack_a, t_clist **stack_b)
 }
 
 /*
-If no arguments were passed, exits successfully. If only two were passed,
-handles them in the way as if they were passed in a string. If the arguments
-pass all validations successfully, calls for controller which sorts
-the arguments. Finally frees both stacks and exits successfully.
+If no arguments were passed, exits successfully. If only two were 
+passed, handles them in the way as if they were passed in a string.
+If the arguments pass all validations successfully, calls for controller
+which executes instructions and validates them. Finally frees both stacks
+and exits successfully.
 */
 int	main(int argc, const char **argv)
 {
