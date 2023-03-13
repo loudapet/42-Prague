@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:43:48 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/07 11:59:18 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 10:39:36 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ If there are no duplicates:
 	when stack b is empty, rotates stack a so that the lowest value
 	is located at the top of the stack.
 */
-void	controller(t_clist **stack_a, t_clist **stack_b)
+static void	controller(t_clist **stack_a, t_clist **stack_b)
 {
 	if (check_duplicates(*stack_a) == 0)
 	{
