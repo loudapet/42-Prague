@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:54:58 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/13 12:51:46 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:00:13 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	rotate(t_clist *stack)
 {
 	int		value;
 
-	if (!stack || (stack->value == 0 && stack->next == NULL) 
+	if (!stack || (stack->value == 0 && stack->next == NULL)
 		|| ft_clstsize_flag(stack) == 1)
 		return ;
 	while (stack->next->start != 1)
