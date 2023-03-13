@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 09:30:46 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/13 14:54:55 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 14:55:22 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,9 @@ static void	controller(t_clist **stack_a, t_clist **stack_b)
 		exit(EXIT_FAILURE);
 	}
 	instr = get_next_line(0);
-	print_clist_a(*stack_a);
-	print_clist_b(*stack_b);
 	while (instr)
 	{
 		exe_instr(instr, stack_a, stack_b);
-		print_clist_a(*stack_a);
-		print_clist_b(*stack_b);
 		free(instr);
 		instr = get_next_line(0);
 	}

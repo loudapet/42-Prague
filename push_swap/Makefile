@@ -6,7 +6,7 @@
 #    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/03/13 14:50:40 by plouda           ###   ########.fr        #
+#    Updated: 2023/03/13 14:56:02 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ AR = ar rc
 GCC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-all: $(NAME)
+all: $(NAME) bonus
 
 $(NAME): $(OBJS)
 	make -C $(LIBFTPRINTF)
