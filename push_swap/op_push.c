@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:55:54 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/06 17:08:59 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 12:48:24 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	push(t_clist **src, t_clist **dest)
 {
 	int	value_to_push;
 
+	if ((*src)->value == 0 && (*src)->next == NULL)
+		return ;
 	value_to_push = pop(src);
 	if ((*dest)->next == NULL)
 	{
