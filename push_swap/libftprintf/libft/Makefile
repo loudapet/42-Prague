@@ -6,7 +6,7 @@
 #    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/02/20 11:36:53 by plouda           ###   ########.fr        #
+#    Updated: 2023/03/13 08:53:10 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,10 +55,15 @@ BONUS_SRC = ft_lstnew.c \
 			ft_lstiter.c \
 			ft_lstmap.c
 
-SRCS = ${addprefix ${DIR}, ${SRC}}
-BONUS_SRCS = ${addprefix ${DIR}, ${BONUS_SRC}}
-OBJS = ${SRCS:.c=.o}
-BONUS_OBJS = ${BONUS_SRCS:.c=.o}
+GNL_SRC = 	get_next_line_bonus.c \
+			get_next_line_utils_bonus.c
+
+SRCS = $(addprefix $(DIR), $(SRC))
+BONUS_SRCS = $(addprefix $(DIR), $(BONUS_SRC))
+GNL_SRCS = $(addprefix $(DIR), $(GNL_SRC))
+OBJS = $(SRCS:.c=.o)
+BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+GNL_OBJS = $(GNL_SRCS:.c=.o)
 DIR = ./
 
 NAME = libft.a
@@ -66,22 +71,22 @@ AR = ar rc
 GCC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-all: ${NAME}
+all: $(NAME)
 
-${NAME}: ${OBJS}
-		@${AR} ${NAME} $^
+$(NAME): $(OBJS)
+		@$(AR) $(NAME) $^
 
-bonus: ${OBJS} ${BONUS_OBJS}
-		@${AR} ${NAME} $^
+bonus: $(OBJS) $(BONUS_OBJS) $(GNL_OBJS)
+		@$(AR) $(NAME) $^
 
-.c.o:  $(SRCS) $(BONUS_SRCS)
-	${GCC} ${CFLAGS} -c -o $@ $^
+.c.o:  $(SRCS) $(BONUS_SRCS) $(GNL_SRCS)
+	$(GCC) $(CFLAGS) -c -o $@ $^
 
 clean:
-	rm -f ${OBJS} ${BONUS_OBJS}
+	rm -f $(OBJS) $(BONUS_OBJS) $(GNL_OBJS)
 
 fclean:	clean
-	rm -f ${NAME}
+	rm -f $(NAME)
 
 re:	fclean all
 
