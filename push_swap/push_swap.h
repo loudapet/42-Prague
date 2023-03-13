@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:49:15 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/07 13:05:10 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 11:19:37 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,9 @@ int			count_args(char **args);
 char		**parse_args(char *str);
 void		free_args(char **args);
 void		free_stack(t_clist **stack);
+
+// Bonus functions
+void		exe_instr(char *instr, t_clist **stack_a, t_clist **stack_b);
 
 // Testing functions
 void		print_clist_a(t_clist *stack);
