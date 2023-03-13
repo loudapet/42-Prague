@@ -6,13 +6,14 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:58:39 by plouda            #+#    #+#             */
-/*   Updated: 2023/01/20 15:04:56 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 11:21:08 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "get_next_line_bonus.h"
 # include <stdlib.h>
 # include <unistd.h>
 
