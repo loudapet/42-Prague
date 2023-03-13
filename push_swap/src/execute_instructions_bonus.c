@@ -6,12 +6,15 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:38:23 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/13 15:15:23 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:37:04 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
+/*
+Computes the length of an instruction
+*/
 static int	instr_len(char *instr)
 {
 	int	i;
@@ -65,6 +68,11 @@ static void	exe_instr_long(char *instr, t_clist **stack_a, t_clist **stack_b)
 		print_error();
 }
 
+/*
+Executes an instruction from stdin, or prints an error if the instruction
+is longer than 3 characters or shorter than 2. The supporting functions
+print an error if the instruction is invalid.
+*/
 void	exe_instr(char *instr, t_clist **stack_a, t_clist **stack_b)
 {
 	if (instr_len(instr) == 2)
