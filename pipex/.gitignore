@@ -1,0 +1,4 @@
+*.o
+outfile
+infile
+test*
