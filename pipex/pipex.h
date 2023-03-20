@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:31:05 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/20 14:26:06 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/20 16:22:42 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ typedef struct	s_pipex
 int	print_error(void);
 void	process_cmd1(t_pipex pipex, char **argv, char **envp);
 void	process_cmd2(t_pipex pipex, char **argv, char **envp);
+void	free_paths(t_pipex *pipex);
+void	free_cmd_args(t_pipex pipex);
 
 #endif

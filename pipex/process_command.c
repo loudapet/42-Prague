@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:34:21 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/20 14:43:13 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/20 16:38:10 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,15 @@ int	get_cmd(t_pipex *pipex, char *argv)
 	{
 		pipex->full_cmd = ft_strjoin(pipex->paths[i], pipex->cmd);
 		if (!access(pipex->full_cmd, X_OK))
+		{
+			free(pipex->cmd);
 			return (0);
+		}
 		free(pipex->full_cmd);
 		i++;
 	}
+	free(pipex->cmd);
 	return (1);
-
 }
 
 void	process_cmd1(t_pipex pipex, char **argv, char **envp)
@@ -39,6 +42,8 @@ void	process_cmd1(t_pipex pipex, char **argv, char **envp)
 	dup2(pipex.pipe[WRITE], 1);
 	if (get_cmd(&pipex, argv[2]))
 	{
+		free_cmd_args(pipex);
+		free_paths(&pipex);
 		write(2, "Error: Command not found\n", 25);
 		exit(EXIT_FAILURE);
 	}
@@ -52,6 +57,8 @@ void	process_cmd2(t_pipex pipex, char **argv, char **envp)
 	dup2(pipex.pipe[READ], 0);
 	if (get_cmd(&pipex, argv[3]))
 	{
+		free_cmd_args(pipex);
+		free_paths(&pipex);
 		write(2, "Error: Command not found\n", 25);
 		exit(EXIT_FAILURE);
 	}

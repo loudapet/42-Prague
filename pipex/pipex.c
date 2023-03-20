@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:31:37 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/20 14:26:10 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/20 16:40:01 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	main(int argc, char **argv, char **envp)
 		close(pipex.pipe[WRITE]);
 		waitpid(pid1, NULL, 0);
 		waitpid(pid2, NULL, 0);
-		//free;
+		close(pipex.infile);
+		close(pipex.outfile);
+		free_paths(&pipex);
 	}
 }

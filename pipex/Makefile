@@ -6,11 +6,11 @@
 #    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/03/20 13:28:56 by plouda           ###   ########.fr        #
+#    Updated: 2023/03/20 15:09:18 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = pipex.c print_error.c process_command.c
+SRC = pipex.c print_error.c process_command.c free.c
 DIR = ./
 
 NAME = pipex
