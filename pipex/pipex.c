@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:31:37 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/20 16:40:01 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/23 12:05:58 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,35 +25,59 @@ char	**get_paths(char **envp)
 	return (paths);
 }
 
+void	get_fds(t_pipex *pipex, int argc, char **argv)
+{
+	pipex->infile = open(argv[1], O_RDONLY);
+	if (pipex->infile < 0)
+		print_error();
+	pipex->outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 00644);
+	if (pipex->outfile < 0)
+		print_error();
+}
+
+void	close_fds(t_pipex *pipex, int flag)
+{
+	if (flag == 1)
+	{
+		close(pipex->pipe[READ]);
+		close(pipex->pipe[WRITE]);
+	}
+	else if (flag == 2)
+	{
+		if (close(pipex->infile) < 0 || close(pipex->outfile) < 0)
+			print_error();
+	}
+}
+
+void	f_pipex(t_pipex *pipex, char **argv, char **envp)
+{
+	if (pipe(pipex->pipe) < 0)
+		print_error();
+	pipex->pid1 = fork();
+	if (!pipex->pid1)
+		process_cmd1(*pipex, argv, envp);
+	pipex->pid2 = fork();
+	if (!pipex->pid2)
+		process_cmd2(*pipex, argv, envp);
+	close_fds(pipex, 1);
+	waitpid(pipex->pid1, &pipex->status1, 0);
+	waitpid(pipex->pid2, &pipex->status2, 0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
-	pid_t	pid1;
-	pid_t	pid2;
 
 	if (argc == 5)
 	{
-		pipex.infile = open(argv[1], O_RDONLY);
-		if (pipex.infile < 0)
-			return (print_error());
-		pipex.outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 00644);
-		if (pipex.outfile < 0)
-			return (print_error());
-		if (pipe(pipex.pipe) < 0)
-			return (print_error());
+		get_fds(&pipex, argc, argv);
 		pipex.paths = get_paths(envp);
-		pid1 = fork();
-		if (!pid1)
-			process_cmd1(pipex, argv, envp);
-		pid2 = fork();
-		if (!pid2)
-			process_cmd2(pipex, argv, envp);
-		close(pipex.pipe[READ]);
-		close(pipex.pipe[WRITE]);
-		waitpid(pid1, NULL, 0);
-		waitpid(pid2, NULL, 0);
-		close(pipex.infile);
-		close(pipex.outfile);
+		f_pipex(&pipex, argv, envp);
 		free_paths(&pipex);
+		close_fds(&pipex, 2);
+		if (WIFEXITED(pipex.status1) || WIFEXITED(pipex.status2))
+			return (WEXITSTATUS(pipex.status2));
+		return (0);
 	}
+	return (1);
 }
