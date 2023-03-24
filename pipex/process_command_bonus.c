@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_command_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:34:21 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/23 12:51:44 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/24 09:44:37 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ int	get_cmd(t_pipex *pipex, char *argv)
 
 void	process_cmd_infile(t_pipex pipex, char **argv, char **envp)
 {
-	close(pipex.pipe[READ]);
-	dup2(pipex.infile, 0);
-	dup2(pipex.pipe[WRITE], 1);
+	if (close(pipex.pipe[READ]) < 0)
+		print_error();
+	if (dup2(pipex.infile, STDIN_FILENO) < 0
+		|| dup2(pipex.pipe[WRITE], STDOUT_FILENO) < 0)
+		print_error();
 	if (get_cmd(&pipex, argv[2]))
 	{
 		error_msg(pipex.cmd_args[0]);
@@ -61,13 +63,13 @@ void	process_cmd_infile(t_pipex pipex, char **argv, char **envp)
 	}
 }
 
-// some middle commands
-
 void	process_cmd_outfile(t_pipex pipex, char **argv, char **envp)
 {
-	close(pipex.pipe[WRITE]);
-	dup2(pipex.outfile, 1);
-	dup2(pipex.pipe[READ], 0);
+	if (close(pipex.pipe[WRITE]) < 0)
+		print_error();
+	if (dup2(pipex.outfile, STDOUT_FILENO) < 0
+		|| dup2(pipex.pipe[READ], STDIN_FILENO) < 0)
+		print_error();
 	if (get_cmd(&pipex, argv[3]))
 	{
 		error_msg(pipex.cmd_args[0]);

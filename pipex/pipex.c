@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:31:37 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/23 12:05:58 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/24 09:35:00 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	close_fds(t_pipex *pipex, int flag)
 {
 	if (flag == 1)
 	{
-		close(pipex->pipe[READ]);
-		close(pipex->pipe[WRITE]);
+		if (pipex->pipe[READ] < 0 || pipex->pipe[WRITE] < 0)
+			print_error();
 	}
 	else if (flag == 2)
 	{
@@ -75,9 +75,7 @@ int	main(int argc, char **argv, char **envp)
 		f_pipex(&pipex, argv, envp);
 		free_paths(&pipex);
 		close_fds(&pipex, 2);
-		if (WIFEXITED(pipex.status1) || WIFEXITED(pipex.status2))
-			return (WEXITSTATUS(pipex.status2));
-		return (0);
+		return (WEXITSTATUS(pipex.status2));
 	}
 	return (1);
 }
