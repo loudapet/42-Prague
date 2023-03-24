@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:31:05 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/23 12:31:07 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/24 14:54:27 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@ typedef struct s_pipex
 	char	*args;
 	char	*full_cmd;
 	int		pipe[2];
+	int		pipeold[2];
+	int		pipenew[2];
 	char	**paths;
 	pid_t	pid1;
 	pid_t	pid2;
 	int		status1;
 	int		status2;
+	int		status_last;
 }				t_pipex;
 
 int		print_error(void);
@@ -45,5 +48,6 @@ void	process_cmd_infile(t_pipex pipex, char **argv, char **envp);
 void	process_cmd_outfile(t_pipex pipex, char **argv, char **envp);
 void	free_paths(t_pipex *pipex);
 void	free_cmd_args(t_pipex pipex);
+int	get_cmd(t_pipex *pipex, char *argv);
 
 #endif

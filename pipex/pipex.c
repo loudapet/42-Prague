@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:31:37 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/24 09:35:00 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/24 12:50:53 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	close_fds(t_pipex *pipex, int flag)
 {
 	if (flag == 1)
 	{
-		if (pipex->pipe[READ] < 0 || pipex->pipe[WRITE] < 0)
+		if (close(pipex->pipe[READ]) < 0 || close(pipex->pipe[WRITE]) < 0)
 			print_error();
 	}
 	else if (flag == 2)
