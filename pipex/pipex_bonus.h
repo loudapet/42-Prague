@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:31:05 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/24 14:54:27 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/27 12:04:57 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@
 # include "libftprintf/ft_printf.h"
 # define READ 0
 # define WRITE 1
+
+typedef enum e_close
+{
+	defpipe = 1,
+	files = 2,
+	old_ends = 3,
+	new_ends = 4
+}			t_close;
 
 typedef struct s_pipex
 {
@@ -39,15 +47,21 @@ typedef struct s_pipex
 	pid_t	pid2;
 	int		status1;
 	int		status2;
-	int		status_last;
 }				t_pipex;
 
 int		print_error(void);
 void	error_msg(char *c);
 void	process_cmd_infile(t_pipex pipex, char **argv, char **envp);
 void	process_cmd_outfile(t_pipex pipex, char **argv, char **envp);
-void	free_paths(t_pipex *pipex);
+void	free_paths(t_pipex *pipex	);
 void	free_cmd_args(t_pipex pipex);
-int	get_cmd(t_pipex *pipex, char *argv);
+int		get_cmd(t_pipex *pipex, char *argv);
+void	close_fds(t_pipex *pipex, t_close flag);
+void	get_fds(t_pipex *pipex, int argc, char **argv);
+char	**get_paths(char **envp);
+void	process_cmd(t_pipex *pipex, char *argv, char **envp);
+void	dup_in_out(int input, int output);
+void	set_io(t_pipex *pipex, int cmd, int argc);
+void	newfds_to_old(t_pipex *pipex);
 
 #endif

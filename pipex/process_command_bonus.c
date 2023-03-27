@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:34:21 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/24 09:44:37 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/27 11:49:48 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,24 @@ int	get_cmd(t_pipex *pipex, char *argv)
 	}
 	free(pipex->cmd);
 	return (1);
+}
+
+void	process_cmd(t_pipex *pipex, char *argv, char **envp)
+{
+	if (get_cmd(pipex, argv))
+	{
+		error_msg(pipex->cmd_args[0]);
+		free_cmd_args(*pipex);
+		free_paths(pipex);
+		exit(127);
+	}
+	if (execve(pipex->full_cmd, pipex->cmd_args, envp) < 0)
+	{
+		print_error();
+		free_cmd_args(*pipex);
+		free_paths(pipex);
+		exit(errno);
+	}
 }
 
 void	process_cmd_infile(t_pipex pipex, char **argv, char **envp)

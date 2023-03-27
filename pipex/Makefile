@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: plouda <plouda@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/03/23 12:25:18 by plouda           ###   ########.fr        #
+#    Updated: 2023/03/27 12:02:06 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC = pipex.c process_command.c free.c print_error.c 
 BONUS_SRC = pipex_bonus.c process_command_bonus.c \
-			free_bonus.c print_error_bonus.c
+			free_bonus.c print_error_bonus.c \
+			pipex_utils_bonus.c f_pipex_multiple_utils_bonus.c
 DIR = ./
 
 NAME = pipex
