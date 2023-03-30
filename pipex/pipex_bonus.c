@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:31:37 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/30 09:48:54 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/30 10:10:24 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ int	main(int argc, char **argv, char **envp)
 	else if (argc > 5)
 	{
 		if (!ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])))
-		{
 			pipex.heredoc = 1;
-		}
+		else
+			pipex.heredoc = 0;
 		get_fds(&pipex, argc, argv);
 		pipex.paths = get_paths(envp);
 		f_pipex_multiple(&pipex, argv, argc, envp);
