@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:31:05 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/30 10:27:53 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/30 10:46:30 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	parent(t_pipex *pipex);
 
 /* pipex_utils_bonus.c */
 char	**get_paths(char **envp);
-void	here_doc(t_pipex *pipex, char **argv);
+void	here_doc(t_pipex *pipex, int argc, char **argv);
 void	get_fds(t_pipex *pipex, int argc, char **argv);
 void	close_fds(t_pipex *pipex, t_close flag);
 

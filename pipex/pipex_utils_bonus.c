@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:46:25 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/30 09:26:00 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/30 10:46:35 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,25 @@ char	**get_paths(char **envp)
 	return (paths);
 }
 
-void	here_doc(t_pipex *pipex, char **argv)
+void	here_doc(t_pipex *pipex, int argc, char **argv)
 {
 	int		fd_tmp;
 	char	*str;
+	int		pipe_counter;
 
+	pipe_counter = -1;
 	fd_tmp = pipe(pipex->pipe);
 	if (fd_tmp < 0)
 		print_error();
+	while (++pipe_counter < argc - 5)
+		write(STDOUT_FILENO, "pipe ", 5);
 	write(STDOUT_FILENO, "heredoc> ", 9);
 	str = get_next_line(0);
 	while (ft_strncmp(argv[2], str, ft_strlen(argv[2])))
 	{
+		pipe_counter = -1;
+		while (++pipe_counter < argc - 5)
+			write(STDOUT_FILENO, "pipe ", 5);
 		write(STDOUT_FILENO, "heredoc> ", 9);
 		write(pipex->pipe[WRITE], str, ft_strlen(str));
 		free(str);
@@ -55,7 +62,7 @@ void	get_fds(t_pipex *pipex, int argc, char **argv)
 	out = argv[argc - 1];
 	if (pipex->heredoc == 1)
 	{
-		here_doc(pipex, argv);
+		here_doc(pipex, argc, argv);
 		pipex->infile = pipex->pipe[READ];
 	}
 	else
