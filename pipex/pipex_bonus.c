@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:31:37 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/30 10:10:24 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/30 12:16:00 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,10 @@ void	f_pipex_multiple(t_pipex *pipex, char **argv, int argc, char **envp)
 		}
 		else
 			parent(pipex);
-		waitpid(pipex->pid1, &pipex->status1, 0);
+		waitpid(pipex->pid1, &pipex->status2, 0);
 		cmd++;
 	}
 	close_fds(pipex, old_ends);
-	waitpid(-1, &pipex->status2, 0);
 }
 
 int	main(int argc, char **argv, char **envp)
