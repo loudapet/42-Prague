@@ -6,12 +6,20 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:31:37 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/30 12:16:00 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/30 14:03:03 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
+/*
+For two pipes, the program uses two children and a parent supervisor.
+The first child reads on STDIN from input file, executes the command and
+redirects the output to a pipe.
+The second child reads the output of the previous command from the pipe,
+executes the next command and redirects the output to output file.
+The parent is just there to wait for children to finish.
+*/
 void	f_pipex(t_pipex *pipex, char **argv, char **envp)
 {
 	if (pipe(pipex->pipe) < 0)
@@ -27,6 +35,14 @@ void	f_pipex(t_pipex *pipex, char **argv, char **envp)
 	waitpid(pipex->pid2, &pipex->status2, 0);
 }
 
+/*
+For more than two pipes, the program uses only two alternating sets of pipes:
+pipeold, pipenew. The loop creates a new pipe, then forks. The child process
+handles reading from and writing into pipeold and pipenew respectively (which
+means that pipeold[WRITE] and pipenew[READ] are actually never used), as well
+as executing the command. The parent simply closes the old pipe and forces
+the current new pipe to become an old pipe. 
+*/
 void	f_pipex_multiple(t_pipex *pipex, char **argv, int argc, char **envp)
 {
 	int	cmd;
@@ -46,20 +62,23 @@ void	f_pipex_multiple(t_pipex *pipex, char **argv, int argc, char **envp)
 			set_io(pipex, cmd, argc);
 			process_cmd(pipex, argv[cmd], envp);
 		}
-		else
-			parent(pipex);
+		parent(pipex);
 		waitpid(pipex->pid1, &pipex->status2, 0);
 		cmd++;
 	}
-	close_fds(pipex, old_ends);
 }
 
+/*
+Primarily a dispatching function. Handling multiple pipes
+uses a different set of moves than handling just two.
+*/
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
 
 	if (argc == 5)
 	{
+		pipex.heredoc = 0;
 		get_fds(&pipex, argc, argv);
 		pipex.paths = get_paths(envp);
 		f_pipex(&pipex, argv, envp);
@@ -69,10 +88,9 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else if (argc > 5)
 	{
+		pipex.heredoc = 0;
 		if (!ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])))
 			pipex.heredoc = 1;
-		else
-			pipex.heredoc = 0;
 		get_fds(&pipex, argc, argv);
 		pipex.paths = get_paths(envp);
 		f_pipex_multiple(&pipex, argv, argc, envp);
