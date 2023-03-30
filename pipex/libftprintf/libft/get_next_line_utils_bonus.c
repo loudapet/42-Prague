@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 09:40:38 by plouda            #+#    #+#             */
-/*   Updated: 2023/01/25 15:57:18 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/30 09:20:53 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-size_t	ft_strlen(const char *c)
+size_t	ft_strllen(const char *c)
 {
 	size_t	i;
 
@@ -46,7 +46,7 @@ char	*ft_strjoin_custom(char *s1, char *s2)
 		s1 = (char *)malloc(1);
 		s1[0] = 0;
 	}
-	join = (char *)malloc((ft_strlen(s1) + ft_strlen(s2)) * sizeof(char) + 1);
+	join = (char *)malloc((ft_strllen(s1) + ft_strllen(s2)) * sizeof(char) + 1);
 	if (!join)
 		return (NULL);
 	i = 0;

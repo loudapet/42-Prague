@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 09:38:21 by plouda            #+#    #+#             */
-/*   Updated: 2023/01/25 16:04:29 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/30 09:19:36 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*set_next_line(char *text)
 		free(text);
 		return (NULL);
 	}
-	next_line = malloc(ft_strlen(text) + 1 - i);
+	next_line = malloc(ft_strllen(text) + 1 - i);
 	if (!next_line)
 		return (NULL);
 	i++;
