@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:46:25 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/27 11:36:40 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/30 09:26:00 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,47 @@ char	**get_paths(char **envp)
 	return (paths);
 }
 
+void	here_doc(t_pipex *pipex, char **argv)
+{
+	int		fd_tmp;
+	char	*str;
+
+	fd_tmp = pipe(pipex->pipe);
+	if (fd_tmp < 0)
+		print_error();
+	write(STDOUT_FILENO, "heredoc> ", 9);
+	str = get_next_line(0);
+	while (ft_strncmp(argv[2], str, ft_strlen(argv[2])))
+	{
+		write(STDOUT_FILENO, "heredoc> ", 9);
+		write(pipex->pipe[WRITE], str, ft_strlen(str));
+		free(str);
+		str = get_next_line(0);
+	}
+	free(str);
+	close(pipex->pipe[WRITE]);
+}
+
 void	get_fds(t_pipex *pipex, int argc, char **argv)
 {
-	pipex->infile = open(argv[1], O_RDONLY);
+	char	*in;
+	char	*out;
+
+	in = argv[1];
+	out = argv[argc - 1];
+	if (pipex->heredoc == 1)
+	{
+		here_doc(pipex, argv);
+		pipex->infile = pipex->pipe[READ];
+	}
+	else
+		pipex->infile = open(in, O_RDONLY);
 	if (pipex->infile < 0)
 		print_error();
-	pipex->outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 00644);
+	if (pipex->heredoc == 1)
+		pipex->outfile = open(out, O_CREAT | O_WRONLY | O_APPEND, 00644);
+	else
+		pipex->outfile = open(out, O_CREAT | O_WRONLY | O_TRUNC, 00644);
 	if (pipex->outfile < 0)
 		print_error();
 }

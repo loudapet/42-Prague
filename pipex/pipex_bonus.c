@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:31:37 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/27 12:00:53 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/30 09:48:54 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	f_pipex_multiple(t_pipex *pipex, char **argv, int argc, char **envp)
 	int	cmd;
 
 	cmd = 2;
+	if (pipex->heredoc == 1)
+		cmd = 3;
 	if (pipe(pipex->pipeold) < 0)
 		print_error();
 	while (cmd < argc - 1)
@@ -45,10 +47,7 @@ void	f_pipex_multiple(t_pipex *pipex, char **argv, int argc, char **envp)
 			process_cmd(pipex, argv[cmd], envp);
 		}
 		else
-		{
-			close_fds(pipex, old_ends);
-			newfds_to_old(pipex);
-		}
+			parent(pipex);
 		waitpid(pipex->pid1, &pipex->status1, 0);
 		cmd++;
 	}
@@ -71,6 +70,10 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else if (argc > 5)
 	{
+		if (!ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])))
+		{
+			pipex.heredoc = 1;
+		}
 		get_fds(&pipex, argc, argv);
 		pipex.paths = get_paths(envp);
 		f_pipex_multiple(&pipex, argv, argc, envp);

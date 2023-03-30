@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:31:05 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/27 12:04:57 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/30 09:48:41 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_pipex
 	pid_t	pid2;
 	int		status1;
 	int		status2;
+	int		heredoc;
 }				t_pipex;
 
 int		print_error(void);
@@ -63,5 +64,6 @@ void	process_cmd(t_pipex *pipex, char *argv, char **envp);
 void	dup_in_out(int input, int output);
 void	set_io(t_pipex *pipex, int cmd, int argc);
 void	newfds_to_old(t_pipex *pipex);
+void	parent(t_pipex *pipex);
 
 #endif
