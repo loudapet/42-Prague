@@ -1,5 +1,6 @@
 *.o
 out.txt
+out_bash.txt
 outfile
 infile
 test*

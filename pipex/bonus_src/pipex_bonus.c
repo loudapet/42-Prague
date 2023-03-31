@@ -6,11 +6,11 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:31:37 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/30 14:03:03 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/31 11:03:59 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "../includes/pipex_bonus.h"
 
 /*
 For two pipes, the program uses two children and a parent supervisor.

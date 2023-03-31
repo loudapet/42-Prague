@@ -6,7 +6,7 @@
 #    By: plouda <plouda@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/03/27 12:02:06 by plouda           ###   ########.fr        #
+#    Updated: 2023/03/31 11:12:36 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,13 @@ SRC = pipex.c process_command.c free.c print_error.c
 BONUS_SRC = pipex_bonus.c process_command_bonus.c \
 			free_bonus.c print_error_bonus.c \
 			pipex_utils_bonus.c f_pipex_multiple_utils_bonus.c
-DIR = ./
+DIR = ./src/
+BONUS_DIR = ./bonus_src/
 
 NAME = pipex
 SRCS = $(addprefix $(DIR), $(SRC))
 OBJS = $(SRCS:.c=.o)
-BONUS_SRCS = $(addprefix $(DIR), $(BONUS_SRC))
+BONUS_SRCS = $(addprefix $(BONUS_DIR), $(BONUS_SRC))
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
 LIBFTPRINTF = libftprintf
@@ -53,5 +54,5 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
 

@@ -6,11 +6,11 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:00:44 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/31 10:54:58 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/31 11:05:13 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "../includes/pipex_bonus.h"
 
 /*
 Accepts two fds as arguments, one to be redirected from input and one to output.
