@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:46:25 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/31 11:04:05 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/31 18:47:14 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,12 @@ void	get_fds(t_pipex *pipex, int argc, char **argv)
 	in = argv[1];
 	out = argv[argc - 1];
 	if (pipex->heredoc == 1)
+		pipex->outfile = open(out, O_CREAT | O_WRONLY | O_APPEND, 00644);
+	else
+		pipex->outfile = open(out, O_CREAT | O_WRONLY | O_TRUNC, 00644);
+	if (pipex->outfile < 0)
+		print_error();
+	if (pipex->heredoc == 1)
 	{
 		here_doc(pipex, argc, argv);
 		pipex->infile = pipex->pipe[READ];
@@ -83,13 +89,10 @@ void	get_fds(t_pipex *pipex, int argc, char **argv)
 	else
 		pipex->infile = open(in, O_RDONLY);
 	if (pipex->infile < 0)
+	{
 		print_error();
-	if (pipex->heredoc == 1)
-		pipex->outfile = open(out, O_CREAT | O_WRONLY | O_APPEND, 00644);
-	else
-		pipex->outfile = open(out, O_CREAT | O_WRONLY | O_TRUNC, 00644);
-	if (pipex->outfile < 0)
-		print_error();
+		pipex->infile = open(".in.tmp", O_CREAT | O_RDONLY, 00644);
+	}
 }
 
 /*
@@ -107,6 +110,8 @@ void	close_fds(t_pipex *pipex, t_close flag)
 	{
 		if (close(pipex->infile) < 0 || close(pipex->outfile) < 0)
 			print_error();
+		if (!access(".in.tmp", 0))
+			unlink(".in.tmp");
 	}
 	else if (flag == old_ends)
 	{

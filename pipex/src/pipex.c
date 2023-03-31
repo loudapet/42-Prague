@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:31:37 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/31 17:54:48 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/31 18:45:07 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,15 @@ char	**get_paths(char **envp)
 
 void	get_fds(t_pipex *pipex, int argc, char **argv)
 {
-	pipex->infile = open(argv[1], O_RDONLY);
-	if (pipex->infile < 0)
-		print_error();
 	pipex->outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 00644);
 	if (pipex->outfile < 0)
 		print_error();
+	pipex->infile = open(argv[1], O_RDONLY);
+	if (pipex->infile < 0)
+	{
+		print_error();
+		pipex->infile = open(".in.tmp", O_CREAT | O_RDONLY, 00644);
+	}
 }
 
 void	close_fds(t_pipex *pipex, int flag)
@@ -46,6 +49,8 @@ void	close_fds(t_pipex *pipex, int flag)
 	{
 		if (close(pipex->infile) < 0 || close(pipex->outfile) < 0)
 			print_error();
+		if (!access(".in.tmp", 0))
+			unlink(".in.tmp");
 	}
 }
 
