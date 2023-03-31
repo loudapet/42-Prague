@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:46:25 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/31 18:47:14 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/31 19:59:51 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	here_doc(t_pipex *pipex, int argc, char **argv)
 		write(STDOUT_FILENO, "pipe ", 5);
 	write(STDOUT_FILENO, "heredoc> ", 9);
 	str = get_next_line(0);
-	while (ft_strncmp(argv[2], str, ft_strlen(argv[2])))
+	while (ft_strncmp(argv[2], str, ft_strlen(argv[2]) != 0)
+			|| ft_strncmp(argv[2], str, ft_strlen(argv[2]) + 1) != -10)
 	{
 		pipe_counter = -1;
 		while (++pipe_counter < argc - 5)
