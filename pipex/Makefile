@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: plouda <plouda@student.42.fr>              +#+  +:+       +#+         #
+#    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/03/31 11:12:36 by plouda           ###   ########.fr        #
+#    Updated: 2023/03/31 17:26:37 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ AR = ar rc
 GCC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-all: $(NAME) bonus
+all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C $(LIBFTPRINTF)
