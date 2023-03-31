@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:34:21 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/31 17:46:55 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/31 18:00:26 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ int	get_cmd(t_pipex *pipex, char *argv)
 Checks if the command passed as an argument is valid, and executes
 it. It is only ever passed in a child process. If the command isn't
 valid, the child exits with status code 127 for "command not found".
+If the command is found but it is not an executable, errno is set to 13.
+However, the default bash pipex handles such case as status code 126
+(which is reflected at the end of the program).
 If the execution fails for a different reason, it exitst with the
 current value of errno that should correspond to the failed execve.
 */
