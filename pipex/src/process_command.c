@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:34:21 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/31 11:05:02 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/31 17:54:06 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	get_cmd(t_pipex *pipex, char *argv)
 	int		i;
 
 	pipex->cmd_args = ft_split(argv, ' ');
-	if (!access(pipex->cmd_args[0], X_OK))
+	if (!access(pipex->cmd_args[0], 0))
 	{
 		pipex->full_cmd = pipex->cmd_args[0];
 		return (0);
@@ -28,7 +28,7 @@ int	get_cmd(t_pipex *pipex, char *argv)
 	while (pipex->paths[i])
 	{
 		pipex->full_cmd = ft_strjoin(pipex->paths[i], pipex->cmd);
-		if (!access(pipex->full_cmd, X_OK))
+		if (!access(pipex->full_cmd, 0))
 		{
 			free(pipex->cmd);
 			return (0);

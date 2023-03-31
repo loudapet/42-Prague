@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 08:31:37 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/31 11:04:54 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/31 17:54:48 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	main(int argc, char **argv, char **envp)
 		f_pipex(&pipex, argv, envp);
 		free_paths(&pipex);
 		close_fds(&pipex, 2);
+		if (WEXITSTATUS(pipex.status2) == 13)
+			return (126);
 		return (WEXITSTATUS(pipex.status2));
 	}
 	return (1);
