@@ -6,12 +6,15 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 10:46:25 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/30 10:46:35 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/31 10:37:09 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
+/*
+Parses environment for PATH, returns paths with ':' as the delimiter.
+*/
 char	**get_paths(char **envp)
 {
 	int		i;
@@ -25,6 +28,11 @@ char	**get_paths(char **envp)
 	return (paths);
 }
 
+/*
+Handles input to here_doc. The input operation is only interrupted if
+the input consists of and only of DELIMITER passed as the second argument
+to the program.
+*/
 void	here_doc(t_pipex *pipex, int argc, char **argv)
 {
 	int		fd_tmp;
@@ -53,6 +61,13 @@ void	here_doc(t_pipex *pipex, int argc, char **argv)
 	close(pipex->pipe[WRITE]);
 }
 
+/*
+Assigns fds to the input and output files. Infile must be an existing
+file with necessary rights for reading, or a here_doc. If outfile with
+the same path already exists, its size is reduced to 0 before any
+output is written inside. If a here_doc is present as the infile,
+the outfile will not get truncated and is opened in append mode instead.
+*/
 void	get_fds(t_pipex *pipex, int argc, char **argv)
 {
 	char	*in;
@@ -77,6 +92,10 @@ void	get_fds(t_pipex *pipex, int argc, char **argv)
 		print_error();
 }
 
+/*
+Depending on the flag (as specified by e_close), the function closes
+respective fds of pipes or in/outfiles.
+*/
 void	close_fds(t_pipex *pipex, t_close flag)
 {
 	if (flag == defpipe)

@@ -6,12 +6,16 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:00:44 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/30 10:15:20 by plouda           ###   ########.fr       */
+/*   Updated: 2023/03/31 10:54:58 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
+/*
+Accepts two fds as arguments, one to be redirected from input and one to output.
+Then performs redirection using dup2.
+*/
 void	dup_in_out(int input, int output)
 {
 	if (dup2(input, STDIN_FILENO) < 0)
@@ -20,6 +24,11 @@ void	dup_in_out(int input, int output)
 		print_error();
 }
 
+/*
+Depending on whether the command accepts input from a file or a pipe,
+or whether it outputs to a pipe or to a file, the function enables redirection
+of input and output for the respective fds.
+*/
 void	set_io(t_pipex *pipex, int cmd, int argc)
 {
 	if ((cmd == 2) || (pipex->heredoc == 1 && cmd == 3))
