@@ -6,16 +6,12 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:00:44 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/31 11:05:13 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/03 10:08:32 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
-/*
-Accepts two fds as arguments, one to be redirected from input and one to output.
-Then performs redirection using dup2.
-*/
 void	dup_in_out(int input, int output)
 {
 	if (dup2(input, STDIN_FILENO) < 0)

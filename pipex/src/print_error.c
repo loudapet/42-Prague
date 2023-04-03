@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:22:25 by plouda            #+#    #+#             */
-/*   Updated: 2023/03/31 11:04:58 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/03 10:12:32 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	print_error(void)
 void	error_msg(char *c)
 {
 	write(2, "pipex: ", 7);
+	write(2, "command not found: ", 20);
 	write(2, c, ft_strlen(c));
-	write(2, ": command not found\n", 20);
+	write(2, "\n", 1);
 }
