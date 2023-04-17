@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: plouda <plouda@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/04/13 14:50:33 by plouda           ###   ########.fr        #
+#    Updated: 2023/04/17 15:38:19 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
-OBJS = obj/test.o
+OBJS = obj/test.o obj/parse_map.o
 
 LIBFTPRINTF = libftprintf
 AR = ar rc
