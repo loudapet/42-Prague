@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: plouda <plouda@student.42.fr>              +#+  +:+       +#+         #
+#    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/04/06 15:00:56 by plouda           ###   ########.fr        #
+#    Updated: 2023/04/13 14:50:33 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
-OBJS = obj/test_textures.o
+OBJS = obj/test.o
 
 LIBFTPRINTF = libftprintf
 AR = ar rc
@@ -31,6 +31,7 @@ $(NAME): $(OBJS)
 	$(GCC) $(OBJS) $(LIBFTPRINTF).a $(MLX_LIB) -o $(NAME)
 
 obj/%.o: src/%.c
+	mkdir -p obj
 	$(GCC) -c $< $(HEADERS) -o $@
 
 $(MLX_LIB):
@@ -38,7 +39,7 @@ $(MLX_LIB):
 	make -C $(MLX_DIR)/build -j4
 	
 clean:
-	rm -f $(OBJS)
+	rm -rf ./obj
 	make clean -C $(LIBFTPRINTF)
 	rm -rf $(MLX_DIR)/build
 
