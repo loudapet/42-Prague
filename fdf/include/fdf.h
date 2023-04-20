@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/17 18:35:11 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/19 14:51:39 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,28 @@
 # include <fcntl.h>
 # include <stdio.h>
 
-typedef struct s_tab
+typedef struct	s_tab
 {
-    int    **tab;
-    int     nrows;
-    int     ncols;
-}               t_tab;
+	int	**tab;
+	int	nrows;
+	int	ncols;
+}				t_tab;
+
+typedef struct	s_line
+{
+	int	x1;
+	int	x2;
+	int	y1;
+	int	y2;
+	int	cur_x;
+	int	cur_y;
+	int	flag_x;
+	int	flag_y;
+	int	dx;
+	int	dy;
+	int	err;
+}				t_line;
+
 
 t_tab parse_map(const char *path);
 
