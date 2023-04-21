@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/19 14:51:39 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/21 13:09:30 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,21 @@ typedef struct	s_tab
 	int	ncols;
 }				t_tab;
 
+typedef struct	s_vector
+{
+	int	x;
+	int	y;
+	int	z;
+	int	t;
+}				t_vector;
+
+typedef struct	s_map
+{
+	t_vector 	**vmap;
+	int			nrows;
+	int			ncols;
+}				t_map;
+
 typedef struct	s_line
 {
 	int	x1;
@@ -43,6 +58,12 @@ typedef struct	s_line
 }				t_line;
 
 
+int get_rgba(int r, int g, int b, int a);
 t_tab parse_map(const char *path);
+t_map	tab_to_vect(t_tab tab);
+
+/* utils.c */
+int		abs_val(int nb);
+void	ft_swap(t_line *line);
 
 #endif

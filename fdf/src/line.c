@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/19 15:51:05 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/21 17:16:05 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,6 @@
 #include "MLX42/MLX42.h"
 #define WIDTH 1920
 #define HEIGHT 1080
-
-int	abs_val(int nb)
-{
-	if (nb < 0)
-		nb = -nb;
-	return (nb);
-}
-
-void	ft_swap(t_line *line)
-{
-	int	tmp;
-
-	tmp = line->x1;
-	line->x1 = line->x2;
-	line->x2 = tmp;
-	tmp = line->y1;
-	line->y1 = line->y2;
-	line->y2 = tmp;
-}
 
 void	calc_direction(t_line *line)
 {
@@ -50,14 +31,30 @@ void	calc_direction(t_line *line)
 		line->flag_y = -1;
 }
 
-t_line	init_vars(void)
+void	calc_err(t_line *line, int *cur_p, int delta, int flag)
+{
+	int	decision;
+
+	if (line->dx > line->dy)
+		decision = line->dx;
+	else
+		decision = line->dy;
+	if (line->err > 0)
+	{
+		*cur_p += flag;
+		line->err -= 2 * decision;
+	}
+	line->err += 2 * delta;
+}
+
+t_line	init_vars(t_vector p1, t_vector p2)
 {
 	t_line	line;
 
-	line.x1 = 200;
-	line.x2 = 150;
-	line.y1 = 500;
-	line.y2 = 350;
+	line.x1 = p1.x;
+	line.x2 = p2.x;
+	line.y1 = p1.y;
+	line.y2 = p2.y;
 
 	if (abs_val(line.y2 - line.y1) < abs_val(line.x2 - line.x1))
 	{
@@ -77,33 +74,42 @@ t_line	init_vars(void)
 	return (line);
 }
 
-void	calc_err(t_line *line, int *cur_p, int delta, int flag)
-{
-	int	decision;
-
-	if (line->dx > line->dy)
-		decision = line->dx;
-	else
-		decision = line->dy;
-	if (line->err > 0)
-	{
-		*cur_p += flag;
-		line->err -= 2 * decision;
-	}
-	line->err += 2 * delta;
-}
-
-void draw_line(mlx_image_t *img)
+void draw_line(mlx_image_t *img, t_vector p1, t_vector p2)
 {
 	t_line	line;
+	int		color;
 
-	line = init_vars();
+	color = get_rgba(
+					254 % 0xFF, // R
+					254 % 0xFF, // G
+					254 % 0xFF, // B
+					254 % 0xFF  // A
+				);
+	if (p1.z > 0)
+	{
+		color = get_rgba(
+					1 % 0xFF, // R
+					1 % 0xFF, // G
+					1 % 0xFF, // B
+					254 % 0xFF  // A
+				);
+	}
+	if (p2.z > 0)
+	{
+		color = get_rgba(
+				1 % 0xFF, // R
+				1 % 0xFF, // G
+				1 % 0xFF, // B
+				254 % 0xFF  // A
+			);
+	}
+	line = init_vars(p1, p2);
 	if (line.dx > line.dy)
 	{
 		line.err = 2 * line.dy - line.dx;
 		while (line.cur_x < line.x2)
 		{
-			mlx_put_pixel(img, line.cur_x, line.cur_y, 1);
+			mlx_put_pixel(img, line.cur_x, line.cur_y, color);
 			line.cur_x += line.flag_x;
 			calc_err(&line, &line.cur_y, line.dy, line.flag_y);
 		}
@@ -113,12 +119,42 @@ void draw_line(mlx_image_t *img)
 		line.err = 2 * line.dx - line.dy;
 		while (line.cur_y < line.y2)
 		{
-			mlx_put_pixel(img, line.cur_x, line.cur_y, 1);
+			mlx_put_pixel(img, line.cur_x, line.cur_y, color);
 			line.cur_y += line.flag_y;
 			calc_err(&line, &line.cur_x, line.dx, line.flag_x);
 		}
 	}
+}
 
+void	create_raster(mlx_image_t *img, t_map map)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y <= map.nrows - 1)
+	{
+		x = 0;
+		while (x <= map.ncols - 1)
+		{
+			if (x == map.ncols - 1 && y == map.nrows - 1)
+				break;
+			if (x == map.ncols - 1 || y == map.nrows - 1)
+			{
+				if (x == map.ncols - 1)
+					draw_line(img, map.vmap[y][x], map.vmap[y + 1][x]);
+				if (y == map.nrows - 1)
+					draw_line(img, map.vmap[y][x], map.vmap[y][x + 1]);
+			}
+			else
+			{
+				draw_line(img, map.vmap[y][x], map.vmap[y][x + 1]);
+				draw_line(img, map.vmap[y][x], map.vmap[y + 1][x]);
+			}
+			x++;
+		}
+		y++;
+	}	
 }
 
 static void error(void)
@@ -127,8 +163,21 @@ static void error(void)
 	exit(EXIT_FAILURE);
 }
 
-int32_t	main(void)
+int32_t	main(int argc, const char **argv)
 {
+	uint32_t	x;
+	uint32_t	y;
+	int			color;
+	t_tab	map;
+	t_map	vmap;
+	
+	if (argc == 2)
+	{
+		map = parse_map(argv[1]);
+		if (!map.tab)
+			return (EXIT_FAILURE);
+		vmap = tab_to_vect(map);
+	}
 	// Start mlx
 	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "Test", true);
 	if (!mlx)
@@ -139,8 +188,24 @@ int32_t	main(void)
 	if (!img)
 		error();
 
-	// Set every pixel to white
-	memset(img->pixels, 150, img->width * img->height * sizeof(int32_t));
+	// Set every pixel to black
+	color = get_rgba(
+				1 % 0xFF, // R
+				1 % 0xFF, // G
+				1 % 0xFF, // B
+				254 % 0xFF  // A
+			);
+	x = 0;
+	while (x < img->width)
+	{
+		y = 0;
+		while (y < img->height)
+		{
+			mlx_put_pixel(img, x, y, color);
+			y++;
+		}
+		x++;
+	}
 
 	// Display an instance of the image
 	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
@@ -150,8 +215,7 @@ int32_t	main(void)
     img->instances->x += 0;
     img->instances->y += 0;
 
-	draw_line(img);
-    
+	create_raster(img, vmap);
 	mlx_loop(mlx);
 
 	// Optional, terminate will clean up any leftovers, this is just to demonstrate.

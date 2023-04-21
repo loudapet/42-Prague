@@ -6,19 +6,19 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:02:33 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/17 18:59:15 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/21 13:07:45 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	print_tab_content(int **map_array, int ncols, int iter)
+void	print_tab_content(int **map_array, int ncols, int nrows)
 {
 	int	j;
 	
 	while (j < ncols)
 	{
-		ft_printf("%d ", map_array[iter][j]);
+		ft_printf("%d ", map_array[nrows][j]);
 		j++;
 	}
 	write(1, "\n", 1);
@@ -96,7 +96,7 @@ t_tab parse_map(const char *path)
 		split_row = ft_split(row, ' ');
 		map.ncols = col_count(split_row);
 		map.tab = create_map_array(map.tab, split_row, map.ncols, i);
-		print_tab_content(map.tab, map.ncols, i);
+		//print_tab_content(map.tab, map.ncols, i);
 		row = get_next_line(map_fd);
 		free(split_row);
 		i++;
