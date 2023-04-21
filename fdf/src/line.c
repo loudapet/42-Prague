@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/21 17:16:05 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/21 19:25:09 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void draw_line(mlx_image_t *img, t_vector p1, t_vector p2)
 	if (p1.z > 0)
 	{
 		color = get_rgba(
-					1 % 0xFF, // R
+					254 % 0xFF, // R
 					1 % 0xFF, // G
 					1 % 0xFF, // B
 					254 % 0xFF  // A
@@ -97,7 +97,7 @@ void draw_line(mlx_image_t *img, t_vector p1, t_vector p2)
 	if (p2.z > 0)
 	{
 		color = get_rgba(
-				1 % 0xFF, // R
+				254 % 0xFF, // R
 				1 % 0xFF, // G
 				1 % 0xFF, // B
 				254 % 0xFF  // A
@@ -155,6 +155,75 @@ void	create_raster(mlx_image_t *img, t_map map)
 		}
 		y++;
 	}	
+}
+
+int	min_val(t_map map)
+{
+	int	min;
+	int y;
+	int x;
+	int	xcoor;
+	int	ycoor;
+	int	zcoor;
+	int	xprime;
+	int	yprime;
+
+	min = 0;
+	y = 0;
+	while (y < map.nrows)
+	{
+		x = 0;
+		while (x < map.ncols)
+		{
+			xcoor = map.vmap[y][x].x;
+			ycoor = map.vmap[y][x].y;
+			zcoor = map.vmap[y][x].z;
+			xprime = (xcoor - ycoor) * cos(0.8);
+			yprime = (xcoor + ycoor) * sin(0.8) - zcoor;
+			if (xprime < min)
+				min = xprime;
+			if (yprime < min)
+				min = yprime;
+			x++;
+		}
+		//print_vectors(map.vmap, x, y);
+		y++;
+	}
+	ft_printf("MINIMAL VAL: %d \n", min);
+	return (min);
+}
+
+t_map	set_projection(t_map map)
+{
+	int	xcoor;
+	int	ycoor;
+	int	zcoor;
+	int y;
+	int x;
+	int	xprime;
+	int	yprime;
+	int	offset;
+
+	offset = min_val(map);
+	y = 0;
+	while (y < map.nrows)
+	{
+		x = 0;
+		while (x < map.ncols)
+		{
+			xcoor = map.vmap[y][x].x;
+			ycoor = map.vmap[y][x].y;
+			zcoor = map.vmap[y][x].z;
+			xprime = (xcoor - ycoor) * cos(0.8);
+			yprime = (xcoor + ycoor) * sin(0.8) - zcoor;
+			map.vmap[y][x].x = xprime - offset;
+			map.vmap[y][x].y = yprime - offset;
+			x++;
+		}
+		print_vectors(map.vmap, x, y);
+		y++;
+	}
+	return (map);
 }
 
 static void error(void)
@@ -215,6 +284,7 @@ int32_t	main(int argc, const char **argv)
     img->instances->x += 0;
     img->instances->y += 0;
 
+	vmap = set_projection(vmap);
 	create_raster(img, vmap);
 	mlx_loop(mlx);
 

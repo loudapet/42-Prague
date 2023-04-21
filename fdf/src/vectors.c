@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:01:19 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/21 17:15:59 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/21 19:28:55 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_vector	**create_vectors(t_vector **vmap, int **tab, int ncols, int nrow)
 	int			scale;
 
 	i = 0;
-	scale = 50;
+	scale = 20;
 	vmap[nrow] = malloc(ncols * sizeof(t_vector));
 	if (!vmap[nrow])
 		return (NULL);
@@ -77,7 +77,7 @@ t_map	tab_to_vect(t_tab tab)
 	while (y < tab.nrows)
 	{
 		map.vmap = create_vectors(map.vmap, tab.tab, tab.ncols, y);
-		print_vectors(map.vmap, tab.ncols, y);
+		//print_vectors(map.vmap, tab.ncols, y);
 		y++;
 	}
 	map.ncols = tab.ncols;

@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/21 13:09:30 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/21 18:02:15 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <math.h>
 
 typedef struct	s_tab
 {
@@ -57,7 +58,7 @@ typedef struct	s_line
 	int	err;
 }				t_line;
 
-
+void	print_vectors(t_vector **vmap, int ncols, int nrows);
 int get_rgba(int r, int g, int b, int a);
 t_tab parse_map(const char *path);
 t_map	tab_to_vect(t_tab tab);
