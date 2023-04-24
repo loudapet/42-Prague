@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/21 19:25:09 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/24 18:54:54 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,43 +156,7 @@ void	create_raster(mlx_image_t *img, t_map map)
 		y++;
 	}	
 }
-
-int	min_val(t_map map)
-{
-	int	min;
-	int y;
-	int x;
-	int	xcoor;
-	int	ycoor;
-	int	zcoor;
-	int	xprime;
-	int	yprime;
-
-	min = 0;
-	y = 0;
-	while (y < map.nrows)
-	{
-		x = 0;
-		while (x < map.ncols)
-		{
-			xcoor = map.vmap[y][x].x;
-			ycoor = map.vmap[y][x].y;
-			zcoor = map.vmap[y][x].z;
-			xprime = (xcoor - ycoor) * cos(0.8);
-			yprime = (xcoor + ycoor) * sin(0.8) - zcoor;
-			if (xprime < min)
-				min = xprime;
-			if (yprime < min)
-				min = yprime;
-			x++;
-		}
-		//print_vectors(map.vmap, x, y);
-		y++;
-	}
-	ft_printf("MINIMAL VAL: %d \n", min);
-	return (min);
-}
-
+/*
 t_map	set_projection(t_map map)
 {
 	int	xcoor;
@@ -214,10 +178,10 @@ t_map	set_projection(t_map map)
 			xcoor = map.vmap[y][x].x;
 			ycoor = map.vmap[y][x].y;
 			zcoor = map.vmap[y][x].z;
-			xprime = (xcoor - ycoor) * cos(0.8);
-			yprime = (xcoor + ycoor) * sin(0.8) - zcoor;
-			map.vmap[y][x].x = xprime - offset;
-			map.vmap[y][x].y = yprime - offset;
+			xprime = (xcoor - ycoor) * cos(0.78);
+			yprime = (xcoor + ycoor) * sin(0.78) - zcoor;
+			map.vmap[y][x].x = xprime + abs_val(offset);
+			map.vmap[y][x].y = yprime + abs_val(offset);
 			x++;
 		}
 		print_vectors(map.vmap, x, y);
@@ -225,7 +189,7 @@ t_map	set_projection(t_map map)
 	}
 	return (map);
 }
-
+*/
 static void error(void)
 {
 	puts(mlx_strerror(mlx_errno));
@@ -284,7 +248,11 @@ int32_t	main(int argc, const char **argv)
     img->instances->x += 0;
     img->instances->y += 0;
 
-	vmap = set_projection(vmap);
+	translate_vertices(&vmap, img);
+	rotate_vertices(&vmap);
+	recenter_map(&vmap);
+	translate_vertices_iso(&vmap, img);
+	//vmap = set_projection(vmap);
 	create_raster(img, vmap);
 	mlx_loop(mlx);
 

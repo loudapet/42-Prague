@@ -6,12 +6,12 @@
 #    By: plouda <plouda@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/04/20 15:07:00 by plouda           ###   ########.fr        #
+#    Updated: 2023/04/24 10:37:56 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
-OBJS = obj/line.o obj/utils.o obj/parse_map.o obj/vectors.o
+OBJS = obj/line.o obj/utils.o obj/parse_map.o obj/vectors.o obj/model_matrix.o
 
 LIBFTPRINTF = libftprintf
 AR = ar rc

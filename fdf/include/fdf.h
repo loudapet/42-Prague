@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/21 18:02:15 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/24 18:54:20 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <math.h>
+#include "MLX42/MLX42.h"
 
 typedef struct	s_tab
 {
@@ -58,13 +59,32 @@ typedef struct	s_line
 	int	err;
 }				t_line;
 
+typedef struct	s_mid
+{
+	int	mid_y;
+	int	mid_x;
+}				t_mid;
+
+
+
 void	print_vectors(t_vector **vmap, int ncols, int nrows);
 int get_rgba(int r, int g, int b, int a);
 t_tab parse_map(const char *path);
 t_map	tab_to_vect(t_tab tab);
+void	translate_vertices(t_map *map, mlx_image_t *img);
+void	rotate_vertices(t_map *map);
+void	recenter_map(t_map *map);
+void	translate_vertices_iso(t_map *map, mlx_image_t *img);
 
 /* utils.c */
 int		abs_val(int nb);
 void	ft_swap(t_line *line);
+int		max_val(t_map map);
+int		min_val(t_map map);
+int	max_x(t_map map);
+int	min_x(t_map map);
+int	max_y(t_map map);
+int	min_y(t_map map);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:02:33 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/21 13:07:45 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/24 18:49:54 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	**create_map_array(int **map_array, char **split_row, int count, int nrow)
 	while (i < count)
 	{
 		map_array[nrow][i] = ft_atoi(split_row[i]);
-		//ft_printf("Element %d saved: %d\n", elem++, map_array[nrow][i]);
+		//ft_printf("Element saved: %d\n", map_array[nrow][i]);
 		i++;
 	}
 	return (map_array);
@@ -84,7 +84,7 @@ t_tab parse_map(const char *path)
 	i = 0;
 	map.nrows = row_count(path);
 	map_fd = open(path, O_RDONLY);
-	map.tab = malloc(map.nrows * sizeof(int));
+	map.tab = malloc(map.nrows * sizeof(int **));
 	if (!map.tab)
 	{
 		map.tab = NULL;
