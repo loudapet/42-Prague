@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   model_matrix.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:27:00 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/24 18:55:09 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 08:56:38 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,6 @@ of the screen to the middle of the screen */
 
 t_mid	get_midpoint(t_map map)
 {
-	int		row;
-	int		col;
-	t_mid	mid;
-
-	row = map.nrows - 1;
-	col = map.ncols - 1;
-	mid.mid_x = map.vmap[row][col].x / 2;
-	mid.mid_y = map.vmap[row][col].y / 2;
-	ft_printf("MID X: %d, MID Y: %d\n", mid.mid_x, mid.mid_y);
-	return (mid);
-}
-
-t_mid	get_midpoint_iso(t_map map)
-{
 	t_mid	mid;
 
 	mid.mid_x = max_x(map) / 2;
@@ -39,13 +25,13 @@ t_mid	get_midpoint_iso(t_map map)
 	return (mid);
 }
 
-void	translate_vertices_iso(t_map *map, mlx_image_t *img)
+void	translate_vertices(t_map *map, mlx_image_t *img)
 {
 	t_mid	mid;
 	int		row;
 	int		col;
 
-	mid = get_midpoint_iso(*map);
+	mid = get_midpoint(*map);
 	row = 0;
 	while (row < map->nrows)
 	{
@@ -61,7 +47,7 @@ void	translate_vertices_iso(t_map *map, mlx_image_t *img)
 	}
 }
 
-void	translate_vertices(t_map *map, mlx_image_t *img)
+void	translate_vertices_iso(t_map *map, mlx_image_t *img)
 {
 	t_mid	mid;
 	int		row;
