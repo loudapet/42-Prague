@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:27:00 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 14:13:06 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 14:29:41 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_mid	get_midpoint(t_map map)
 
 	mid.mid_x = (max_x(map) + min_x(map)) / 2;
 	mid.mid_y = (max_y(map) + min_y(map)) / 2;
-	ft_printf("MID X: %d, MID Y: %d\n", mid.mid_x, mid.mid_y);
+	printf("MID X: %f, MID Y: %f\n", mid.mid_x, mid.mid_y);
 	return (mid);
 }
 
@@ -55,8 +55,7 @@ void	scale_vertices(t_map *map, mlx_image_t *img)
 	float	scale_x;
 	float	scale_y;
 
-	if (img)
-		limits = get_dimensions(*map);
+	limits = get_dimensions(*map);
 	row = 0;
 	while (row < map->nrows)
 	{
@@ -81,8 +80,8 @@ void	scale_vertices(t_map *map, mlx_image_t *img)
 		col = 0;
 		while (col < map->ncols)
 		{
-			map->vmap[row][col].x = (float)map->vmap[row][col].x * scale_x;
-			map->vmap[row][col].y = (float)map->vmap[row][col].y * scale_y;
+			map->vmap[row][col].x = map->vmap[row][col].x * scale_x;
+			map->vmap[row][col].y = map->vmap[row][col].y * scale_y;
 			col++;
 		}
 		ft_printf("AFTER SCALING\n");

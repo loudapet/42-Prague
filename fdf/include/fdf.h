@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 13:00:00 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 14:20:19 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ typedef struct	s_tab
 
 typedef struct	s_vector
 {
-	int	x;
-	int	y;
-	int	z;
-	int	t;
+	float	x;
+	float	y;
+	float	z;
+	float	t;
 }				t_vector;
 
 typedef struct	s_map
@@ -61,16 +61,16 @@ typedef struct	s_line
 
 typedef struct	s_mid
 {
-	int	mid_y;
-	int	mid_x;
+	float	mid_y;
+	float	mid_x;
 }				t_mid;
 
 typedef struct	s_limits
 {
-	int	x_min;
-	int	y_min;
-	int	x_max;
-	int	y_max;
+	float	x_min;
+	float	y_min;
+	float	x_max;
+	float	y_max;
 }				t_limits;
 
 
@@ -88,12 +88,12 @@ void	scale_vertices(t_map *map, mlx_image_t *img);
 /* utils.c */
 int		abs_val(int nb);
 void	ft_swap(t_line *line);
-int		max_val(t_map map);
-int		min_val(t_map map);
-int	max_x(t_map map);
-int	min_x(t_map map);
-int	max_y(t_map map);
-int	min_y(t_map map);
+float		max_val(t_map map);
+float		min_val(t_map map);
+float	max_x(t_map map);
+float	min_x(t_map map);
+float	max_y(t_map map);
+float	min_y(t_map map);
 t_limits	get_dimensions(t_map map);
 
 

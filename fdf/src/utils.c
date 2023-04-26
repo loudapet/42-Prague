@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 11:09:17 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 09:40:35 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 14:25:18 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ int get_rgba(int r, int g, int b, int a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-int	min_x(t_map map)
+float	min_x(t_map map)
 {
-	int	min;
+	float	min;
 	int y;
 	int x;
-	int	xcoor;
+	float	xcoor;
 
 	min = map.vmap[0][0].x;
 	y = 0;
@@ -57,16 +57,16 @@ int	min_x(t_map map)
 		}
 		y++;
 	}
-	ft_printf("MINIMUM X VAL: %d \n", min);
+	printf("MINIMUM X VAL: %f \n", min);
 	return (min);
 }
 
-int	min_y(t_map map)
+float	min_y(t_map map)
 {
-	int	min;
+	float	min;
 	int y;
 	int x;
-	int	ycoor;
+	float	ycoor;
 
 	min = map.vmap[0][0].y;
 	y = 0;
@@ -82,16 +82,16 @@ int	min_y(t_map map)
 		}
 		y++;
 	}
-	ft_printf("MINIMUM Y VAL: %d \n", min);
+	printf("MINIMUM Y VAL: %f \n", min);
 	return (min);
 }
 
-int	max_x(t_map map)
+float	max_x(t_map map)
 {
-	int	max;
+	float	max;
 	int y;
 	int x;
-	int	xcoor;
+	float	xcoor;
 
 	max = map.vmap[0][0].x;
 	y = 0;
@@ -107,16 +107,16 @@ int	max_x(t_map map)
 		}
 		y++;
 	}
-	ft_printf("MAXIMUM X VAL: %d \n", max);
+	printf("MAXIMUM X VAL: %f \n", max);
 	return (max);
 }
 
-int	max_y(t_map map)
+float	max_y(t_map map)
 {
-	int	max;
+	float	max;
 	int y;
 	int x;
-	int	ycoor;
+	float	ycoor;
 
 	max = map.vmap[0][0].y;
 	y = 0;
@@ -132,7 +132,7 @@ int	max_y(t_map map)
 		}
 		y++;
 	}
-	ft_printf("MAXIMUM Y VAL: %d \n", max);
+	printf("MAXIMUM Y VAL: %f \n", max);
 	return (max);
 }
 
@@ -147,16 +147,16 @@ t_limits	get_dimensions(t_map map)
 	return(limits);
 }
 
-int	min_val(t_map map)
+float	min_val(t_map map)
 {
-	int	min;
+	float	min;
 	int y;
 	int x;
-	int	xcoor;
-	int	ycoor;
-	int	zcoor;
-	int	xprime;
-	int	yprime;
+	float	xcoor;
+	float	ycoor;
+	float	zcoor;
+	float	xprime;
+	float	yprime;
 
 	min = 0;
 	y = 0;
@@ -178,20 +178,20 @@ int	min_val(t_map map)
 		}
 		y++;
 	}
-	ft_printf("MINIMUM VAL: %d \n", min);
+	printf("MINIMUM VAL: %f \n", min);
 	return (min);
 }
 
-int	max_val(t_map map)
+float	max_val(t_map map)
 {
-	int	max;
+	float	max;
 	int y;
 	int x;
-	int	xcoor;
-	int	ycoor;
-	int	zcoor;
-	int	xprime;
-	int	yprime;
+	float	xcoor;
+	float	ycoor;
+	float	zcoor;
+	float	xprime;
+	float	yprime;
 
 	max = 0;
 	y = 0;
@@ -213,6 +213,6 @@ int	max_val(t_map map)
 		}
 		y++;
 	}
-	ft_printf("MAXIMUM VAL: %d \n", max);
+	printf("MAXIMUM VAL: %f \n", max);
 	return (max);
 }

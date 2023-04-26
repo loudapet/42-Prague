@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 14:13:52 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 14:30:15 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ t_line	init_vars(t_vector p1, t_vector p2)
 {
 	t_line	line;
 
-	line.x1 = p1.x;
-	line.x2 = p2.x;
-	line.y1 = p1.y;
-	line.y2 = p2.y;
+	line.x1 = (int)p1.x;
+	line.x2 = (int)p2.x;
+	line.y1 = (int)p1.y;
+	line.y2 = (int)p2.y;
 
 	if (abs_val(line.y2 - line.y1) < abs_val(line.x2 - line.x1))
 	{
@@ -218,7 +218,7 @@ int32_t	main(int argc, const char **argv)
 	translate_vertices(&vmap, img);
 	rotate_vertices(&vmap);
 	//recenter_map(&vmap);
-	translate_vertices(&vmap, img);
+	//translate_vertices(&vmap, img);
 	scale_vertices(&vmap, img);
 	//recenter_map(&vmap);
 	translate_vertices(&vmap, img);

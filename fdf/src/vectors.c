@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:01:19 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 14:13:42 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 14:23:03 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	print_vectors(t_vector **vmap, int ncols, int nrows)
 	ft_printf("t \n");
 	while (j < ncols)
 	{
-		ft_printf("(%d, ", vmap[nrows][j].x);
-		ft_printf("%d, ", vmap[nrows][j].y);
-		ft_printf("%d, ", vmap[nrows][j].z);
-		ft_printf("%d)\n", vmap[nrows][j].t);
+		printf("(%f, ", vmap[nrows][j].x);
+		printf("%f, ", vmap[nrows][j].y);
+		printf("%f, ", vmap[nrows][j].z);
+		printf("%f)\n", vmap[nrows][j].t);
 		j++;
 	}
 	write(1, "\n", 1);
@@ -39,7 +39,7 @@ t_vector	**create_vectors(t_vector **vmap, int **tab, int ncols, int nrow)
 	int			scale;
 
 	i = 0;
-	scale = 1000;
+	scale = 1;
 	vmap[nrow] = malloc(ncols * sizeof(t_vector));
 	if (!vmap[nrow])
 		return (NULL);
