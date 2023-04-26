@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 14:31:34 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 15:18:01 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,9 @@ void draw_line(mlx_image_t *img, t_vector p1, t_vector p2)
 		line.err = 2 * line.dy - line.dx;
 		while (line.cur_x < line.x2)
 		{
-			mlx_put_pixel(img, line.cur_x, line.cur_y, color);
+			if ((line.cur_x >= 0 && line.cur_y >= 0)
+				&& (line.cur_x < (int)img->width && line.cur_y < (int)img->height))
+				mlx_put_pixel(img, line.cur_x, line.cur_y, color);
 			line.cur_x += line.flag_x;
 			calc_err(&line, &line.cur_y, line.dy, line.flag_y);
 		}
@@ -119,7 +121,9 @@ void draw_line(mlx_image_t *img, t_vector p1, t_vector p2)
 		line.err = 2 * line.dx - line.dy;
 		while (line.cur_y < line.y2)
 		{
-			mlx_put_pixel(img, line.cur_x, line.cur_y, color);
+			if ((line.cur_x >= 0 && line.cur_y >= 0)
+				&& (line.cur_x < (int)img->width && line.cur_y < (int)img->height))
+				mlx_put_pixel(img, line.cur_x, line.cur_y, color);
 			line.cur_y += line.flag_y;
 			calc_err(&line, &line.cur_x, line.dx, line.flag_x);
 		}
@@ -215,10 +219,10 @@ int32_t	main(int argc, const char **argv)
     img->instances->x += 0;
     img->instances->y += 0;
 
-	translate_vertices(&vmap, img);
+	recenter_vertices(&vmap, img);
 	rotate_vertices(&vmap);
 	scale_vertices(&vmap, img);
-	translate_vertices(&vmap, img);
+	recenter_vertices(&vmap, img);
 	create_raster(img, vmap);
 	mlx_loop(mlx);
 

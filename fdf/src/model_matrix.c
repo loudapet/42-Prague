@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:27:00 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 14:31:21 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 15:17:36 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_mid	get_midpoint(t_map map)
 	return (mid);
 }
 
-void	translate_vertices(t_map *map, mlx_image_t *img)
+void	recenter_vertices(t_map *map, mlx_image_t *img)
 {
 	t_mid	mid;
 	int		row;
