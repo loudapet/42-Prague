@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:27:00 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 08:56:38 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 09:09:52 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,35 +47,14 @@ void	translate_vertices(t_map *map, mlx_image_t *img)
 	}
 }
 
-void	translate_vertices_iso(t_map *map, mlx_image_t *img)
-{
-	t_mid	mid;
-	int		row;
-	int		col;
-
-	mid = get_midpoint(*map);
-	row = 0;
-	while (row < map->nrows)
-	{
-		col = 0;
-		while (col < map->ncols)
-		{
-			map->vmap[row][col].x += (img->width / 2) - mid.mid_x;
-			map->vmap[row][col].y += (img->height / 2) - mid.mid_y;
-			col++;
-		}
-		//print_vectors(map->vmap, map->ncols, row);
-		row++;
-	}
-}
-
 /* 45 deg along y-axis, then 45 deg along x-axis.
 Thought process: z-component isn't actually a proper z-component, we only work with
 2D vectors in reality (or rather, it's the same for every vector, and we ignore it).
 Therefore, we only use those parts of the rotation matrix that concern x- and y-components,
 and since the x-component when rotating around x-axis is 0, and the same goes for y-component
 and y-axis, the only thing left is cos(theta).
-The gap: https://clintbellanger.net/articles/isometric_math/. (why is cos(0.785) the same as TILE_HEIGHT and TILE_WIDTH?)
+The gap: https://clintbellanger.net/articles/isometric_math/. (why is cos(0.8) and sin(0.8)
+the same as TILE_HEIGHT and TILE_WIDTH?)
 We subtract 'z' from y to simulate altitude.
  */
 void	rotate_vertices(t_map *map)
@@ -97,7 +76,7 @@ void	rotate_vertices(t_map *map)
 	}
 }
 
-void	recenter_map(t_map *map)
+void	recenter_map(t_map *map, mlx_image_t *img)
 {	
 	int	row;
 	int	col;
@@ -119,4 +98,5 @@ void	recenter_map(t_map *map)
 		//print_vectors(map->vmap, map->ncols, row);
 		row++;
 	}
+	translate_vertices(map, img);
 }

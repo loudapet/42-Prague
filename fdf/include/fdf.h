@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/24 18:54:20 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 09:09:03 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ t_tab parse_map(const char *path);
 t_map	tab_to_vect(t_tab tab);
 void	translate_vertices(t_map *map, mlx_image_t *img);
 void	rotate_vertices(t_map *map);
-void	recenter_map(t_map *map);
-void	translate_vertices_iso(t_map *map, mlx_image_t *img);
+void	recenter_map(t_map *map, mlx_image_t *img);
 
 /* utils.c */
 int		abs_val(int nb);

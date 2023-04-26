@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/24 18:54:54 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 09:08:42 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,40 +156,7 @@ void	create_raster(mlx_image_t *img, t_map map)
 		y++;
 	}	
 }
-/*
-t_map	set_projection(t_map map)
-{
-	int	xcoor;
-	int	ycoor;
-	int	zcoor;
-	int y;
-	int x;
-	int	xprime;
-	int	yprime;
-	int	offset;
 
-	offset = min_val(map);
-	y = 0;
-	while (y < map.nrows)
-	{
-		x = 0;
-		while (x < map.ncols)
-		{
-			xcoor = map.vmap[y][x].x;
-			ycoor = map.vmap[y][x].y;
-			zcoor = map.vmap[y][x].z;
-			xprime = (xcoor - ycoor) * cos(0.78);
-			yprime = (xcoor + ycoor) * sin(0.78) - zcoor;
-			map.vmap[y][x].x = xprime + abs_val(offset);
-			map.vmap[y][x].y = yprime + abs_val(offset);
-			x++;
-		}
-		print_vectors(map.vmap, x, y);
-		y++;
-	}
-	return (map);
-}
-*/
 static void error(void)
 {
 	puts(mlx_strerror(mlx_errno));
@@ -250,9 +217,7 @@ int32_t	main(int argc, const char **argv)
 
 	translate_vertices(&vmap, img);
 	rotate_vertices(&vmap);
-	recenter_map(&vmap);
-	translate_vertices_iso(&vmap, img);
-	//vmap = set_projection(vmap);
+	recenter_map(&vmap, img);
 	create_raster(img, vmap);
 	mlx_loop(mlx);
 
