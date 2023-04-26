@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:27:00 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 14:29:41 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 14:31:21 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,30 +115,6 @@ void	rotate_vertices(t_map *map)
 			map->vmap[row][col].y = (float)(map->vmap[row][col].x + map->vmap[row][col].y) * sin(0.8) - (float)map->vmap[row][col].z;
 			col++;
 		}
-		row++;
-	}
-}
-
-void	recenter_map(t_map *map)
-{	
-	int	row;
-	int	col;
-	int	x_off;
-	int	y_off;
-
-	x_off = min_x(*map);
-	y_off = min_y(*map);
-	row = 0;
-	while (row < map->nrows)
-	{
-		col = 0;
-		while (col < map->ncols)
-		{
-			map->vmap[row][col].x -= x_off;
-			map->vmap[row][col].y -= y_off;
-			col++;
-		}
-		//print_vectors(map->vmap, map->ncols, row);
 		row++;
 	}
 }

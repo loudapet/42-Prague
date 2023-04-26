@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 14:30:15 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 14:31:34 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,10 +217,7 @@ int32_t	main(int argc, const char **argv)
 
 	translate_vertices(&vmap, img);
 	rotate_vertices(&vmap);
-	//recenter_map(&vmap);
-	//translate_vertices(&vmap, img);
 	scale_vertices(&vmap, img);
-	//recenter_map(&vmap);
 	translate_vertices(&vmap, img);
 	create_raster(img, vmap);
 	mlx_loop(mlx);

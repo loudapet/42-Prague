@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 14:20:19 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 14:31:38 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ t_tab parse_map(const char *path);
 t_map	tab_to_vect(t_tab tab);
 void	translate_vertices(t_map *map, mlx_image_t *img);
 void	rotate_vertices(t_map *map);
-void	recenter_map(t_map *map);
 void	scale_vertices(t_map *map, mlx_image_t *img);
 
 /* utils.c */
