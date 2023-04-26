@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 11:09:17 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 14:25:18 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 15:24:25 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,74 +145,4 @@ t_limits	get_dimensions(t_map map)
 	limits.x_max = max_x(map);
 	limits.y_max = max_y(map);
 	return(limits);
-}
-
-float	min_val(t_map map)
-{
-	float	min;
-	int y;
-	int x;
-	float	xcoor;
-	float	ycoor;
-	float	zcoor;
-	float	xprime;
-	float	yprime;
-
-	min = 0;
-	y = 0;
-	while (y < map.nrows)
-	{
-		x = 0;
-		while (x < map.ncols)
-		{
-			xcoor = map.vmap[y][x].x;
-			ycoor = map.vmap[y][x].y;
-			zcoor = map.vmap[y][x].z;
-			xprime = (xcoor - ycoor) * cos(0.8);
-			yprime = (xcoor + ycoor) * sin(0.8) - zcoor;
-			if (xprime < min)
-				min = xprime;
-			if (yprime < min)
-				min = yprime;
-			x++;
-		}
-		y++;
-	}
-	printf("MINIMUM VAL: %f \n", min);
-	return (min);
-}
-
-float	max_val(t_map map)
-{
-	float	max;
-	int y;
-	int x;
-	float	xcoor;
-	float	ycoor;
-	float	zcoor;
-	float	xprime;
-	float	yprime;
-
-	max = 0;
-	y = 0;
-	while (y < map.nrows)
-	{
-		x = 0;
-		while (x < map.ncols)
-		{
-			xcoor = map.vmap[y][x].x;
-			ycoor = map.vmap[y][x].y;
-			zcoor = map.vmap[y][x].z;
-			xprime = (xcoor - ycoor) * cos(0.8);
-			yprime = (xcoor + ycoor) * sin(0.8) - zcoor;
-			if (xprime > max)
-				max = xprime;
-			if (yprime > max)
-				max = yprime;
-			x++;
-		}
-		y++;
-	}
-	printf("MAXIMUM VAL: %f \n", max);
-	return (max);
 }

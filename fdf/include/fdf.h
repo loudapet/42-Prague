@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 15:18:11 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 15:24:32 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ void	scale_vertices(t_map *map, mlx_image_t *img);
 /* utils.c */
 int		abs_val(int nb);
 void	ft_swap(t_line *line);
-float		max_val(t_map map);
-float		min_val(t_map map);
 float	max_x(t_map map);
 float	min_x(t_map map);
 float	max_y(t_map map);
