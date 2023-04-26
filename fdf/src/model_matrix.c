@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:27:00 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 09:09:52 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 14:13:06 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ t_mid	get_midpoint(t_map map)
 {
 	t_mid	mid;
 
-	mid.mid_x = max_x(map) / 2;
-	mid.mid_y = max_y(map) / 2;
-	ft_printf("ISO MID X: %d, ISO MID Y: %d\n", mid.mid_x, mid.mid_y);
+	mid.mid_x = (max_x(map) + min_x(map)) / 2;
+	mid.mid_y = (max_y(map) + min_y(map)) / 2;
+	ft_printf("MID X: %d, MID Y: %d\n", mid.mid_x, mid.mid_y);
 	return (mid);
 }
 
@@ -42,7 +42,51 @@ void	translate_vertices(t_map *map, mlx_image_t *img)
 			map->vmap[row][col].y += (img->height / 2) - mid.mid_y;
 			col++;
 		}
-		//print_vectors(map->vmap, map->ncols, row);
+		print_vectors(map->vmap, map->ncols, row);
+		row++;
+	}
+}
+
+void	scale_vertices(t_map *map, mlx_image_t *img)
+{
+	int	row;
+	int	col;
+	t_limits	limits;
+	float	scale_x;
+	float	scale_y;
+
+	if (img)
+		limits = get_dimensions(*map);
+	row = 0;
+	while (row < map->nrows)
+	{
+		col = 0;
+		while (col < map->ncols)
+		{
+			map->vmap[row][col].x -= limits.x_min;
+			map->vmap[row][col].y -= limits.y_min;
+			col++;
+		}
+		ft_printf("AFTER ORIGIN 0,0 RESET\n");
+		print_vectors(map->vmap, map->ncols, row);
+		row++;
+	}
+	limits = get_dimensions(*map);
+	scale_x = ((float)img->width  / limits.x_max) * 0.9;
+	scale_y = ((float)img->height / limits.y_max) * 0.9;
+	printf("SCALE X: %f, SCALE Y: %f\n", scale_x, scale_y);
+	row = 0;
+	while (row < map->nrows)
+	{
+		col = 0;
+		while (col < map->ncols)
+		{
+			map->vmap[row][col].x = (float)map->vmap[row][col].x * scale_x;
+			map->vmap[row][col].y = (float)map->vmap[row][col].y * scale_y;
+			col++;
+		}
+		ft_printf("AFTER SCALING\n");
+		print_vectors(map->vmap, map->ncols, row);
 		row++;
 	}
 }
@@ -68,15 +112,15 @@ void	rotate_vertices(t_map *map)
 		col = 0;
 		while (col < map->ncols)
 		{
-			map->vmap[row][col].x = (map->vmap[row][col].x - map->vmap[row][col].y) * cos(0.8);
-			map->vmap[row][col].y = (map->vmap[row][col].x + map->vmap[row][col].y) * sin(0.8) - map->vmap[row][col].z;
+			map->vmap[row][col].x = (float)(map->vmap[row][col].x - map->vmap[row][col].y) * cos(0.8);
+			map->vmap[row][col].y = (float)(map->vmap[row][col].x + map->vmap[row][col].y) * sin(0.8) - (float)map->vmap[row][col].z;
 			col++;
 		}
 		row++;
 	}
 }
 
-void	recenter_map(t_map *map, mlx_image_t *img)
+void	recenter_map(t_map *map)
 {	
 	int	row;
 	int	col;
@@ -98,5 +142,4 @@ void	recenter_map(t_map *map, mlx_image_t *img)
 		//print_vectors(map->vmap, map->ncols, row);
 		row++;
 	}
-	translate_vertices(map, img);
 }

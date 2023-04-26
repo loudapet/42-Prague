@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 11:09:17 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/24 18:28:08 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 09:40:35 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,17 @@ int	max_y(t_map map)
 	}
 	ft_printf("MAXIMUM Y VAL: %d \n", max);
 	return (max);
+}
+
+t_limits	get_dimensions(t_map map)
+{
+	t_limits	limits;
+
+	limits.x_min = min_x(map);
+	limits.y_min = min_y(map);
+	limits.x_max = max_x(map);
+	limits.y_max = max_y(map);
+	return(limits);
 }
 
 int	min_val(t_map map)

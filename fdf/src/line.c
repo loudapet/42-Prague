@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 09:08:42 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 14:13:52 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include <stdlib.h>
 #include <memory.h>
 #include "MLX42/MLX42.h"
-#define WIDTH 1920
-#define HEIGHT 1080
+#define WIDTH 1600
+#define HEIGHT 900
 
 void	calc_direction(t_line *line)
 {
@@ -217,7 +217,11 @@ int32_t	main(int argc, const char **argv)
 
 	translate_vertices(&vmap, img);
 	rotate_vertices(&vmap);
-	recenter_map(&vmap, img);
+	//recenter_map(&vmap);
+	translate_vertices(&vmap, img);
+	scale_vertices(&vmap, img);
+	//recenter_map(&vmap);
+	translate_vertices(&vmap, img);
 	create_raster(img, vmap);
 	mlx_loop(mlx);
 

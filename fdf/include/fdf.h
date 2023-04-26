@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 09:09:03 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 13:00:00 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,15 @@ typedef struct	s_mid
 	int	mid_x;
 }				t_mid;
 
+typedef struct	s_limits
+{
+	int	x_min;
+	int	y_min;
+	int	x_max;
+	int	y_max;
+}				t_limits;
+
+
 
 
 void	print_vectors(t_vector **vmap, int ncols, int nrows);
@@ -73,7 +82,8 @@ t_tab parse_map(const char *path);
 t_map	tab_to_vect(t_tab tab);
 void	translate_vertices(t_map *map, mlx_image_t *img);
 void	rotate_vertices(t_map *map);
-void	recenter_map(t_map *map, mlx_image_t *img);
+void	recenter_map(t_map *map);
+void	scale_vertices(t_map *map, mlx_image_t *img);
 
 /* utils.c */
 int		abs_val(int nb);
@@ -84,6 +94,7 @@ int	max_x(t_map map);
 int	min_x(t_map map);
 int	max_y(t_map map);
 int	min_y(t_map map);
+t_limits	get_dimensions(t_map map);
 
 
 #endif

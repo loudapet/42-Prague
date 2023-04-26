@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vectors.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:01:19 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/24 18:04:33 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/26 14:13:42 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_vector	**create_vectors(t_vector **vmap, int **tab, int ncols, int nrow)
 	int			scale;
 
 	i = 0;
-	scale = 20;
+	scale = 1000;
 	vmap[nrow] = malloc(ncols * sizeof(t_vector));
 	if (!vmap[nrow])
 		return (NULL);
@@ -53,7 +53,7 @@ t_vector	**create_vectors(t_vector **vmap, int **tab, int ncols, int nrow)
 			vector.y = nrow;
 		else
 			vector.y = nrow * scale;
-		vector.z = tab[nrow][i]; // what if I don't scale this?
+		vector.z = tab[nrow][i] * scale; // what if I don't scale this?
 		vector.t = 1;
 		vmap[nrow][i] = vector;
 		i++;
