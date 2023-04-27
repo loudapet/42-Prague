@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:02:33 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/24 18:49:54 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/27 17:27:30 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	row_count(const char *path)
 	row = get_next_line(map_fd);
 	while (row)
 	{
+		free(row);
 		row = get_next_line(map_fd);
 		i++;
 	}
@@ -84,7 +85,7 @@ t_tab parse_map(const char *path)
 	i = 0;
 	map.nrows = row_count(path);
 	map_fd = open(path, O_RDONLY);
-	map.tab = malloc(map.nrows * sizeof(int **));
+	map.tab = malloc(map.nrows * sizeof(int *));
 	if (!map.tab)
 	{
 		map.tab = NULL;
@@ -97,8 +98,9 @@ t_tab parse_map(const char *path)
 		map.ncols = col_count(split_row);
 		map.tab = create_map_array(map.tab, split_row, map.ncols, i);
 		//print_tab_content(map.tab, map.ncols, i);
+		free(row);
+		free_split(split_row);
 		row = get_next_line(map_fd);
-		free(split_row);
 		i++;
 	}
 	free(row);

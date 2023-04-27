@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 15:24:32 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/27 17:46:50 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ t_map	tab_to_vect(t_tab tab);
 void	recenter_vertices(t_map *map, mlx_image_t *img);
 void	rotate_vertices(t_map *map);
 void	scale_vertices(t_map *map, mlx_image_t *img);
+void	free_tab(t_tab tab);
 
 /* utils.c */
 int		abs_val(int nb);
@@ -89,6 +90,7 @@ float	min_x(t_map map);
 float	max_y(t_map map);
 float	min_y(t_map map);
 t_limits	get_dimensions(t_map map);
-
+void	free_split(char **str);
+void	free_map(t_map map);
 
 #endif

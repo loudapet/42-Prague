@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:01:19 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 14:23:03 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/27 17:38:26 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_map	tab_to_vect(t_tab tab)
 	t_map		map;
 	int			y;
 
-	map.vmap = malloc(sizeof(t_map) * tab.nrows);
+	map.vmap = malloc(sizeof(t_vector *) * tab.nrows);
 	if (map.vmap == 0)
 	{
 		map.vmap = NULL;
@@ -81,5 +81,6 @@ t_map	tab_to_vect(t_tab tab)
 	}
 	map.ncols = tab.ncols;
 	map.nrows = tab.nrows;
+	free_tab(tab);
 	return (map);
 }
