@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/27 17:46:50 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/27 17:54:24 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct	s_vector
 	float	x;
 	float	y;
 	float	z;
-	float	t;
 }				t_vector;
 
 typedef struct	s_map

@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:01:19 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/27 17:38:26 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/27 17:56:48 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@ void	print_vectors(t_vector **vmap, int ncols, int nrows)
 	j = 0;
 	ft_printf(" x, ");
 	ft_printf("y, ");
-	ft_printf("z, ");
-	ft_printf("t \n");
+	ft_printf("z \n");
 	while (j < ncols)
 	{
 		printf("(%f, ", vmap[nrows][j].x);
 		printf("%f, ", vmap[nrows][j].y);
-		printf("%f, ", vmap[nrows][j].z);
-		printf("%f)\n", vmap[nrows][j].t);
+		printf("%f) \n", vmap[nrows][j].z);
 		j++;
 	}
 	write(1, "\n", 1);
@@ -36,25 +34,17 @@ t_vector	**create_vectors(t_vector **vmap, int **tab, int ncols, int nrow)
 {
 	int			i;
 	t_vector	vector;
-	int			scale;
 
 	i = 0;
-	scale = 1;
 	vmap[nrow] = malloc(ncols * sizeof(t_vector));
 	if (!vmap[nrow])
 		return (NULL);
 	while (i < ncols)
 	{
-		if (i == 0)
-			vector.x = i;
-		else
-			vector.x += scale;
-		if (nrow == 0)
-			vector.y = nrow;
-		else
-			vector.y = nrow * scale;
-		vector.z = tab[nrow][i] * scale; // what if I don't scale this?
-		vector.t = 1;
+		vector.x = i;
+		vector.y = nrow;
+		vector.z = tab[nrow][i];
+		//vector.t = 1;
 		vmap[nrow][i] = vector;
 		i++;
 	}
