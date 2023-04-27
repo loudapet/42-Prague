@@ -1,37 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   free_items.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/20 11:09:17 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/27 17:59:52 by plouda           ###   ########.fr       */
+/*   Created: 2023/04/27 17:58:05 by plouda            #+#    #+#             */
+/*   Updated: 2023/04/27 17:58:30 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	abs_val(int nb)
+
+void	free_split(char **str)
 {
-	if (nb < 0)
-		nb = -nb;
-	return (nb);
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
 }
 
-void	ft_swap(t_line *line)
+void	free_tab(t_tab tab)
 {
-	int	tmp;
+	int	row;
 
-	tmp = line->x1;
-	line->x1 = line->x2;
-	line->x2 = tmp;
-	tmp = line->y1;
-	line->y1 = line->y2;
-	line->y2 = tmp;
+	row = 0;
+	while (row < tab.nrows)
+	{
+		free(tab.tab[row]);
+		row++;
+	}
+	free(tab.tab);
 }
 
-int get_rgba(int r, int g, int b, int a)
+void	free_map(t_map map)
 {
-	return (r << 24 | g << 16 | b << 8 | a);
+	int	i;
+
+	i = 0;
+	while (i < map.nrows)
+	{
+		free(map.vmap[i]);
+		i++;
+	}
+	free(map.vmap);
 }
