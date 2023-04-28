@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/27 17:54:24 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/27 18:44:08 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct	s_limits
 	float	y_min;
 	float	x_max;
 	float	y_max;
+	float	z_max;
 }				t_limits;
 
 void	print_vectors(t_vector **vmap, int ncols, int nrows);
@@ -88,6 +89,7 @@ float	max_x(t_map map);
 float	min_x(t_map map);
 float	max_y(t_map map);
 float	min_y(t_map map);
+float	max_z(t_map map);
 t_limits	get_dimensions(t_map map);
 void	free_split(char **str);
 void	free_map(t_map map);

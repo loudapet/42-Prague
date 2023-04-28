@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:27:00 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/26 15:17:36 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/28 09:45:33 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	scale_vertices(t_map *map, mlx_image_t *img)
 	t_limits	limits;
 	float	scale_x;
 	float	scale_y;
+	float	scale;
 
 	limits = get_dimensions(*map);
 	row = 0;
@@ -73,6 +74,10 @@ void	scale_vertices(t_map *map, mlx_image_t *img)
 	limits = get_dimensions(*map);
 	scale_x = ((float)img->width  / limits.x_max) * 0.9;
 	scale_y = ((float)img->height / limits.y_max) * 0.9;
+	if (scale_x > scale_y)
+		scale = scale_y;
+	else
+		scale = scale_x;
 	printf("SCALE X: %f, SCALE Y: %f\n", scale_x, scale_y);
 	row = 0;
 	while (row < map->nrows)
@@ -80,8 +85,8 @@ void	scale_vertices(t_map *map, mlx_image_t *img)
 		col = 0;
 		while (col < map->ncols)
 		{
-			map->vmap[row][col].x = map->vmap[row][col].x * scale_x;
-			map->vmap[row][col].y = map->vmap[row][col].y * scale_y;
+			map->vmap[row][col].x = map->vmap[row][col].x * scale;
+			map->vmap[row][col].y = map->vmap[row][col].y * scale;
 			col++;
 		}
 		ft_printf("AFTER SCALING\n");
@@ -98,7 +103,7 @@ and since the x-component when rotating around x-axis is 0, and the same goes fo
 and y-axis, the only thing left is cos(theta).
 The gap: https://clintbellanger.net/articles/isometric_math/. (why is cos(0.8) and sin(0.8)
 the same as TILE_HEIGHT and TILE_WIDTH?)
-We subtract 'z' from y to simulate altitude.
+We subtract 'z' from y to simulate altitude. > customizable smoothness?
  */
 void	rotate_vertices(t_map *map)
 {

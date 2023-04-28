@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 17:59:32 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/27 18:00:00 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/27 18:44:15 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,31 @@ float	max_y(t_map map)
 	return (max);
 }
 
+float	max_z(t_map map)
+{
+	float	max;
+	int y;
+	int x;
+	float	zcoor;
+
+	max = map.vmap[0][0].z;
+	y = 0;
+	while (y < map.nrows)
+	{
+		x = 0;
+		while (x < map.ncols)
+		{
+			zcoor = map.vmap[y][x].z;
+			if (zcoor > max)
+				max = zcoor;
+			x++;
+		}
+		y++;
+	}
+	printf("MAXIMUM Z VAL: %f \n", max);
+	return (max);
+}
+
 t_limits	get_dimensions(t_map map)
 {
 	t_limits	limits;
@@ -120,5 +145,6 @@ t_limits	get_dimensions(t_map map)
 	limits.y_min = min_y(map);
 	limits.x_max = max_x(map);
 	limits.y_max = max_y(map);
+	limits.z_max = max_z(map);
 	return(limits);
 }
