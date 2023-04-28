@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/27 18:44:08 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/28 11:01:26 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct	s_map
 	t_vector 	**vmap;
 	int			nrows;
 	int			ncols;
+	mlx_image_t	*img;
 }				t_map;
 
 typedef struct	s_line
@@ -81,6 +82,10 @@ void	recenter_vertices(t_map *map, mlx_image_t *img);
 void	rotate_vertices(t_map *map);
 void	scale_vertices(t_map *map, mlx_image_t *img);
 void	free_tab(t_tab tab);
+void	horizontal_shift(t_map *map, int amount);
+void	vertical_shift(t_map *map, int amount);
+void	zoom(t_map *map, float amount);
+t_mid	get_midpoint(t_map map);
 
 /* utils.c */
 int		abs_val(int nb);
@@ -93,5 +98,6 @@ float	max_z(t_map map);
 t_limits	get_dimensions(t_map map);
 void	free_split(char **str);
 void	free_map(t_map map);
+void	reset_img(mlx_image_t *img);
 
 #endif

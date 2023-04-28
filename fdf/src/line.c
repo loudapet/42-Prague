@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/28 09:35:58 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/28 10:53:12 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,49 @@ void	create_raster(mlx_image_t *img, t_map map)
 	}	
 }
 
+void	my_keyhook(mlx_key_data_t keydata, void *param)
+{
+	t_map	*vmap;
+
+	vmap = param;
+	if (keydata.key == MLX_KEY_RIGHT && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	{
+		reset_img(vmap->img);
+		horizontal_shift(vmap, 50);
+		create_raster(vmap->img, *vmap);
+	}
+	if (keydata.key == MLX_KEY_LEFT && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	{
+		reset_img(vmap->img);
+		horizontal_shift(vmap, -50);
+		create_raster(vmap->img, *vmap);
+	}
+	if (keydata.key == MLX_KEY_UP && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	{
+		reset_img(vmap->img);
+		vertical_shift(vmap, -50);
+		create_raster(vmap->img, *vmap);
+	}
+	if (keydata.key == MLX_KEY_DOWN && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	{
+		reset_img(vmap->img);
+		vertical_shift(vmap, 50);
+		create_raster(vmap->img, *vmap);
+	}
+	if (keydata.key == MLX_KEY_W && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	{
+		reset_img(vmap->img);
+		zoom(vmap, 0.1);
+		create_raster(vmap->img, *vmap);
+	}
+	if (keydata.key == MLX_KEY_S && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	{
+		reset_img(vmap->img);
+		zoom(vmap, -0.1);
+		create_raster(vmap->img, *vmap);
+	}
+}
+
 static void error(void)
 {
 	puts(mlx_strerror(mlx_errno));
@@ -169,9 +212,6 @@ static void error(void)
 
 int32_t	main(int argc, const char **argv)
 {
-	uint32_t	x;
-	uint32_t	y;
-	int			color;
 	t_tab	map;
 	t_map	vmap;
 	
@@ -191,41 +231,21 @@ int32_t	main(int argc, const char **argv)
 	mlx_image_t* img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	if (!img)
 		error();
-
-	// Set every pixel to black
-	color = get_rgba(
-				1 % 0xFF, // R
-				1 % 0xFF, // G
-				1 % 0xFF, // B
-				254 % 0xFF  // A
-			);
-	x = 0;
-	while (x < img->width)
-	{
-		y = 0;
-		while (y < img->height)
-		{
-			mlx_put_pixel(img, x, y, color);
-			y++;
-		}
-		x++;
-	}
-
+	vmap.img = img;
 	// Display an instance of the image
 	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
         error();
 
-     // Modify the x & y position of an already existing instance.
-    img->instances->x += 0;
-    img->instances->y += 0;
+	reset_img(img);
 
 	recenter_vertices(&vmap, img);
 	rotate_vertices(&vmap);
 	recenter_vertices(&vmap, img);
 	scale_vertices(&vmap, img);
 	recenter_vertices(&vmap, img);
-
 	create_raster(img, vmap);
+
+	mlx_key_hook(mlx, &my_keyhook, &vmap);
 	mlx_loop(mlx);
 
 	// Optional, terminate will clean up any leftovers, this is just to demonstrate.
