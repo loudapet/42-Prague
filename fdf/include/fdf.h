@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/02 10:50:10 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/02 12:59:09 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,19 @@ typedef struct	s_limits
 	float	z_max;
 }				t_limits;
 
+typedef struct	s_master
+{
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	t_map		*vmap;
+	t_tab		map;
+}				t_master;
+
+
 void	print_vectors(t_vector **vmap, int ncols, int nrows);
 int get_rgba(int r, int g, int b, int a);
 t_tab parse_map(const char *path);
-t_map	*tab_to_vect(t_tab tab);
+t_map	*tab_to_vect(t_tab *tab);
 void	recenter_vertices(t_map *map, mlx_image_t *img);
 void	rotate_vertices(t_map *map);
 void	scale_vertices(t_map *map, mlx_image_t *img);
