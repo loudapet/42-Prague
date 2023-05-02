@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:02:33 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/27 17:27:30 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/28 20:10:43 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_tab parse_map(const char *path)
 		split_row = ft_split(row, ' ');
 		map.ncols = col_count(split_row);
 		map.tab = create_map_array(map.tab, split_row, map.ncols, i);
-		//print_tab_content(map.tab, map.ncols, i);
+		print_tab_content(map.tab, map.ncols, i);
 		free(row);
 		free_split(split_row);
 		row = get_next_line(map_fd);

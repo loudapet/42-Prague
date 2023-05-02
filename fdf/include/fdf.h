@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/28 11:01:26 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/02 10:50:10 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct	s_map
 	int			nrows;
 	int			ncols;
 	mlx_image_t	*img;
+	const char		*path;
 }				t_map;
 
 typedef struct	s_line
@@ -77,7 +78,7 @@ typedef struct	s_limits
 void	print_vectors(t_vector **vmap, int ncols, int nrows);
 int get_rgba(int r, int g, int b, int a);
 t_tab parse_map(const char *path);
-t_map	tab_to_vect(t_tab tab);
+t_map	*tab_to_vect(t_tab tab);
 void	recenter_vertices(t_map *map, mlx_image_t *img);
 void	rotate_vertices(t_map *map);
 void	scale_vertices(t_map *map, mlx_image_t *img);
@@ -86,6 +87,10 @@ void	horizontal_shift(t_map *map, int amount);
 void	vertical_shift(t_map *map, int amount);
 void	zoom(t_map *map, float amount);
 t_mid	get_midpoint(t_map map);
+void	rotate_z(t_map *map, int flag);
+void	print_tab_content(int **map_array, int ncols, int nrows);
+void	rotate_y(t_map *map, int flag);
+void	rotate_x(t_map *map, int flag);
 
 /* utils.c */
 int		abs_val(int nb);

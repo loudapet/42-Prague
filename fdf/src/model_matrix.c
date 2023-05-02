@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:27:00 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/28 09:45:33 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/02 11:28:01 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_mid	get_midpoint(t_map map)
 
 	mid.mid_x = (max_x(map) + min_x(map)) / 2;
 	mid.mid_y = (max_y(map) + min_y(map)) / 2;
-	printf("MID X: %f, MID Y: %f\n", mid.mid_x, mid.mid_y);
+	//printf("MID X: %f, MID Y: %f\n", mid.mid_x, mid.mid_y);
 	return (mid);
 }
 
@@ -42,7 +42,7 @@ void	recenter_vertices(t_map *map, mlx_image_t *img)
 			map->vmap[row][col].y += (img->height / 2) - mid.mid_y;
 			col++;
 		}
-		print_vectors(map->vmap, map->ncols, row);
+		//print_vectors(map->vmap, map->ncols, row);
 		row++;
 	}
 }
@@ -67,8 +67,8 @@ void	scale_vertices(t_map *map, mlx_image_t *img)
 			map->vmap[row][col].y -= limits.y_min;
 			col++;
 		}
-		ft_printf("AFTER ORIGIN 0,0 RESET\n");
-		print_vectors(map->vmap, map->ncols, row);
+		//ft_printf("AFTER ORIGIN 0,0 RESET\n");
+		//print_vectors(map->vmap, map->ncols, row);
 		row++;
 	}
 	limits = get_dimensions(*map);
@@ -78,7 +78,7 @@ void	scale_vertices(t_map *map, mlx_image_t *img)
 		scale = scale_y;
 	else
 		scale = scale_x;
-	printf("SCALE X: %f, SCALE Y: %f\n", scale_x, scale_y);
+	//printf("SCALE X: %f, SCALE Y: %f\n", scale_x, scale_y);
 	row = 0;
 	while (row < map->nrows)
 	{
@@ -89,26 +89,23 @@ void	scale_vertices(t_map *map, mlx_image_t *img)
 			map->vmap[row][col].y = map->vmap[row][col].y * scale;
 			col++;
 		}
-		ft_printf("AFTER SCALING\n");
-		print_vectors(map->vmap, map->ncols, row);
+		//ft_printf("AFTER SCALING\n");
+		//print_vectors(map->vmap, map->ncols, row);
 		row++;
 	}
 }
 
-/* 45 deg along y-axis, then 45 deg along x-axis.
+/* 45 deg along y-axis, then 35.264 deg along x-axis.
 Thought process: z-component isn't actually a proper z-component, we only work with
-2D vectors in reality (or rather, it's the same for every vector, and we ignore it).
-Therefore, we only use those parts of the rotation matrix that concern x- and y-components,
-and since the x-component when rotating around x-axis is 0, and the same goes for y-component
-and y-axis, the only thing left is cos(theta).
-The gap: https://clintbellanger.net/articles/isometric_math/. (why is cos(0.8) and sin(0.8)
-the same as TILE_HEIGHT and TILE_WIDTH?)
-We subtract 'z' from y to simulate altitude. > customizable smoothness?
+2D vectors in reality (or rather, it's the same for every vector, and we ignore it
+during the initial rotation. It becomes important later on when we do custom rotations).
+We subtract 'z' from y to simulate altitude.
  */
 void	rotate_vertices(t_map *map)
 {
 	int	row;
 	int	col;
+	int	temp;
 
 	row = 0;
 	while (row < map->nrows)
@@ -116,8 +113,10 @@ void	rotate_vertices(t_map *map)
 		col = 0;
 		while (col < map->ncols)
 		{
+			temp = map->vmap[row][col].x;
 			map->vmap[row][col].x = (float)(map->vmap[row][col].x - map->vmap[row][col].y) * cos(0.8);
-			map->vmap[row][col].y = (float)(map->vmap[row][col].x + map->vmap[row][col].y) * sin(0.8) - (float)map->vmap[row][col].z;
+			map->vmap[row][col].y = (float)(temp + map->vmap[row][col].y) * sin(0.61) - (float)map->vmap[row][col].z;
+			map->vmap[row][col].z = 1;
 			col++;
 		}
 		row++;

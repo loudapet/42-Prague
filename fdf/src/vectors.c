@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:01:19 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/27 17:56:48 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/28 19:48:57 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,27 @@ t_vector	**create_vectors(t_vector **vmap, int **tab, int ncols, int nrow)
 	return (vmap);
 }
 
-t_map	tab_to_vect(t_tab tab)
+t_map	*tab_to_vect(t_tab tab)
 {
-	t_map		map;
+	t_map		*map;
 	int			y;
 
-	map.vmap = malloc(sizeof(t_vector *) * tab.nrows);
-	if (map.vmap == 0)
+	map = malloc(sizeof(t_map));
+	map->vmap = malloc(sizeof(t_vector *) * tab.nrows);
+	if (map->vmap == 0)
 	{
-		map.vmap = NULL;
+		map->vmap = NULL;
 		return (map);
 	}
 	y = 0;
 	while (y < tab.nrows)
 	{
-		map.vmap = create_vectors(map.vmap, tab.tab, tab.ncols, y);
-		//print_vectors(map.vmap, tab.ncols, y);
+		map->vmap = create_vectors(map->vmap, tab.tab, tab.ncols, y);
+		//print_vectors(map->vmap, tab.ncols, y);
 		y++;
 	}
-	map.ncols = tab.ncols;
-	map.nrows = tab.nrows;
+	map->ncols = tab.ncols;
+	map->nrows = tab.nrows;
 	free_tab(tab);
 	return (map);
 }

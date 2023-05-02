@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 17:59:32 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/27 18:44:15 by plouda           ###   ########.fr       */
+/*   Updated: 2023/04/28 19:56:20 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ float	min_x(t_map map)
 		}
 		y++;
 	}
-	printf("MINIMUM X VAL: %f \n", min);
+	//printf("MINIMUM X VAL: %f \n", min);
 	return (min);
 }
 
@@ -58,7 +58,7 @@ float	min_y(t_map map)
 		}
 		y++;
 	}
-	printf("MINIMUM Y VAL: %f \n", min);
+	//printf("MINIMUM Y VAL: %f \n", min);
 	return (min);
 }
 
@@ -83,7 +83,7 @@ float	max_x(t_map map)
 		}
 		y++;
 	}
-	printf("MAXIMUM X VAL: %f \n", max);
+	//printf("MAXIMUM X VAL: %f \n", max);
 	return (max);
 }
 
@@ -108,7 +108,7 @@ float	max_y(t_map map)
 		}
 		y++;
 	}
-	printf("MAXIMUM Y VAL: %f \n", max);
+	//printf("MAXIMUM Y VAL: %f \n", max);
 	return (max);
 }
 
@@ -133,7 +133,7 @@ float	max_z(t_map map)
 		}
 		y++;
 	}
-	printf("MAXIMUM Z VAL: %f \n", max);
+	//printf("MAXIMUM Z VAL: %f \n", max);
 	return (max);
 }
 
