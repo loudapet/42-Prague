@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/02 19:16:57 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/03 09:09:39 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,7 +265,7 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 	}
 	if (keydata.key == MLX_KEY_R && keydata.action == MLX_PRESS)
 	{
-		free_map(*vmap);
+		free_map(vmap);
 		vmap = tab_to_vect(&map);
 		reset_img(img);
 		recenter_vertices(vmap, img);
@@ -281,7 +281,7 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
 		free_tab(map);
-		free_map(*vmap);
+		free_map(vmap);
 		mlx_delete_image(master->mlx, img);
 		mlx_close_window(master->mlx);
 	}

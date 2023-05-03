@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/02 12:59:09 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/03 09:08:27 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct	s_master
 	mlx_image_t	*img;
 	t_map		*vmap;
 	t_tab		map;
+	const char		*path;
 }				t_master;
 
 
@@ -91,7 +92,6 @@ t_map	*tab_to_vect(t_tab *tab);
 void	recenter_vertices(t_map *map, mlx_image_t *img);
 void	rotate_vertices(t_map *map);
 void	scale_vertices(t_map *map, mlx_image_t *img);
-void	free_tab(t_tab tab);
 void	horizontal_shift(t_map *map, int amount);
 void	vertical_shift(t_map *map, int amount);
 void	zoom(t_map *map, float amount);
@@ -110,8 +110,9 @@ float	max_y(t_map map);
 float	min_y(t_map map);
 float	max_z(t_map map);
 t_limits	get_dimensions(t_map map);
+void	free_tab(t_tab tab);
 void	free_split(char **str);
-void	free_map(t_map map);
+void	free_map(t_map *map);
 void	reset_img(mlx_image_t *img);
 
 #endif

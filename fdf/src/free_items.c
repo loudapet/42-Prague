@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 17:58:05 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/27 17:58:30 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/03 09:07:08 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,19 @@ void	free_tab(t_tab tab)
 		row++;
 	}
 	free(tab.tab);
+	//free(tab);
 }
 
-void	free_map(t_map map)
+void	free_map(t_map *map)
 {
 	int	i;
 
 	i = 0;
-	while (i < map.nrows)
+	while (i < map->nrows)
 	{
-		free(map.vmap[i]);
+		free(map->vmap[i]);
 		i++;
 	}
-	free(map.vmap);
+	free(map->vmap);
+	free(map);
 }
