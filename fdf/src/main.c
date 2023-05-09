@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/03 18:35:41 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/09 10:16:30 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,120 @@ mlx_image_t *init_img(mlx_t *mlx)
 	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
 		error();
 	return (img);
+}
+
+static void	rot_x(float *y, float *z, double alpha)
+{
+	float	prev_y;
+
+	prev_y = *y;
+	*y = prev_y * cos(alpha) + (*z) * sin(alpha);
+	*z = -prev_y * sin(alpha) + (*z) * cos(alpha);
+}
+
+static void	rot_y(float *x, float *z, double beta)
+{
+	float	prev_x;
+
+	prev_x = *x;
+	*x = prev_x * cos(beta) + (*z) * sin(beta);
+	*z = -prev_x * sin(beta) + (*z) * cos(beta);
+}
+
+static void	rot_z(float *x, float *y, double gamma)
+{
+	float	prev_x;
+	float	prev_y;
+
+	prev_x = *x;
+	prev_y = *y;
+	*x = prev_x * cos(gamma) - prev_y * sin(gamma);
+	*y = prev_x * sin(gamma) + prev_y * cos(gamma);
+}
+
+static void	conv_to_iso(float *x, float *y, float *z)
+{
+	float	prev_x;
+	float	prev_y;
+
+	prev_x = *x;
+	prev_y = *y;
+	*x = (prev_x - prev_y) * cos(0.5236);
+	*y = (prev_x + prev_y) * sin(0.5236) - (*z);
+}
+
+static t_map	*vectdup(t_map *vmap)
+{
+	t_map	*dup;
+	int		row;
+	int		col;
+
+	dup = malloc(sizeof(t_map));
+	if (!dup)
+	{
+		dup = NULL;
+		return (dup);
+	}
+	dup->vmap = malloc(sizeof(t_vector *) * vmap->nrows);
+	row = 0;
+	while (row < vmap->nrows)
+	{
+		dup->vmap[row] = malloc(sizeof(t_vector) * vmap->ncols);
+		col = 0;
+		while (col < vmap->ncols)
+		{
+			dup->vmap[row][col].x = vmap->vmap[row][col].x;
+			dup->vmap[row][col].y = vmap->vmap[row][col].y;
+			dup->vmap[row][col].z = vmap->vmap[row][col].z;
+			col++;
+		}
+		print_vectors(dup->vmap, vmap->ncols, row);
+		row++;
+	}
+	dup->nrows = vmap->nrows;
+	dup->ncols = vmap->ncols;
+	return (dup);
+}
+
+void	project(t_master *master)
+{
+	int	row;
+	int	col;
+	t_map	*vmap;
+	t_camera	*camera;
+	
+	vmap = vectdup(master->vmap);
+	camera = master->camera;
+	row = 0;
+	while (row < vmap->nrows)
+	{
+		col = 0;
+		while (col < vmap->ncols)
+		{
+			// Scaling/zooming
+			vmap->vmap[row][col].x *= camera->zoom;
+			vmap->vmap[row][col].y *= camera->zoom;
+			vmap->vmap[row][col].z *= camera->zoom;
+			// Making origin 0,0 the middle of the object
+			vmap->vmap[row][col].x -= vmap->ncols * camera->zoom / 2;
+			vmap->vmap[row][col].y -= vmap->nrows * camera->zoom / 2;
+			// Rotating camera
+			rot_x(&vmap->vmap[row][col].y, &vmap->vmap[row][col].z, camera->alpha);
+			rot_y(&vmap->vmap[row][col].x, &vmap->vmap[row][col].z, camera->beta);
+			rot_z(&vmap->vmap[row][col].x, &vmap->vmap[row][col].y, camera->gamma);
+			// Projecting
+			conv_to_iso(&vmap->vmap[row][col].x, &vmap->vmap[row][col].y, &vmap->vmap[row][col].z);
+			// Recentering
+			vmap->vmap[row][col].x += master->img->width / 2 + camera->x_offset;
+			vmap->vmap[row][col].y += master->img->height / 2 + camera->y_offset;
+			// No idea?
+			vmap->vmap[row][col].y += vmap->ncols * camera->zoom * 2 / 5;
+			col++;
+		}
+		//print_vectors(vmap->vmap, vmap->ncols, row);	
+		row++;
+	}
+	create_raster(master->img, *vmap);
 }
 
 void	my_scrollhook(double xdelta, double ydelta, void* param)
@@ -101,13 +215,17 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_Q && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		reset_img(master->img);
-		rotate_z(vmap, -1);
+		///rotate_z(vmap, -1);
+		master->camera->gamma += 0.05;
+		project(master);
 		create_raster(master->img, *vmap);
 	}
 	if (keydata.key == MLX_KEY_E && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		reset_img(master->img);
-		rotate_z(vmap, 1);
+		//rotate_z(vmap, 1);
+		master->camera->gamma -= 0.05;
+		project(master);
 		create_raster(master->img, *vmap);
 	}
 	if (keydata.key == MLX_KEY_A && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
@@ -236,85 +354,6 @@ t_camera	*init_camera(t_master *master)
 	return (camera);
 }
 
-static void	rot_x(float *y, float *z, double alpha)
-{
-	float	prev_y;
-
-	prev_y = *y;
-	*y = prev_y * cos(alpha) + (*z) * sin(alpha);
-	*z = -prev_y * sin(alpha) + (*z) * cos(alpha);
-}
-
-static void	rot_y(float *x, float *z, double beta)
-{
-	float	prev_x;
-
-	prev_x = *x;
-	*x = prev_x * cos(beta) + (*z) * sin(beta);
-	*z = -prev_x * sin(beta) + (*z) * cos(beta);
-}
-
-static void	rot_z(float *x, float *y, double gamma)
-{
-	float	prev_x;
-	float	prev_y;
-
-	prev_x = *x;
-	prev_y = *y;
-	*x = prev_x * cos(gamma) - prev_y * sin(gamma);
-	*y = prev_x * sin(gamma) + prev_y * cos(gamma);
-}
-
-static void	conv_to_iso(float *x, float *y, float *z)
-{
-	float	prev_x;
-	float	prev_y;
-
-	prev_x = *x;
-	prev_y = *y;
-	*x = (prev_x - prev_y) * cos(0.5236);
-	*y = (prev_x + prev_y) * sin(0.5236) - (*z);
-}
-
-void	project(t_master *master)
-{
-	int	row;
-	int	col;
-	t_map	*vmap;
-	t_camera	*camera;
-	
-	vmap = master->vmap;
-	camera = master->camera;
-	row = 0;
-	while (row < vmap->nrows)
-	{
-		col = 0;
-		while (col < vmap->ncols)
-		{
-			// Scaling/zooming
-			vmap->vmap[row][col].x *= camera->zoom;
-			vmap->vmap[row][col].y *= camera->zoom;
-			vmap->vmap[row][col].z *= camera->zoom;
-			// Making origin 0,0 the middle of the object
-			vmap->vmap[row][col].x -= vmap->ncols * camera->zoom / 2;
-			vmap->vmap[row][col].y -= vmap->nrows * camera->zoom / 2;
-			// Rotating camera
-			rot_x(&vmap->vmap[row][col].y, &vmap->vmap[row][col].z, camera->alpha);
-			rot_y(&vmap->vmap[row][col].x, &vmap->vmap[row][col].z, camera->beta);
-			rot_z(&vmap->vmap[row][col].x, &vmap->vmap[row][col].y, camera->gamma);
-			// Projecting
-			conv_to_iso(&vmap->vmap[row][col].x, &vmap->vmap[row][col].y, &vmap->vmap[row][col].z);
-			// Recentering
-			vmap->vmap[row][col].x += master->img->width / 2 + camera->x_offset;
-			vmap->vmap[row][col].y += master->img->height / 2 + camera->y_offset;
-			// No idea?
-			//vmap->vmap[row][col].y += vmap->ncols * camera->zoom * 2 / 5;
-			col++;
-		}
-		row++;
-	}
-}
-
 int32_t main(int argc, const char **argv)
 {
 	t_tab map;
@@ -350,7 +389,7 @@ int32_t main(int argc, const char **argv)
 	recenter_vertices(vmap, img);
 	scale_vertices(vmap, img);
 	recenter_vertices(vmap, img); */
-	create_raster(img, *vmap);
+	//create_raster(img, *vmap);
 
 	
 	mlx_key_hook(mlx, &my_keyhook, master);
