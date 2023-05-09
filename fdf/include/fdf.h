@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/03 17:44:20 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/09 11:36:14 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	rotate_z(t_map *map, int flag);
 void	print_tab_content(int **map_array, int ncols, int nrows);
 void	rotate_y(t_map *map, int flag);
 void	rotate_x(t_map *map, int flag);
+void	project(t_master *master);
 
 /* line.c */
 void calc_direction(t_line *line);
@@ -124,6 +125,15 @@ void calc_err(t_line *line, int *cur_p, int delta, int flag);
 t_line init_vars(t_vector p1, t_vector p2);
 void draw_line(mlx_image_t *img, t_vector p1, t_vector p2);
 void create_raster(mlx_image_t *img, t_map map);
+
+/* camera.c */
+t_camera	*init_camera(t_master *master);
+
+/* hooks.c */
+void	scrollhook(double xdelta, double ydelta, void* param);
+void	keyhook(mlx_key_data_t keydata, void *param);
+//void	cursor(double xpos, double ypos, void* param);
+//void 	mousehook(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
 
 /* utils.c */
 int		abs_val(int nb);

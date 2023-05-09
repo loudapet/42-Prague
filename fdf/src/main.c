@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/09 10:53:56 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/09 11:48:17 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,9 @@ void	project(t_master *master)
 			// Projecting
 			conv_to_iso(&vmap->vmap[row][col].x, &vmap->vmap[row][col].y, &vmap->vmap[row][col].z);
 			// Recentering
-			vmap->vmap[row][col].x += master->img->width / 2 + camera->x_offset;
-			vmap->vmap[row][col].y += master->img->height / 2 + camera->y_offset;
-			// No idea?
+			vmap->vmap[row][col].x += (int)master->img->width / 2 + camera->x_offset;
+			vmap->vmap[row][col].y += (int)master->img->height / 2 + camera->y_offset;
+			// Calibration (not needed)
 			//vmap->vmap[row][col].y += vmap->ncols * camera->zoom * 2 / 5;
 			col++;
 		}
@@ -145,125 +145,7 @@ void	project(t_master *master)
 	free_map(vmap);
 }
 
-void	my_scrollhook(double xdelta, double ydelta, void* param)
-{
-	t_master	*master;
-	t_map	*vmap;
-
-	master = param;
-	vmap = master->vmap;
-	if (ydelta > 0)
-	{
-		reset_img(master->img);
-		zoom(vmap, 0.1);
-		create_raster(master->img, *vmap);
-	}
-	if (ydelta < 0)
-	{
-		reset_img(master->img);
-		zoom(vmap, -0.1);
-		create_raster(master->img, *vmap);
-	}
-	if (xdelta > 0)
-	{
-		reset_img(master->img);
-		horizontal_shift(vmap, 50);
-		create_raster(master->img, *vmap);
-	}
-	if (xdelta < 0)
-	{
-		reset_img(master->img);
-		horizontal_shift(vmap, -50);
-		create_raster(master->img, *vmap);
-	}
-}
-
-void	my_keyhook(mlx_key_data_t keydata, void *param)
-{
-	//t_tab	map;
-	t_master	*master;
-	//t_map	*vmap;
-	//mlx_image_t	*img;
-
-	master = param;
-	//vmap = master->vmap;
-	//img = master->img;
-	//map = master->map;
-	if (keydata.key == MLX_KEY_RIGHT && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		reset_img(master->img);
-		master->camera->x_offset += 25;
-		project(master);
-	}
-	if (keydata.key == MLX_KEY_LEFT && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		reset_img(master->img);
-		master->camera->x_offset -= 25;
-		project(master);
-	}
-	if (keydata.key == MLX_KEY_UP && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		reset_img(master->img);
-		master->camera->y_offset -= 25;
-		project(master);
-	}
-	if (keydata.key == MLX_KEY_DOWN && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		reset_img(master->img);
-		master->camera->y_offset += 25;
-		project(master);
-	}
-	if (keydata.key == MLX_KEY_Q && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		reset_img(master->img);
-		master->camera->gamma -= 0.05;
-		project(master);
-	}
-	if (keydata.key == MLX_KEY_E && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		reset_img(master->img);
-		master->camera->gamma += 0.05;
-		project(master);
-	}
-	if (keydata.key == MLX_KEY_A && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		reset_img(master->img);
-		master->camera->beta -= 0.05;
-		project(master);
-	}
-	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		reset_img(master->img);
-		master->camera->beta += 0.05;
-		project(master);
-	}
-	if (keydata.key == MLX_KEY_W && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		reset_img(master->img);
-		master->camera->alpha -= 0.05;
-		project(master);
-	}
-	if (keydata.key == MLX_KEY_S && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		reset_img(master->img);
-		master->camera->alpha += 0.05;
-		project(master);
-	}
-	if (keydata.key == MLX_KEY_R && keydata.action == MLX_PRESS)
-	{
-		reset_img(master->img);
-		master->camera->alpha = 0;
-		master->camera->beta = 0;
-		master->camera->gamma = 0;
-		master->camera->x_offset = 0;
-		master->camera->y_offset = 0;
-		project(master);
-	}
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		mlx_close_window(master->mlx);
-}
-
-void	drag_image(double xpos, double ypos, t_master *master)
+/* void	drag_image(double xpos, double ypos, t_master *master)
 {
 	t_mid	mid;
 	t_map	*vmap;
@@ -286,60 +168,7 @@ void	drag_image(double xpos, double ypos, t_master *master)
 		//print_vectors(vmap->vmap, vmap->ncols, row);
 		row++;
 	}
-}
-
-void	my_cursor(double xpos, double ypos, void* param)
-{
-	t_master	*master;
-	t_map	*vmap;
-
-	master = param;
-	vmap = master->vmap;
-	if (mlx_is_mouse_down(master->mlx, MLX_MOUSE_BUTTON_LEFT) &&
-		xpos > 0 && ypos > 0)
-	{
-		reset_img(master->img);
-		drag_image(xpos, ypos, master);
-		create_raster(master->img, *vmap);
-	}
-}
-
-void my_mousehook(mouse_key_t button, action_t action, modifier_key_t mods, void* param)
-{
-	t_master	*master;
-	t_map	*vmap;
-	int32_t	xpos;
-	int32_t	ypos;
-
-	master = param;
-	vmap = master->vmap;
-	if (button == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
-	{
-		mlx_get_mouse_pos(master->mlx, &xpos, &ypos);
-		reset_img(master->img);
-		drag_image(xpos, ypos, master);
-		create_raster(master->img, *vmap);
-	}
-	if (!mods)
-		return ;
-}
-
-t_camera	*init_camera(t_master *master)
-{
-	t_camera	*camera;
-
-	camera = (t_camera *)malloc(sizeof(t_camera));
-	camera->alpha = 0;
-	camera->beta = 0;
-	camera->gamma = 0;
-	camera->x_offset = 0;
-	camera->y_offset = 0;
-	if (master->mlx->width / master->vmap->ncols / 2 > master->mlx->height / master->vmap->nrows / 2)
-		camera->zoom = master->mlx->height / master->vmap->nrows / 2;
-	else
-		camera->zoom = master->mlx->width / master->vmap->ncols / 2;
-	return (camera);
-}
+} */
 
 int32_t main(int argc, const char **argv)
 {
@@ -379,10 +208,10 @@ int32_t main(int argc, const char **argv)
 	//create_raster(img, *vmap);
 
 	
-	mlx_key_hook(mlx, &my_keyhook, master);
-	mlx_scroll_hook(mlx, &my_scrollhook, master);
-	mlx_mouse_hook(mlx, &my_mousehook, master);
-	mlx_cursor_hook(mlx, &my_cursor, master);
+	mlx_key_hook(mlx, &keyhook, master);
+	mlx_scroll_hook(mlx, &scrollhook, master);
+	//mlx_mouse_hook(mlx, &mousehook, master);
+	//mlx_cursor_hook(mlx, &cursor, master);
 	mlx_loop(mlx);
 
 	mlx_delete_image(master->mlx, img);
