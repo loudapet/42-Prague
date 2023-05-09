@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/09 10:45:13 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/09 10:53:56 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	project(t_master *master)
 			vmap->vmap[row][col].x += master->img->width / 2 + camera->x_offset;
 			vmap->vmap[row][col].y += master->img->height / 2 + camera->y_offset;
 			// No idea?
-			vmap->vmap[row][col].y += vmap->ncols * camera->zoom * 2 / 5;
+			//vmap->vmap[row][col].y += vmap->ncols * camera->zoom * 2 / 5;
 			col++;
 		}
 		//print_vectors(vmap->vmap, vmap->ncols, row);	
@@ -255,12 +255,12 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 		master->camera->alpha = 0;
 		master->camera->beta = 0;
 		master->camera->gamma = 0;
+		master->camera->x_offset = 0;
+		master->camera->y_offset = 0;
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-	{
 		mlx_close_window(master->mlx);
-	}
 }
 
 void	drag_image(double xpos, double ypos, t_master *master)
