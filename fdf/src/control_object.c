@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:24:53 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/02 11:46:32 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/03 16:20:06 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	rotate_y(t_map *map, int flag)
 		{
 			temp = map->vmap[row][col].x;
 			map->vmap[row][col].x = cos(rot) * (map->vmap[row][col].x - mid.mid_x) + sin(rot) * map->vmap[row][col].z + mid.mid_x;
-			map->vmap[row][col].z = (temp - mid.mid_x) * -sin(rot) + map->vmap[row][col].z * cos(rot);
+			map->vmap[row][col].z = (temp - mid.mid_x) * -sin(rot) + (map->vmap[row][col].z - mid.mid_z) * cos(rot) + mid.mid_z;
 			col++;
 		}
 		row++;
@@ -148,7 +148,7 @@ void	rotate_x(t_map *map, int flag)
 		{
 			temp = map->vmap[row][col].y;
 			map->vmap[row][col].y = cos(rot) * (map->vmap[row][col].y - mid.mid_y) + -sin(rot) * map->vmap[row][col].z + mid.mid_y;
-			map->vmap[row][col].z = (temp - mid.mid_y) * sin(rot) + map->vmap[row][col].z * cos(rot);
+			map->vmap[row][col].z = (temp - mid.mid_y) * sin(rot) + (map->vmap[row][col].z - mid.mid_z) * cos(rot) + mid.mid_z;
 			col++;
 		}
 		row++;

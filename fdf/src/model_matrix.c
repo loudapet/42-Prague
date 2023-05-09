@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:27:00 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/02 11:28:01 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/03 16:19:12 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_mid	get_midpoint(t_map map)
 
 	mid.mid_x = (max_x(map) + min_x(map)) / 2;
 	mid.mid_y = (max_y(map) + min_y(map)) / 2;
+	mid.mid_z = (max_z(map) + min_z(map)) / 2;
 	//printf("MID X: %f, MID Y: %f\n", mid.mid_x, mid.mid_y);
 	return (mid);
 }
@@ -100,12 +101,12 @@ Thought process: z-component isn't actually a proper z-component, we only work w
 2D vectors in reality (or rather, it's the same for every vector, and we ignore it
 during the initial rotation. It becomes important later on when we do custom rotations).
 We subtract 'z' from y to simulate altitude.
- */
-void	rotate_vertices(t_map *map)
+*/
+/* void	rotate_vertices(t_map *map)
 {
 	int	row;
 	int	col;
-	int	temp;
+	//int	temp;
 
 	row = 0;
 	while (row < map->nrows)
@@ -113,10 +114,76 @@ void	rotate_vertices(t_map *map)
 		col = 0;
 		while (col < map->ncols)
 		{
-			temp = map->vmap[row][col].x;
+			//temp = map->vmap[row][col].x;
 			map->vmap[row][col].x = (float)(map->vmap[row][col].x - map->vmap[row][col].y) * cos(0.8);
-			map->vmap[row][col].y = (float)(temp + map->vmap[row][col].y) * sin(0.61) - (float)map->vmap[row][col].z;
-			map->vmap[row][col].z = 1;
+			map->vmap[row][col].y = (float)(map->vmap[row][col].x + map->vmap[row][col].y) * sin(0.61) - (float)map->vmap[row][col].z;
+			//map->vmap[row][col].z = 1;
+			col++;
+		}
+		row++;
+	}
+} */
+
+/* void	rotate_vertices(t_map *map)
+{
+	int	row;
+	int	col;
+	float	x;
+	float	y;
+	float	z;
+
+	row = 0;
+	while (row < map->nrows)
+	{
+		col = 0;
+		while (col < map->ncols)
+		{
+			x = map->vmap[row][col].x;
+			y = map->vmap[row][col].y;
+			z = map->vmap[row][col].z;
+			map->vmap[row][col].x = x * cos(0.615) - y * sin(0.615);
+			map->vmap[row][col].y = x * sin(0.615) * cos(0.8) + y * cos(0.615) * cos(0.8) - z * sin(0.8);
+			map->vmap[row][col].z = x * sin(0.615) * sin(0.8) + y * cos(0.615) * sin(0.8) + z * cos(0.8);
+			col++;
+		}
+		row++;
+	}
+} */
+
+void	rotate_vertices(t_map *map)
+{
+	int	row;
+	int	col;
+	float	temp;
+	float	rot;
+/* 	float	x;
+	float	y;
+	float	z; */
+
+	row = 0;
+	rot = 0.8;
+	while (row < map->nrows)
+	{
+		col = 0;
+		while (col < map->ncols)
+		{
+			temp = map->vmap[row][col].x;
+			map->vmap[row][col].x = cos(rot) * (map->vmap[row][col].x) - sin(rot) * (map->vmap[row][col].y);
+			map->vmap[row][col].y = sin(rot) * (temp) + cos(rot) * (map->vmap[row][col].y);
+			col++;
+		}
+		row++;
+	}
+	row = 0;
+	rot = 0.615;
+	while (row < map->nrows)
+	{
+		col = 0;
+		while (col < map->ncols)
+		{
+			temp = map->vmap[row][col].y;
+			map->vmap[row][col].y = cos(rot) * (map->vmap[row][col].y) + -sin(rot) * map->vmap[row][col].z;
+			map->vmap[row][col].z = (temp) * sin(rot) + (map->vmap[row][col].z) * cos(rot);
 			col++;
 		}
 		row++;

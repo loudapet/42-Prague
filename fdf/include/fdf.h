@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/03 09:08:27 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/03 17:44:20 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <math.h>
-#include "MLX42/MLX42.h"
+# include <unistd.h>
+# include <stdlib.h>
+# include <memory.h>
+# include "MLX42/MLX42.h"
+# define WIDTH 1600
+# define HEIGHT 900
 
 typedef struct	s_tab
 {
@@ -64,6 +69,7 @@ typedef struct	s_mid
 {
 	float	mid_y;
 	float	mid_x;
+	float	mid_z;
 }				t_mid;
 
 typedef struct	s_limits
@@ -75,17 +81,28 @@ typedef struct	s_limits
 	float	z_max;
 }				t_limits;
 
+typedef struct s_camera
+{
+	double			alpha;
+	double			beta;
+	double			gamma;
+	int				x_offset;
+	int				y_offset;
+	int				zoom;
+}				t_camera;
+
 typedef struct	s_master
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_map		*vmap;
 	t_tab		map;
+	t_camera	*camera;
 	const char		*path;
 }				t_master;
 
 
-void	print_vectors(t_vector **vmap, int ncols, int nrows);
+void print_vectors(t_vector **vmap, int ncols, int nrows);
 int get_rgba(int r, int g, int b, int a);
 t_tab parse_map(const char *path);
 t_map	*tab_to_vect(t_tab *tab);
@@ -101,6 +118,13 @@ void	print_tab_content(int **map_array, int ncols, int nrows);
 void	rotate_y(t_map *map, int flag);
 void	rotate_x(t_map *map, int flag);
 
+/* line.c */
+void calc_direction(t_line *line);
+void calc_err(t_line *line, int *cur_p, int delta, int flag);
+t_line init_vars(t_vector p1, t_vector p2);
+void draw_line(mlx_image_t *img, t_vector p1, t_vector p2);
+void create_raster(mlx_image_t *img, t_map map);
+
 /* utils.c */
 int		abs_val(int nb);
 void	ft_swap(t_line *line);
@@ -109,6 +133,7 @@ float	min_x(t_map map);
 float	max_y(t_map map);
 float	min_y(t_map map);
 float	max_z(t_map map);
+float	min_z(t_map map);
 t_limits	get_dimensions(t_map map);
 void	free_tab(t_tab tab);
 void	free_split(char **str);
