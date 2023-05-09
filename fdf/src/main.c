@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/09 10:16:30 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/09 10:45:13 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static t_map	*vectdup(t_map *vmap)
 			dup->vmap[row][col].z = vmap->vmap[row][col].z;
 			col++;
 		}
-		print_vectors(dup->vmap, vmap->ncols, row);
+		//print_vectors(dup->vmap, vmap->ncols, row);
 		row++;
 	}
 	dup->nrows = vmap->nrows;
@@ -142,6 +142,7 @@ void	project(t_master *master)
 		row++;
 	}
 	create_raster(master->img, *vmap);
+	free_map(vmap);
 }
 
 void	my_scrollhook(double xdelta, double ydelta, void* param)
@@ -179,99 +180,85 @@ void	my_scrollhook(double xdelta, double ydelta, void* param)
 
 void	my_keyhook(mlx_key_data_t keydata, void *param)
 {
-	t_tab	map;
+	//t_tab	map;
 	t_master	*master;
-	t_map	*vmap;
-	mlx_image_t	*img;
+	//t_map	*vmap;
+	//mlx_image_t	*img;
 
 	master = param;
-	vmap = master->vmap;
-	img = master->img;
-	map = master->map;
+	//vmap = master->vmap;
+	//img = master->img;
+	//map = master->map;
 	if (keydata.key == MLX_KEY_RIGHT && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		reset_img(master->img);
-		horizontal_shift(vmap, 50);
-		create_raster(master->img, *vmap);
+		master->camera->x_offset += 25;
+		project(master);
 	}
 	if (keydata.key == MLX_KEY_LEFT && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		reset_img(master->img);
-		horizontal_shift(vmap, -50);
-		create_raster(master->img, *vmap);
+		master->camera->x_offset -= 25;
+		project(master);
 	}
 	if (keydata.key == MLX_KEY_UP && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		reset_img(master->img);
-		vertical_shift(vmap, -50);
-		create_raster(master->img, *vmap);
+		master->camera->y_offset -= 25;
+		project(master);
 	}
 	if (keydata.key == MLX_KEY_DOWN && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		reset_img(master->img);
-		vertical_shift(vmap, 50);
-		create_raster(master->img, *vmap);
+		master->camera->y_offset += 25;
+		project(master);
 	}
 	if (keydata.key == MLX_KEY_Q && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		reset_img(master->img);
-		///rotate_z(vmap, -1);
-		master->camera->gamma += 0.05;
+		master->camera->gamma -= 0.05;
 		project(master);
-		create_raster(master->img, *vmap);
 	}
 	if (keydata.key == MLX_KEY_E && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		reset_img(master->img);
-		//rotate_z(vmap, 1);
-		master->camera->gamma -= 0.05;
+		master->camera->gamma += 0.05;
 		project(master);
-		create_raster(master->img, *vmap);
 	}
 	if (keydata.key == MLX_KEY_A && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		reset_img(master->img);
-		rotate_y(vmap, -1);
-		create_raster(master->img, *vmap);
+		master->camera->beta -= 0.05;
+		project(master);
 	}
 	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		reset_img(master->img);
-		rotate_y(vmap, 1);
-		create_raster(master->img, *vmap);
+		master->camera->beta += 0.05;
+		project(master);
 	}
 	if (keydata.key == MLX_KEY_W && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		reset_img(master->img);
-		rotate_x(vmap, 1);
-		create_raster(master->img, *vmap);
+		master->camera->alpha -= 0.05;
+		project(master);
 	}
 	if (keydata.key == MLX_KEY_S && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		reset_img(master->img);
-		rotate_x(vmap, -1);
-		create_raster(master->img, *vmap);
+		master->camera->alpha += 0.05;
+		project(master);
 	}
 	if (keydata.key == MLX_KEY_R && keydata.action == MLX_PRESS)
 	{
-		free_map(vmap);
-		vmap = tab_to_vect(&map);
-		reset_img(img);
-		recenter_vertices(vmap, img);
-		rotate_vertices(vmap);
-		recenter_vertices(vmap, img);
-		scale_vertices(vmap, img);
-		recenter_vertices(vmap, img);
-		create_raster(img, *vmap);
-		master->img = img;
-		master->vmap = vmap;
-		master->map = map;
+		reset_img(master->img);
+		master->camera->alpha = 0;
+		master->camera->beta = 0;
+		master->camera->gamma = 0;
+		project(master);
 	}
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
-		free_tab(map);
-		free_map(vmap);
-		mlx_delete_image(master->mlx, img);
 		mlx_close_window(master->mlx);
 	}
 }
@@ -398,7 +385,11 @@ int32_t main(int argc, const char **argv)
 	mlx_cursor_hook(mlx, &my_cursor, master);
 	mlx_loop(mlx);
 
+	mlx_delete_image(master->mlx, img);
 	mlx_terminate(master->mlx);
+	free_tab(map);
+	free_map(vmap);
+	free(master->camera);
 	free(master);
 	return (EXIT_SUCCESS);
 }
