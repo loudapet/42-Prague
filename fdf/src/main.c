@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/09 11:48:17 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/10 11:17:33 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,21 @@ void	project(t_master *master)
 	}
 } */
 
+t_cursor	*init_cursor(t_master *master)
+{
+	t_cursor	*cursor;
+	int32_t			x;
+	int32_t			y;
+
+	cursor = (t_cursor *)malloc(sizeof(t_cursor));
+	mlx_get_mouse_pos(master->mlx, &x, &y);
+	cursor->x_cur = x;
+	cursor->y_cur = y;
+	cursor->x_prev = x;
+	cursor->y_prev = y;
+	return (cursor);
+}
+
 int32_t main(int argc, const char **argv)
 {
 	t_tab map;
@@ -198,6 +213,7 @@ int32_t main(int argc, const char **argv)
 	master->vmap = vmap;
 	master->map = map;
 	master->camera = init_camera(master);
+	master->cursor = init_cursor(master);
 	reset_img(img);
 	project(master);
 	/* recenter_vertices(vmap, img);
@@ -210,8 +226,7 @@ int32_t main(int argc, const char **argv)
 	
 	mlx_key_hook(mlx, &keyhook, master);
 	mlx_scroll_hook(mlx, &scrollhook, master);
-	//mlx_mouse_hook(mlx, &mousehook, master);
-	//mlx_cursor_hook(mlx, &cursor, master);
+	mlx_cursor_hook(mlx, &cursor, master);
 	mlx_loop(mlx);
 
 	mlx_delete_image(master->mlx, img);
@@ -219,6 +234,7 @@ int32_t main(int argc, const char **argv)
 	free_tab(map);
 	free_map(vmap);
 	free(master->camera);
+	free(master->cursor);
 	free(master);
 	return (EXIT_SUCCESS);
 }

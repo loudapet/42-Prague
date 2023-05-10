@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/09 11:36:14 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/10 11:17:41 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,15 @@ typedef struct s_camera
 	int				zoom;
 }				t_camera;
 
+typedef struct s_cursor
+{
+	double	x_cur;
+	double	y_cur;
+	double	x_prev;
+	double	y_prev;
+}				t_cursor;
+
+
 typedef struct	s_master
 {
 	mlx_t		*mlx;
@@ -98,6 +107,7 @@ typedef struct	s_master
 	t_map		*vmap;
 	t_tab		map;
 	t_camera	*camera;
+	t_cursor	*cursor;
 	const char		*path;
 }				t_master;
 
@@ -132,8 +142,7 @@ t_camera	*init_camera(t_master *master);
 /* hooks.c */
 void	scrollhook(double xdelta, double ydelta, void* param);
 void	keyhook(mlx_key_data_t keydata, void *param);
-//void	cursor(double xpos, double ypos, void* param);
-//void 	mousehook(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
+void	cursor(double xpos, double ypos, void* param);
 
 /* utils.c */
 int		abs_val(int nb);

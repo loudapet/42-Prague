@@ -6,47 +6,38 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 11:22:58 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/09 11:25:32 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/10 11:17:30 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/* void	cursor(double xpos, double ypos, void* param)
+void	cursor(double xpos, double ypos, void* param)
 {
 	t_master	*master;
-	t_map	*vmap;
 
 	master = param;
-	vmap = master->vmap;
+	master->cursor->x_prev = master->cursor->x_cur;
+	master->cursor->y_prev = master->cursor->y_cur;
+	master->cursor->x_cur = xpos;
+	master->cursor->y_cur = ypos;
 	if (mlx_is_mouse_down(master->mlx, MLX_MOUSE_BUTTON_LEFT) &&
 		xpos > 0 && ypos > 0)
 	{
 		reset_img(master->img);
-		drag_image(xpos, ypos, master);
-		create_raster(master->img, *vmap);
+		master->camera->x_offset += (xpos - master->cursor->x_prev);
+		master->camera->y_offset += (ypos - master->cursor->y_prev);
+		project(master);
+	}
+	if (mlx_is_mouse_down(master->mlx, MLX_MOUSE_BUTTON_RIGHT) &&
+		xpos > 0 && ypos > 0)
+	{
+		reset_img(master->img);
+		master->camera->gamma += (xpos - master->cursor->x_prev) * -0.005;
+		master->camera->alpha += (ypos - master->cursor->y_prev) * 0.005;
+		project(master);
 	}
 }
-
-void mousehook(mouse_key_t button, action_t action, modifier_key_t mods, void* param)
-{
-	t_master	*master;
-	t_map	*vmap;
-	int32_t	xpos;
-	int32_t	ypos;
-
-	master = param;
-	vmap = master->vmap;
-	if (button == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
-	{
-		mlx_get_mouse_pos(master->mlx, &xpos, &ypos);
-		reset_img(master->img);
-		drag_image(xpos, ypos, master);
-		create_raster(master->img, *vmap);
-	}
-	if (!mods)
-		return ;
-} */
 
 void	scrollhook(double xdelta, double ydelta, void* param)
 {
@@ -65,6 +56,8 @@ void	scrollhook(double xdelta, double ydelta, void* param)
 	{
 		reset_img(master->img);
 		master->camera->zoom -= 1;
+		if (master->camera->zoom < 1)
+			master->camera->zoom = 1;
 		project(master);
 	}
 	if (xdelta > 0)
