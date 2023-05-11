@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/10 11:17:33 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/11 11:50:28 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	rot_z(float *x, float *y, double gamma)
 	*y = prev_x * sin(gamma) + prev_y * cos(gamma);
 }
 
-static void	conv_to_iso(float *x, float *y, float *z)
+/* static void	conv_to_iso(float *x, float *y, float *z)
 {
 	float	prev_x;
 	float	prev_y;
@@ -68,6 +68,17 @@ static void	conv_to_iso(float *x, float *y, float *z)
 	prev_y = *y;
 	*x = (prev_x - prev_y) * cos(0.5236);
 	*y = (prev_x + prev_y) * sin(0.5236) - (*z);
+} */
+
+static void	conv_to_front(float *y, float *z)
+{
+	float	prev_y;
+	float	prev_z;
+
+	prev_y = *y;
+	prev_z = *z;
+	*y = prev_y * cos(1.57) - prev_z * sin(1.57);
+	*z = prev_y * sin(1.57) + prev_z * cos(1.57);
 }
 
 static t_map	*vectdup(t_map *vmap)
@@ -130,7 +141,8 @@ void	project(t_master *master)
 			rot_y(&vmap->vmap[row][col].x, &vmap->vmap[row][col].z, camera->beta);
 			rot_z(&vmap->vmap[row][col].x, &vmap->vmap[row][col].y, camera->gamma);
 			// Projecting
-			conv_to_iso(&vmap->vmap[row][col].x, &vmap->vmap[row][col].y, &vmap->vmap[row][col].z);
+			//conv_to_iso(&vmap->vmap[row][col].x, &vmap->vmap[row][col].y, &vmap->vmap[row][col].z);
+			conv_to_front(&vmap->vmap[row][col].y, &vmap->vmap[row][col].z);
 			// Recentering
 			vmap->vmap[row][col].x += (int)master->img->width / 2 + camera->x_offset;
 			vmap->vmap[row][col].y += (int)master->img->height / 2 + camera->y_offset;

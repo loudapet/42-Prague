@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 11:22:58 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/10 11:17:30 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/11 12:04:47 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ void	cursor(double xpos, double ypos, void* param)
 		xpos > 0 && ypos > 0)
 	{
 		reset_img(master->img);
-		master->camera->gamma += (xpos - master->cursor->x_prev) * -0.005;
+		master->camera->gamma += (xpos - master->cursor->x_prev) * 0.005;
 		master->camera->alpha += (ypos - master->cursor->y_prev) * 0.005;
+/* 		if (mlx_is_mouse_down(master->mlx, MLX_MOUSE_BUTTON_MIDDLE))
+			master->camera->beta += (xpos - master->cursor->x_prev) * 0.005; */
 		project(master);
 	}
 }
@@ -113,36 +115,45 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 	{
 		reset_img(master->img);
 		master->camera->gamma -= 0.05;
+		printf("alpha: %f, beta: %f, gamma: %f\n", master->camera->alpha * 180/M_PI, master->camera->beta * 180/M_PI, master->camera->gamma * 180/M_PI);
+
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_E && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		reset_img(master->img);
 		master->camera->gamma += 0.05;
+		printf("alpha: %f, beta: %f, gamma: %f\n", master->camera->alpha * 180/M_PI, master->camera->beta * 180/M_PI, master->camera->gamma * 180/M_PI);
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_A && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		reset_img(master->img);
 		master->camera->beta -= 0.05;
+		printf("alpha: %f, beta: %f, gamma: %f\n", master->camera->alpha * 180/M_PI, master->camera->beta * 180/M_PI, master->camera->gamma * 180/M_PI);
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		reset_img(master->img);
 		master->camera->beta += 0.05;
+		printf("alpha: %f, beta: %f, gamma: %f\n", master->camera->alpha * 180/M_PI, master->camera->beta * 180/M_PI, master->camera->gamma * 180/M_PI);
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_W && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		reset_img(master->img);
 		master->camera->alpha -= 0.05;
+		printf("alpha: %f, beta: %f, gamma: %f\n", master->camera->alpha * 180/M_PI, master->camera->beta * 180/M_PI, master->camera->gamma * 180/M_PI);
+
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_S && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		reset_img(master->img);
 		master->camera->alpha += 0.05;
+		printf("alpha: %f, beta: %f, gamma: %f\n", master->camera->alpha * 180/M_PI, master->camera->beta * 180/M_PI, master->camera->gamma * 180/M_PI);
+
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_R && keydata.action == MLX_PRESS)
