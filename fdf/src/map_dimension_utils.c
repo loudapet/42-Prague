@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_dimension_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 17:59:32 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/03 13:51:28 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/12 13:31:25 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ float	max_z(t_map map)
 		}
 		y++;
 	}
-	//printf("MAXIMUM Z VAL: %f \n", max);
+	printf("MAXIMUM Z VAL: %f \n", max);
 	return (max);
 }
 
@@ -158,7 +158,7 @@ float	min_z(t_map map)
 		}
 		y++;
 	}
-	//printf("MAXIMUM Z VAL: %f \n", max);
+	printf("MINIMUM Z VAL: %f \n", min);
 	return (min);
 }
 

@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/11 11:50:28 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/12 14:04:19 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ static t_map	*vectdup(t_map *vmap)
 			dup->vmap[row][col].x = vmap->vmap[row][col].x;
 			dup->vmap[row][col].y = vmap->vmap[row][col].y;
 			dup->vmap[row][col].z = vmap->vmap[row][col].z;
+			dup->vmap[row][col].color = vmap->vmap[row][col].color;
 			col++;
 		}
 		//print_vectors(dup->vmap, vmap->ncols, row);
@@ -210,13 +211,13 @@ int32_t main(int argc, const char **argv)
 	if (!map.tab)
 		return (EXIT_FAILURE);
 	vmap = tab_to_vect(&map);
-	vmap->path = argv[1];
+	//vmap->path = argv[1];
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
-		error();
+		error(); 	
 
 	img = init_img(mlx);
-	vmap->img = img;
+	//vmap->img = img;
 	master = malloc(sizeof(t_master));
 	if (!master)
 		return (EXIT_FAILURE);

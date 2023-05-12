@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/10 11:17:41 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/12 14:01:27 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@
 # include "MLX42/MLX42.h"
 # define WIDTH 1600
 # define HEIGHT 900
+# define CLR_DISCO			0x9A1F6A
+# define CLR_BRICK_RED		0xC2294E
+# define CLR_FLAMINGO		0xEC4B27
+# define CLR_JAFFA			0xEF8633
+# define CLR_SAFFRON		0xF3AF3D
 
 typedef struct	s_tab
 {
@@ -39,6 +44,7 @@ typedef struct	s_vector
 	float	x;
 	float	y;
 	float	z;
+	int		color;
 }				t_vector;
 
 typedef struct	s_map
@@ -46,8 +52,8 @@ typedef struct	s_map
 	t_vector 	**vmap;
 	int			nrows;
 	int			ncols;
-	mlx_image_t	*img;
-	const char		*path;
+	float		z_max;
+	float		z_min;
 }				t_map;
 
 typedef struct	s_line
@@ -63,6 +69,8 @@ typedef struct	s_line
 	int	dx;
 	int	dy;
 	int	err;
+	int	color1;
+	int	color2;
 }				t_line;
 
 typedef struct	s_mid
@@ -135,6 +143,8 @@ void calc_err(t_line *line, int *cur_p, int delta, int flag);
 t_line init_vars(t_vector p1, t_vector p2);
 void draw_line(mlx_image_t *img, t_vector p1, t_vector p2);
 void create_raster(mlx_image_t *img, t_map map);
+int	get_default_clr(int z, float min_z, float max_z);
+int	get_clr(t_line line);
 
 /* camera.c */
 t_camera	*init_camera(t_master *master);

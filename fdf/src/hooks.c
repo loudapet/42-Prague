@@ -6,11 +6,20 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 11:22:58 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/11 12:04:47 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/12 12:53:49 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static double	ft_reset_angles(double angle)
+{
+	if (angle >= M_PI)
+		return (-2 * M_PI - angle);
+	else if (angle <= -M_PI)
+		return (2 * M_PI + angle);
+	return (angle);
+}
 
 void	cursor(double xpos, double ypos, void* param)
 {
@@ -35,8 +44,8 @@ void	cursor(double xpos, double ypos, void* param)
 		reset_img(master->img);
 		master->camera->gamma += (xpos - master->cursor->x_prev) * 0.005;
 		master->camera->alpha += (ypos - master->cursor->y_prev) * 0.005;
-/* 		if (mlx_is_mouse_down(master->mlx, MLX_MOUSE_BUTTON_MIDDLE))
-			master->camera->beta += (xpos - master->cursor->x_prev) * 0.005; */
+		master->camera->gamma = ft_reset_angles(master->camera->gamma);
+		master->camera->alpha = ft_reset_angles(master->camera->alpha);
 		project(master);
 	}
 }

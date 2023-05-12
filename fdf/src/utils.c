@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 11:09:17 by plouda            #+#    #+#             */
-/*   Updated: 2023/04/28 10:35:52 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/12 13:12:00 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void	ft_swap(t_line *line)
 	tmp = line->y1;
 	line->y1 = line->y2;
 	line->y2 = tmp;
+	tmp = line->color1;
+	line->color1 = line->color2;
+	line->color2 = tmp;
 }
 
 int get_rgba(int r, int g, int b, int a)
