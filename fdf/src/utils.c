@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 11:09:17 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/14 16:37:16 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/15 09:42:42 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ void	reset_img(mlx_image_t *img)
 		if (x == 299)
 			color = 0xffffffff;
 		y = 0;
-		while (y < 160)
+		while (y < 180)
 		{
-			if (y == 159)
+			if (y == 179)
 				color = 0xffffffff;
 			mlx_put_pixel(img, x, y, color);
 			y++;

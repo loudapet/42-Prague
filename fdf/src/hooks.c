@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 11:22:58 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/14 17:16:25 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/15 09:39:20 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-static void	recenter_camera(t_master *master)
-{
-	master->vmap->vmap[row][col].x += (int)master->img->width / 2 + camera->x_offset;
-	master->vmap->vmap[row][col].y += (int)master->img->height / 2 + camera->y_offset;
-}
 
 static double	ft_reset_angles(double angle)
 {
@@ -166,7 +160,8 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 	}
 	if (keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS)
 	{
-		recenter_camera(master);
+		master->camera->x_offset = 0;
+		master->camera->y_offset = 0;
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_R && keydata.action == MLX_PRESS)

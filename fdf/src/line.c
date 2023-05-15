@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:53:32 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/13 22:26:23 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/15 09:41:32 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static double	get_ratio(int s, int f, int cur)
+static double	get_ratio(int start, int finish, int cur)
 {
 	double	ratio;
 
-	if (s == f)
+	if (start == finish)
 		return (1.0);
-	ratio = (double)(cur - s) / (f - s);
+	ratio = (double)(cur - start) / (finish - start);
 	return (ratio);
 }
 
@@ -82,6 +82,9 @@ static int	do_lerp(int start, int finish, double ratio)
 /*
 ** Quadrant 1, 4, 5, 8(delta.x > delta.y): sample by x
 ** Quadrant 2, 3, 6, 7(delta.x < delta.y): sample by y
+
+In a nutshell, “& 0xff” effectively masks the variable so it leaves 
+only the value in the last 8 bits, and ignores all the rest of the bits.
 */
 
 int	get_clr(t_line line)

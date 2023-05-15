@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/14 17:10:56 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/15 09:44:11 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 void	print_instructions(t_master *master)
 {
 	master->instr = mlx_put_string(master->mlx, "INSTRUCTIONS (R to reset)", 15, 5);
-	master->instr = mlx_put_string(master->mlx, "Move: arrows, left click", 15, 25);
+	master->instr = mlx_put_string(master->mlx, "Move: arrow keys", 15, 25);
 	master->instr = mlx_put_string(master->mlx, "Zoom in/out: scroll up/down", 15, 45);
 	master->instr = mlx_put_string(master->mlx, "Rotate z: Q/E", 15, 65);
 	master->instr = mlx_put_string(master->mlx, "Rotate y:	A/D", 15, 85);
 	master->instr = mlx_put_string(master->mlx, "Rotate x: W/S", 15, 105);
 	master->instr = mlx_put_string(master->mlx, "Flatten/raise:	Z/X", 15, 125);
+	master->instr = mlx_put_string(master->mlx, "Recenter:	C", 15, 145);
 }
 
 static void error(void)
