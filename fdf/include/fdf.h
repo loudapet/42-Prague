@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/15 13:28:06 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/15 13:33:41 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,17 @@ void draw_line(mlx_image_t *img, t_vector p1, t_vector p2);
 void create_raster(mlx_image_t *img, t_map map);
 int	get_default_clr(int z, float min_z, float max_z);
 int	get_clr(t_line line);
+
+/* projections.c */
+void	conv_to_iso(float *x, float *y, float *z);
+void	conv_to_side(float *y, float *z);
+void	conv_to_cab(float *x, float *y, float *z);
+void	conv_to_cav(float *x, float *y, float *z);
+
+/* rotations.c */
+void	rot_x(float *y, float *z, double alpha);
+void	rot_y(float *x, float *z, double beta);
+void	rot_z(float *x, float *y, double gamma);
 
 /* camera.c */
 t_camera	*init_camera(t_master *master);

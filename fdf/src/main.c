@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/15 13:16:54 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/15 13:32:55 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,89 +42,6 @@ mlx_image_t *init_img(mlx_t *mlx)
 	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
 		error();
 	return (img);
-}
-
-static void	rot_x(float *y, float *z, double alpha)
-{
-	float	prev_y;
-
-	prev_y = *y;
-	*y = prev_y * cos(alpha) + (*z) * sin(alpha);
-	*z = -prev_y * sin(alpha) + (*z) * cos(alpha);
-}
-
-static void	rot_y(float *x, float *z, double beta)
-{
-	float	prev_x;
-
-	prev_x = *x;
-	*x = prev_x * cos(beta) + (*z) * sin(beta);
-	*z = -prev_x * sin(beta) + (*z) * cos(beta);
-}
-
-static void	rot_z(float *x, float *y, double gamma)
-{
-	float	prev_x;
-	float	prev_y;
-
-	prev_x = *x;
-	prev_y = *y;
-	*x = prev_x * cos(gamma) - prev_y * sin(gamma);
-	*y = prev_x * sin(gamma) + prev_y * cos(gamma);
-}
-
-static void	conv_to_iso(float *x, float *y, float *z)
-{
-	float	prev_x;
-	float	prev_y;
-
-	prev_x = *x;
-	prev_y = *y;
-	*x = (prev_x - prev_y) * cos(0.5236);
-	*y = (prev_x + prev_y) * sin(0.5236) - (*z);
-}
-
-static void	conv_to_side(float *y, float *z)
-{
-	float	prev_y;
-	float	prev_z;
-
-	prev_y = *y;
-	prev_z = *z;
-	*y = prev_y * cos(1.57) - prev_z * sin(1.57);
-	*z = prev_y * sin(1.57) + prev_z * cos(1.57);
-}
-
-static void	conv_to_cab(float *x, float *y, float *z)
-{
-	float	prev_x;
-	float	prev_y;
-	float	prev_z;
-
-	prev_y = *y;
-	prev_z = *z;
-	*y = prev_y * cos(1.57) - prev_z * sin(1.57);
-	*z = prev_y * sin(1.57) + prev_z * cos(1.57);
-	prev_x = *x;
-	prev_y = *y;
-	*x = prev_x + (*z) * cos(1) * 0.5;
-	*y = prev_y + (*z) * sin(1) * 0.5;
-}
-
-static void	conv_to_cav(float *x, float *y, float *z)
-{
-	float	prev_x;
-	float	prev_y;
-	float	prev_z;
-
-	prev_y = *y;
-	prev_z = *z;
-	*y = prev_y * cos(1.57) - prev_z * sin(1.57);
-	*z = prev_y * sin(1.57) + prev_z * cos(1.57);
-	prev_x = *x;
-	prev_y = *y;
-	*x = prev_x + (*z) * cos(1);
-	*y = prev_y + (*z) * sin(1);
 }
 
 static t_map	*vectdup(t_map *vmap)
