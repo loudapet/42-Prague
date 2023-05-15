@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/12 14:04:19 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/14 17:10:56 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	print_instructions(t_master *master)
+{
+	master->instr = mlx_put_string(master->mlx, "INSTRUCTIONS (R to reset)", 15, 5);
+	master->instr = mlx_put_string(master->mlx, "Move: arrows, left click", 15, 25);
+	master->instr = mlx_put_string(master->mlx, "Zoom in/out: scroll up/down", 15, 45);
+	master->instr = mlx_put_string(master->mlx, "Rotate z: Q/E", 15, 65);
+	master->instr = mlx_put_string(master->mlx, "Rotate y:	A/D", 15, 85);
+	master->instr = mlx_put_string(master->mlx, "Rotate x: W/S", 15, 105);
+	master->instr = mlx_put_string(master->mlx, "Flatten/raise:	Z/X", 15, 125);
+}
 
 static void error(void)
 {
@@ -122,6 +133,7 @@ void	project(t_master *master)
 	t_map	*vmap;
 	t_camera	*camera;
 	
+	reset_img(master->img);
 	vmap = vectdup(master->vmap);
 	camera = master->camera;
 	row = 0;
@@ -133,7 +145,7 @@ void	project(t_master *master)
 			// Scaling/zooming
 			vmap->vmap[row][col].x *= camera->zoom;
 			vmap->vmap[row][col].y *= camera->zoom;
-			vmap->vmap[row][col].z *= camera->zoom;
+			vmap->vmap[row][col].z *= camera->zoom / camera->z_div;
 			// Making origin 0,0 the middle of the object
 			vmap->vmap[row][col].x -= vmap->ncols * camera->zoom / 2;
 			vmap->vmap[row][col].y -= vmap->nrows * camera->zoom / 2;
@@ -157,31 +169,6 @@ void	project(t_master *master)
 	create_raster(master->img, *vmap);
 	free_map(vmap);
 }
-
-/* void	drag_image(double xpos, double ypos, t_master *master)
-{
-	t_mid	mid;
-	t_map	*vmap;
-	int		row;
-	int		col;
-
-	//printf("X: %f, Y: %f\n", xpos, ypos);
-	vmap = master->vmap;
-	mid = get_midpoint(*vmap);
-	row = 0;
-	while (row < vmap->nrows)
-	{
-		col = 0;
-		while (col < vmap->ncols)
-		{
-			vmap->vmap[row][col].x += -mid.mid_x + (float)xpos;
-			vmap->vmap[row][col].y += -mid.mid_y + (float)ypos;
-			col++;
-		}
-		//print_vectors(vmap->vmap, vmap->ncols, row);
-		row++;
-	}
-} */
 
 t_cursor	*init_cursor(t_master *master)
 {
@@ -227,15 +214,14 @@ int32_t main(int argc, const char **argv)
 	master->map = map;
 	master->camera = init_camera(master);
 	master->cursor = init_cursor(master);
-	reset_img(img);
 	project(master);
+	print_instructions(master);
 	/* recenter_vertices(vmap, img);
 	rotate_vertices(vmap);
 	recenter_vertices(vmap, img);
 	scale_vertices(vmap, img);
 	recenter_vertices(vmap, img); */
 	//create_raster(img, *vmap);
-
 	
 	mlx_key_hook(mlx, &keyhook, master);
 	mlx_scroll_hook(mlx, &scrollhook, master);

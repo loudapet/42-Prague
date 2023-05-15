@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/12 14:01:27 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/14 00:14:21 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ typedef struct s_camera
 	double			gamma;
 	int				x_offset;
 	int				y_offset;
-	int				zoom;
+	double			zoom;
+	double			z_div;
 }				t_camera;
 
 typedef struct s_cursor
@@ -112,6 +113,7 @@ typedef struct	s_master
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+	mlx_image_t	*instr;
 	t_map		*vmap;
 	t_tab		map;
 	t_camera	*camera;
@@ -168,5 +170,7 @@ void	free_tab(t_tab tab);
 void	free_split(char **str);
 void	free_map(t_map *map);
 void	reset_img(mlx_image_t *img);
+double	rad_to_deg(double rad);
+double	deg_to_rad(double deg);
 
 #endif

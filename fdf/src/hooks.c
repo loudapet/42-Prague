@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 11:22:58 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/12 12:53:49 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/14 17:16:25 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static void	recenter_camera(t_master *master)
+{
+	master->vmap->vmap[row][col].x += (int)master->img->width / 2 + camera->x_offset;
+	master->vmap->vmap[row][col].y += (int)master->img->height / 2 + camera->y_offset;
+}
 
 static double	ft_reset_angles(double angle)
 {
@@ -33,7 +39,6 @@ void	cursor(double xpos, double ypos, void* param)
 	if (mlx_is_mouse_down(master->mlx, MLX_MOUSE_BUTTON_LEFT) &&
 		xpos > 0 && ypos > 0)
 	{
-		reset_img(master->img);
 		master->camera->x_offset += (xpos - master->cursor->x_prev);
 		master->camera->y_offset += (ypos - master->cursor->y_prev);
 		project(master);
@@ -41,7 +46,6 @@ void	cursor(double xpos, double ypos, void* param)
 	if (mlx_is_mouse_down(master->mlx, MLX_MOUSE_BUTTON_RIGHT) &&
 		xpos > 0 && ypos > 0)
 	{
-		reset_img(master->img);
 		master->camera->gamma += (xpos - master->cursor->x_prev) * 0.005;
 		master->camera->alpha += (ypos - master->cursor->y_prev) * 0.005;
 		master->camera->gamma = ft_reset_angles(master->camera->gamma);
@@ -59,27 +63,23 @@ void	scrollhook(double xdelta, double ydelta, void* param)
 	//vmap = master->vmap;
 	if (ydelta > 0)
 	{
-		reset_img(master->img);
-		master->camera->zoom += 1;
+		master->camera->zoom -= 1.;
+		if (master->camera->zoom < 1.)
+			master->camera->zoom = 1.;
 		project(master);
 	}
 	if (ydelta < 0)
 	{
-		reset_img(master->img);
-		master->camera->zoom -= 1;
-		if (master->camera->zoom < 1)
-			master->camera->zoom = 1;
+		master->camera->zoom += 1.;
 		project(master);
 	}
 	if (xdelta > 0)
 	{
-		reset_img(master->img);
 		master->camera->x_offset += 25;
 		project(master);
 	}
 	if (xdelta < 0)
 	{
-		reset_img(master->img);
 		master->camera->x_offset -= 25;
 		project(master);
 	}
@@ -98,76 +98,79 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 	//map = master->map;
 	if (keydata.key == MLX_KEY_RIGHT && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
-		reset_img(master->img);
 		master->camera->x_offset += 25;
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_LEFT && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
-		reset_img(master->img);
 		master->camera->x_offset -= 25;
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_UP && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
-		reset_img(master->img);
 		master->camera->y_offset -= 25;
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_DOWN && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
-		reset_img(master->img);
 		master->camera->y_offset += 25;
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_Q && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
-		reset_img(master->img);
 		master->camera->gamma -= 0.05;
 		printf("alpha: %f, beta: %f, gamma: %f\n", master->camera->alpha * 180/M_PI, master->camera->beta * 180/M_PI, master->camera->gamma * 180/M_PI);
-
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_E && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
-		reset_img(master->img);
 		master->camera->gamma += 0.05;
 		printf("alpha: %f, beta: %f, gamma: %f\n", master->camera->alpha * 180/M_PI, master->camera->beta * 180/M_PI, master->camera->gamma * 180/M_PI);
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_A && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
-		reset_img(master->img);
 		master->camera->beta -= 0.05;
 		printf("alpha: %f, beta: %f, gamma: %f\n", master->camera->alpha * 180/M_PI, master->camera->beta * 180/M_PI, master->camera->gamma * 180/M_PI);
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
-		reset_img(master->img);
 		master->camera->beta += 0.05;
 		printf("alpha: %f, beta: %f, gamma: %f\n", master->camera->alpha * 180/M_PI, master->camera->beta * 180/M_PI, master->camera->gamma * 180/M_PI);
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_W && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
-		reset_img(master->img);
 		master->camera->alpha -= 0.05;
 		printf("alpha: %f, beta: %f, gamma: %f\n", master->camera->alpha * 180/M_PI, master->camera->beta * 180/M_PI, master->camera->gamma * 180/M_PI);
-
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_S && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
-		reset_img(master->img);
 		master->camera->alpha += 0.05;
 		printf("alpha: %f, beta: %f, gamma: %f\n", master->camera->alpha * 180/M_PI, master->camera->beta * 180/M_PI, master->camera->gamma * 180/M_PI);
-
+		project(master);
+	}
+	if (keydata.key == MLX_KEY_Z && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	{
+		master->camera->z_div += 0.1;
+		project(master);
+	}
+	if (keydata.key == MLX_KEY_X && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	{
+		master->camera->z_div -= 0.1;
+		if (master->camera->z_div <= 0.1)
+			master->camera->z_div = 0.1;
+		project(master);
+	}
+	if (keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS)
+	{
+		recenter_camera(master);
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_R && keydata.action == MLX_PRESS)
 	{
-		reset_img(master->img);
 		free(master->camera);
 		master->camera = init_camera(master);
 		project(master);
