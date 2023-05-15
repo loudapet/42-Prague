@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/15 09:44:11 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/15 13:16:54 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 void	print_instructions(t_master *master)
 {
-	master->instr = mlx_put_string(master->mlx, "INSTRUCTIONS (R to reset)", 15, 5);
-	master->instr = mlx_put_string(master->mlx, "Move: arrow keys", 15, 25);
-	master->instr = mlx_put_string(master->mlx, "Zoom in/out: scroll up/down", 15, 45);
-	master->instr = mlx_put_string(master->mlx, "Rotate z: Q/E", 15, 65);
-	master->instr = mlx_put_string(master->mlx, "Rotate y:	A/D", 15, 85);
-	master->instr = mlx_put_string(master->mlx, "Rotate x: W/S", 15, 105);
-	master->instr = mlx_put_string(master->mlx, "Flatten/raise:	Z/X", 15, 125);
-	master->instr = mlx_put_string(master->mlx, "Recenter:	C", 15, 145);
+	master->instr = mlx_put_string(master->mlx, "Reset:             R",15,5);
+	master->instr = mlx_put_string(master->mlx, "Move:     Arrow Keys",15,25);
+	master->instr = mlx_put_string(master->mlx, "Zoom:         Scroll",15,45);
+	master->instr = mlx_put_string(master->mlx, "Rotate z:        Q/E",15,65);
+	master->instr = mlx_put_string(master->mlx, "Rotate y:        A/D",15,85);
+	master->instr = mlx_put_string(master->mlx, "Rotate x:        W/S",15,105);
+	master->instr = mlx_put_string(master->mlx, "Recenter:          C",15,125);
+	master->instr = mlx_put_string(master->mlx, "Flatten/raise:	  Z/X",15,145);
+	master->instr = mlx_put_string(master->mlx, "Change projection: P",15,165);
+	master->instr = mlx_put_string(master->mlx, "ISO, SIDE, CAB, CAV",15,195);
 }
 
 static void error(void)
@@ -71,7 +73,7 @@ static void	rot_z(float *x, float *y, double gamma)
 	*y = prev_x * sin(gamma) + prev_y * cos(gamma);
 }
 
-/* static void	conv_to_iso(float *x, float *y, float *z)
+static void	conv_to_iso(float *x, float *y, float *z)
 {
 	float	prev_x;
 	float	prev_y;
@@ -80,9 +82,9 @@ static void	rot_z(float *x, float *y, double gamma)
 	prev_y = *y;
 	*x = (prev_x - prev_y) * cos(0.5236);
 	*y = (prev_x + prev_y) * sin(0.5236) - (*z);
-} */
+}
 
-static void	conv_to_front(float *y, float *z)
+static void	conv_to_side(float *y, float *z)
 {
 	float	prev_y;
 	float	prev_z;
@@ -91,6 +93,38 @@ static void	conv_to_front(float *y, float *z)
 	prev_z = *z;
 	*y = prev_y * cos(1.57) - prev_z * sin(1.57);
 	*z = prev_y * sin(1.57) + prev_z * cos(1.57);
+}
+
+static void	conv_to_cab(float *x, float *y, float *z)
+{
+	float	prev_x;
+	float	prev_y;
+	float	prev_z;
+
+	prev_y = *y;
+	prev_z = *z;
+	*y = prev_y * cos(1.57) - prev_z * sin(1.57);
+	*z = prev_y * sin(1.57) + prev_z * cos(1.57);
+	prev_x = *x;
+	prev_y = *y;
+	*x = prev_x + (*z) * cos(1) * 0.5;
+	*y = prev_y + (*z) * sin(1) * 0.5;
+}
+
+static void	conv_to_cav(float *x, float *y, float *z)
+{
+	float	prev_x;
+	float	prev_y;
+	float	prev_z;
+
+	prev_y = *y;
+	prev_z = *z;
+	*y = prev_y * cos(1.57) - prev_z * sin(1.57);
+	*z = prev_y * sin(1.57) + prev_z * cos(1.57);
+	prev_x = *x;
+	prev_y = *y;
+	*x = prev_x + (*z) * cos(1);
+	*y = prev_y + (*z) * sin(1);
 }
 
 static t_map	*vectdup(t_map *vmap)
@@ -127,6 +161,25 @@ static t_map	*vectdup(t_map *vmap)
 	return (dup);
 }
 
+void	convert_projection(t_map *vmap, int projection, int row, int col)
+{
+	float	*x;
+	float	*y;
+	float	*z;
+
+	x = &vmap->vmap[row][col].x;
+	y = &vmap->vmap[row][col].y;
+	z = &vmap->vmap[row][col].z;
+	if (projection == ISO)
+		conv_to_iso(x, y, z);
+	if (projection == SIDE)
+		conv_to_side(y, z);
+	if (projection == CAB)
+		conv_to_cab(x, y, z);
+	if (projection == CAV)
+		conv_to_cav(x, y, z);
+}
+
 void	project(t_master *master)
 {
 	int	row;
@@ -155,8 +208,7 @@ void	project(t_master *master)
 			rot_y(&vmap->vmap[row][col].x, &vmap->vmap[row][col].z, camera->beta);
 			rot_z(&vmap->vmap[row][col].x, &vmap->vmap[row][col].y, camera->gamma);
 			// Projecting
-			//conv_to_iso(&vmap->vmap[row][col].x, &vmap->vmap[row][col].y, &vmap->vmap[row][col].z);
-			conv_to_front(&vmap->vmap[row][col].y, &vmap->vmap[row][col].z);
+			convert_projection(vmap, camera->projection, row, col);
 			// Recentering
 			vmap->vmap[row][col].x += (int)master->img->width / 2 + camera->x_offset;
 			vmap->vmap[row][col].y += (int)master->img->height / 2 + camera->y_offset;
@@ -199,13 +251,11 @@ int32_t main(int argc, const char **argv)
 	if (!map.tab)
 		return (EXIT_FAILURE);
 	vmap = tab_to_vect(&map);
-	//vmap->path = argv[1];
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
 		error(); 	
 
 	img = init_img(mlx);
-	//vmap->img = img;
 	master = malloc(sizeof(t_master));
 	if (!master)
 		return (EXIT_FAILURE);
@@ -217,12 +267,6 @@ int32_t main(int argc, const char **argv)
 	master->cursor = init_cursor(master);
 	project(master);
 	print_instructions(master);
-	/* recenter_vertices(vmap, img);
-	rotate_vertices(vmap);
-	recenter_vertices(vmap, img);
-	scale_vertices(vmap, img);
-	recenter_vertices(vmap, img); */
-	//create_raster(img, *vmap);
 	
 	mlx_key_hook(mlx, &keyhook, master);
 	mlx_scroll_hook(mlx, &scrollhook, master);

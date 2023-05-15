@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:59:30 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/13 22:50:43 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/15 12:22:35 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_camera	*init_camera(t_master *master)
 	camera->x_offset = 0;
 	camera->y_offset = 0;
 	camera->z_div = 1;
+	camera->projection = ISO;
 	if (master->mlx->width / master->vmap->ncols / 2 > master->mlx->height / master->vmap->nrows / 2)
 		camera->zoom = (double)(master->mlx->height / master->vmap->nrows / 2);
 	else

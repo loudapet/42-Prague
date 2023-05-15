@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 11:22:58 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/15 11:22:26 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/15 12:24:00 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,13 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 	{
 		master->camera->x_offset = 0;
 		master->camera->y_offset = 0;
+		project(master);
+	}
+	if (keydata.key == MLX_KEY_P && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	{
+		master->camera->projection++;
+		if (master->camera->projection > CAV)
+			master->camera->projection = ISO;
 		project(master);
 	}
 	if (keydata.key == MLX_KEY_R && keydata.action == MLX_PRESS)

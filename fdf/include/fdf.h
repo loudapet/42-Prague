@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/14 00:14:21 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/15 12:59:34 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,19 @@
 # include "MLX42/MLX42.h"
 # define WIDTH 1600
 # define HEIGHT 900
-# define CLR_DISCO			0x9A1F6A
-# define CLR_BRICK_RED		0xC2294E
-# define CLR_FLAMINGO		0xEC4B27
-# define CLR_JAFFA			0xEF8633
-# define CLR_SAFFRON		0xF3AF3D
+# define CLR_DISCO			0x9A1F6AFF
+# define CLR_BRICK_RED		0xC2294EFF
+# define CLR_FLAMINGO		0xEC4B27FF
+# define CLR_JAFFA			0xEF8633FF
+# define CLR_SAFFRON		0xF3AF3DFF
+
+typedef enum	e_proj
+{
+	ISO,
+	SIDE,
+	CAB,
+	CAV
+}				t_proj;
 
 typedef struct	s_tab
 {
@@ -98,6 +106,8 @@ typedef struct s_camera
 	int				y_offset;
 	double			zoom;
 	double			z_div;
+	int				projection;
+
 }				t_camera;
 
 typedef struct s_cursor

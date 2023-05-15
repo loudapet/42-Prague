@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 11:09:17 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/15 09:42:42 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/15 13:17:11 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,15 @@ void	reset_img(mlx_image_t *img)
 		x++;
 	}
 	x = 0;
-	while (x < 300)
+	while (x < 230)
 	{
 		color = 0x202020ff;
-		if (x == 299)
+		if (x == 229)
 			color = 0xffffffff;
 		y = 0;
-		while (y < 180)
+		while (y < 225)
 		{
-			if (y == 179)
+			if (y == 224)
 				color = 0xffffffff;
 			mlx_put_pixel(img, x, y, color);
 			y++;
