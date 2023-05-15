@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:59:30 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/15 12:22:35 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/15 14:38:19 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,7 @@ t_camera	*init_camera(t_master *master)
 		camera->zoom = (double)(master->mlx->height / master->vmap->nrows / 2);
 	else
 		camera->zoom = (double)(master->mlx->width / master->vmap->ncols / 2);
+	if (camera->zoom < 1)
+		camera->zoom = 1;
 	return (camera);
 }
