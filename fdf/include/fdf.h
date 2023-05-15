@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/15 12:59:34 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/15 13:28:06 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,17 +136,8 @@ void print_vectors(t_vector **vmap, int ncols, int nrows);
 int get_rgba(int r, int g, int b, int a);
 t_tab parse_map(const char *path);
 t_map	*tab_to_vect(t_tab *tab);
-void	recenter_vertices(t_map *map, mlx_image_t *img);
-void	rotate_vertices(t_map *map);
-void	scale_vertices(t_map *map, mlx_image_t *img);
-void	horizontal_shift(t_map *map, int amount);
-void	vertical_shift(t_map *map, int amount);
-void	zoom(t_map *map, float amount);
-t_mid	get_midpoint(t_map map);
-void	rotate_z(t_map *map, int flag);
+
 void	print_tab_content(int **map_array, int ncols, int nrows);
-void	rotate_y(t_map *map, int flag);
-void	rotate_x(t_map *map, int flag);
 void	project(t_master *master);
 
 /* line.c */
