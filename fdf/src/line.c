@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:53:32 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/12 16:14:30 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/13 22:26:23 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,49 @@ int	get_default_clr(int z, float min_z, float max_z)
 	//printf("MIN Z: %f, MAX Z: %f\n", min_z, max_z);
 	ratio = get_ratio(min_z, max_z, z);
 	//printf("Ratio: %f\n", ratio);
-	if (ratio >= 0)
-		return (0x4d6ad0ff);
-	else if (ratio <= 1)
-		return (0xff9d7eff);
+	
+	if (ratio == 0)
+		return (0x8DC1EAff);
+	if (ratio < 0.10)
+		return (0xACD0A5ff);
+	if (ratio < 0.15)
+		return (0x94BF8Bff);
+	if (ratio < 0.20)
+		return (0xA8C68Fff);
+	if (ratio < 0.25)
+		return (0xBDCC96ff);
+	if (ratio < 0.30)
+		return (0xD1D7ABff);
+	if (ratio < 0.35)
+		return (0xE1E4B5ff);
+	if (ratio < 0.40)
+		return (0xEFEBC0ff);
+	if (ratio < 0.45)
+		return (0xE8E1B6ff);
+	if (ratio < 0.50)
+		return (0xDED6A3ff);
+	if (ratio < 0.55)
+		return (0xD3CA9Dff);
+	if (ratio < 0.60)
+		return (0xCAB982ff);
+	if (ratio < 0.65)
+		return (0xB9985Aff);
+	if (ratio < 0.70)
+		return (0xAA8753ff);
+	if (ratio < 0.75)
+		return (0xAC9A7Cff);
+	if (ratio < 0.80)
+		return (0xBAAE9Aff);
+	if (ratio < 0.85)
+		return (0xCAC3B8ff);
+	if (ratio < 0.90)
+		return (0xE0DED8ff);
+	if (ratio < 0.95)
+		return (0xF5F4F2ff);
+	if (ratio == 1)
+		return (0xF5F4F2ff);
 	else
-		return (0xffffffff);
+		return (0x00000000);
 }
 
 static int	do_lerp(int start, int finish, double ratio)
