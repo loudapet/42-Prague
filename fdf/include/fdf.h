@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/15 13:33:41 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/18 17:06:51 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@
 # define CLR_JAFFA			0xEF8633FF
 # define CLR_SAFFRON		0xF3AF3DFF
 
+typedef enum	e_color
+{
+	WHITE = -1,
+	TOPO = -2
+}				t_color;
+
 typedef enum	e_proj
 {
 	ISO,
@@ -42,7 +48,7 @@ typedef enum	e_proj
 
 typedef struct	s_tab
 {
-	int	**tab;
+	int	***tab;
 	int	nrows;
 	int	ncols;
 }				t_tab;
@@ -125,7 +131,7 @@ typedef struct	s_master
 	mlx_image_t	*img;
 	mlx_image_t	*instr;
 	t_map		*vmap;
-	t_tab		map;
+	t_tab		*map;
 	t_camera	*camera;
 	t_cursor	*cursor;
 	const char		*path;
@@ -134,7 +140,7 @@ typedef struct	s_master
 
 void print_vectors(t_vector **vmap, int ncols, int nrows);
 int get_rgba(int r, int g, int b, int a);
-t_tab parse_map(const char *path);
+t_tab *parse_map(const char *path);
 t_map	*tab_to_vect(t_tab *tab);
 
 void	print_tab_content(int **map_array, int ncols, int nrows);
@@ -184,5 +190,9 @@ void	free_map(t_map *map);
 void	reset_img(mlx_image_t *img);
 double	rad_to_deg(double rad);
 double	deg_to_rad(double deg);
+
+/* ft_atoi_base.c */
+int	ft_atoi_base(const char *str, int base);
+long	ft_atoi_long(const char *nptr);
 
 #endif

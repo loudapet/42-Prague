@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:01:19 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/12 14:04:56 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/18 17:02:46 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ float	max_alt(t_tab tab)
 	int x;
 	float	zcoor;
 
-	max = tab.tab[0][0];
+	max = tab.tab[0][0][0];
 	y = 0;
 	while (y < tab.nrows)
 	{
 		x = 0;
 		while (x < tab.ncols)
 		{
-			zcoor = tab.tab[y][x];
+			zcoor = tab.tab[0][y][x];
 			if (zcoor > max)
 				max = zcoor;
 			x++;
 		}
 		y++;
 	}
-	printf("MAXIMUM Z VAL: %f \n", max);
+	ft_printf("MAXIMUM Z VAL: %f \n", max);
 	return (max);
 }
 
@@ -44,14 +44,14 @@ float	min_alt(t_tab tab)
 	int x;
 	float	zcoor;
 
-	min = tab.tab[0][0];
+	min = tab.tab[0][0][0];
 	y = 0;
 	while (y < tab.nrows)
 	{
 		x = 0;
 		while (x < tab.ncols)
 		{
-			zcoor = tab.tab[y][x];
+			zcoor = tab.tab[0][y][x];
 			if (zcoor < min)
 				min = zcoor;
 			x++;
@@ -80,7 +80,7 @@ void	print_vectors(t_vector **vmap, int ncols, int nrows)
 	write(1, "\n", 1);
 }
 
-t_vector	**create_vectors(t_map *map, t_vector **vmap, int **tab, int ncols, int nrow)
+t_vector	**create_vectors(t_map *map, t_vector **vmap, int ***tab, int ncols, int nrow)
 {
 	int			i;
 	t_vector	vector;
@@ -93,14 +93,11 @@ t_vector	**create_vectors(t_map *map, t_vector **vmap, int **tab, int ncols, int
 	{
 		vector.x = i;
 		vector.y = nrow;
-		vector.z = tab[nrow][i];
-		/* vector.color = get_rgba(
-		254 % 0xFF, // R
-		254 % 0xFF, // G
-		254 % 0xFF, // B
-		254 % 0xFF	// A
-		); */
-		vector.color = get_default_clr(vector.z, map->z_min, map->z_max);
+		vector.z = tab[0][nrow][i];
+		if (tab[1][nrow][i] == -1)
+			vector.color = get_default_clr(vector.z, map->z_min, map->z_max);
+		else
+			vector.color = tab[1][nrow][i];
 		vmap[nrow][i] = vector;
 		i++;
 	}

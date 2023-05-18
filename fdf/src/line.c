@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:53:32 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/15 09:41:32 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/18 15:32:58 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ int	get_default_clr(int z, float min_z, float max_z)
 	ratio = get_ratio(min_z, max_z, z);
 	//printf("Ratio: %f\n", ratio);
 	
-	if (ratio == 0)
+	if (ratio >= 0 && ratio <= 0)
+		return (0xffffffff);
+	/* if (ratio == 0)
 		return (0x8DC1EAff);
 	if (ratio < 0.10)
 		return (0xACD0A5ff);
@@ -69,9 +71,9 @@ int	get_default_clr(int z, float min_z, float max_z)
 	if (ratio < 0.95)
 		return (0xF5F4F2ff);
 	if (ratio == 1)
-		return (0xF5F4F2ff);
+		return (0xF5F4F2ff); */
 	else
-		return (0x00000000);
+		return (0xffffffff);
 }
 
 static int	do_lerp(int start, int finish, double ratio)
@@ -102,7 +104,7 @@ int	get_clr(t_line line)
 	red = do_lerp((line.color1 >> 24) & 0xFF, (line.color2 >> 24) & 0xFF, ratio);
 	green = do_lerp((line.color1 >> 16) & 0xFF, (line.color2 >> 16) & 0xFF, ratio);
 	blue = do_lerp(line.color1 >> 8 & 0xFF, line.color2 >> 8 & 0xFF, ratio);
-	alpha = 254;
+	alpha = 255;
 	return ((red << 24) | (green << 16) | (blue << 8) | alpha);
 }
 

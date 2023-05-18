@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/15 13:32:55 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/18 14:33:27 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ t_cursor	*init_cursor(t_master *master)
 
 int32_t main(int argc, const char **argv)
 {
-	t_tab map;
+	t_tab *map;
 	t_map *vmap;
 	mlx_image_t *img;
 	mlx_t *mlx;
@@ -165,9 +165,9 @@ int32_t main(int argc, const char **argv)
 
 	if (argc == 2)
 		map = parse_map(argv[1]);
-	if (!map.tab)
+	if (!map->tab)
 		return (EXIT_FAILURE);
-	vmap = tab_to_vect(&map);
+	vmap = tab_to_vect(map);
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
 		error(); 	
@@ -192,7 +192,8 @@ int32_t main(int argc, const char **argv)
 
 	mlx_delete_image(master->mlx, img);
 	mlx_terminate(master->mlx);
-	free_tab(map);
+	free_tab(*map);
+	free(map);
 	free_map(vmap);
 	free(master->camera);
 	free(master->cursor);
