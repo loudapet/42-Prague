@@ -6,14 +6,14 @@
 #    By: plouda <plouda@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/05/18 14:09:24 by plouda           ###   ########.fr        #
+#    Updated: 2023/05/18 17:23:27 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 OBJS = obj/line.o obj/utils.o obj/parse_map.o obj/vectors.o obj/projections.o \
 		obj/free_items.o obj/map_dimension_utils.o obj/main.o obj/rotations.o \
-		obj/camera.o obj/hooks.o obj/ft_atoi_base.o
+		obj/camera.o obj/hooks.o obj/ft_atoi_base.o obj/palette.o
 
 LIBFTPRINTF = libftprintf
 AR = ar rc

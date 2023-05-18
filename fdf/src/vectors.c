@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:01:19 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/18 17:02:46 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/18 19:17:33 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,11 @@ void	print_vectors(t_vector **vmap, int ncols, int nrows)
 t_vector	**create_vectors(t_map *map, t_vector **vmap, int ***tab, int ncols, int nrow)
 {
 	int			i;
+	int			clr;
 	t_vector	vector;
 
+	if (map)
+	clr = 0;
 	i = 0;
 	vmap[nrow] = malloc(ncols * sizeof(t_vector));
 	if (!vmap[nrow])
@@ -94,8 +97,11 @@ t_vector	**create_vectors(t_map *map, t_vector **vmap, int ***tab, int ncols, in
 		vector.x = i;
 		vector.y = nrow;
 		vector.z = tab[0][nrow][i];
-		if (tab[1][nrow][i] == -1)
-			vector.color = get_default_clr(vector.z, map->z_min, map->z_max);
+		if (tab[1][nrow][i] > -4 && tab[1][nrow][i] < 0)
+		{
+			clr = tab[1][nrow][i];
+			vector.color = get_default_clr(vector.z, map->z_min, map->z_max, clr);
+		}
 		else
 			vector.color = tab[1][nrow][i];
 		vmap[nrow][i] = vector;

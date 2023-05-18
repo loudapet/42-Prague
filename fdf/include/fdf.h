@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/18 17:06:51 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/18 19:16:37 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,18 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <memory.h>
+# include <limits.h>
 # include "MLX42/MLX42.h"
 # define WIDTH 1600
 # define HEIGHT 900
-# define CLR_DISCO			0x9A1F6AFF
-# define CLR_BRICK_RED		0xC2294EFF
-# define CLR_FLAMINGO		0xEC4B27FF
-# define CLR_JAFFA			0xEF8633FF
-# define CLR_SAFFRON		0xF3AF3DFF
+# define WHITE 0xffffffff
+
 
 typedef enum	e_color
 {
-	WHITE = -1,
-	TOPO = -2
+	DEFAULT = -1,
+	TOPO = -2,
+	RAINBOW = -3
 }				t_color;
 
 typedef enum	e_proj
@@ -152,7 +151,7 @@ void calc_err(t_line *line, int *cur_p, int delta, int flag);
 t_line init_vars(t_vector p1, t_vector p2);
 void draw_line(mlx_image_t *img, t_vector p1, t_vector p2);
 void create_raster(mlx_image_t *img, t_map map);
-int	get_default_clr(int z, float min_z, float max_z);
+int	get_default_clr(int z, float min_z, float max_z, int flag);
 int	get_clr(t_line line);
 
 /* projections.c */
@@ -191,8 +190,10 @@ void	reset_img(mlx_image_t *img);
 double	rad_to_deg(double rad);
 double	deg_to_rad(double deg);
 
+/* palette.c */
+int	rainbow_palette(double ratio);
+int	topo_palette(double ratio);
+
 /* ft_atoi_base.c */
 int	ft_atoi_base(const char *str, int base);
-long	ft_atoi_long(const char *nptr);
-
 #endif

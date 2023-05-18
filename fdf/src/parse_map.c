@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:02:33 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/18 15:58:16 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/18 18:27:46 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_tab_content(int **map_array, int ncols, int nrows)
 	j = 0;
 	while (j < ncols)
 	{
-		ft_printf("%x ", map_array[nrows][j]);
+		ft_printf("%d ", map_array[nrows][j]);
 		j++;
 	}
 	write(1, "\n", 1);
@@ -46,7 +46,7 @@ int	***create_map_array(int ***map_array, char **split_row, int count, int nrow)
 		else
 		{
 			map_array[0][nrow][i] = ft_atoi(split[0]);
-			map_array[1][nrow][i] = -1;
+			map_array[1][nrow][i] = RAINBOW;
 		}
 		free_split(split);
 		//ft_printf("Element saved: %d\n", map_array[0][nrow][i]);
