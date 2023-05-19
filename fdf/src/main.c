@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 13:43:22 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 17:47:42 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,9 +176,16 @@ int32_t main(int argc, const char **argv)
 
 
 	if (argc == 2)
+	{
 		map = parse_map(argv[1]);
-	if (!map->tab)
-		return (EXIT_FAILURE);
+		if (!map->tab || map->ncols == -1)
+		{
+			free_tab(*map);
+			free(map);
+			write(1, "Error\n", 6);
+			return (EXIT_FAILURE);
+		}
+	}
 	vmap = tab_to_vect(map);
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
