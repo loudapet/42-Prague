@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_items.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 17:58:05 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/18 14:21:41 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 18:50:23 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	free_tab(t_tab tab)
 	free(tab.tab[0]);
 	free(tab.tab[1]);
 	free(tab.tab);
-	//free(tab);
 }
 
 void	free_map(t_map *map)

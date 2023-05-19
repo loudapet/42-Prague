@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:02:33 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 17:46:16 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 19:04:10 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	row_count(const char *path)
 
 	i = 0;
 	map_fd = open(path, O_RDONLY);
+	if (map_fd < 0)
+		return (-1);
 	row = get_next_line(map_fd);
 	while (row)
 	{
@@ -117,12 +119,12 @@ t_tab *parse_map(const char *path)
 	i = 0;
 	map = malloc(sizeof(t_tab));
 	map->nrows = row_count(path);
-	if (map->nrows == 0)
-	{
-		map->ncols = 0;
-		return (map);
-	}
+	map->ncols = 0;
 	map_fd = open(path, O_RDONLY);
+	if (map_fd < 0)
+		map->nrows = -1;
+	if (map->nrows <= 0)
+		return (map);
 	map->tab = malloc(2 * sizeof(int **));
 	map->tab[0] = malloc(map->nrows * sizeof(int *));
 	map->tab[1] = malloc(map->nrows * sizeof(int *));
@@ -130,6 +132,7 @@ t_tab *parse_map(const char *path)
 	if (!map->tab[0] || !map->tab[1] || !map->tab)
 	{
 		map->tab = NULL;
+		free(validation);
 		return (map);
 	}
 	validation[0] = -1;
@@ -140,12 +143,12 @@ t_tab *parse_map(const char *path)
 		trim_row = ft_strtrim(row, " \n");
 		split_row = ft_split(trim_row, ' ');
 		map->ncols = col_count(split_row);
-		ft_printf("HELLO\n");
 		if (validate(validation, map->ncols))
 		{
 			free(trim_row);
 			free_split(split_row);
 			map->ncols = -1;
+			map->nrows = i;
 			break;
 		}
 		map->tab = create_map_array(map->tab, split_row, map->ncols, i);
