@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 19:04:42 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 19:25:26 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,21 @@
 
 void	print_instructions(t_master *master)
 {
-	master->instr = mlx_put_string(master->mlx, "Reset:             R",15,5);
-	master->instr = mlx_put_string(master->mlx, "Move:     Arrow Keys",15,25);
-	master->instr = mlx_put_string(master->mlx, "Zoom:         Scroll",15,45);
-	master->instr = mlx_put_string(master->mlx, "Rotate z:        Q/E",15,65);
-	master->instr = mlx_put_string(master->mlx, "Rotate y:        A/D",15,85);
-	master->instr = mlx_put_string(master->mlx, "Rotate x:        W/S",15,105);
-	master->instr = mlx_put_string(master->mlx, "Flatten/raise:   Z/X",15,125);
-	master->instr = mlx_put_string(master->mlx, "Recenter:          T",15,145);
-	master->instr = mlx_put_string(master->mlx, "Change color:      C",15,165);
-	master->instr = mlx_put_string(master->mlx, "Change projection: P",15,185);
-	master->instr = mlx_put_string(master->mlx, "ISOMETRIC           ",15,215);
-	master->instr = mlx_put_string(master->mlx, "SIDE VIEW           ",15,235);
-	master->instr = mlx_put_string(master->mlx, "CABINET             ",15,255);
-	master->instr = mlx_put_string(master->mlx, "CAVALIER            ",15,275);
+	master->instr = mlx_put_string(master->mlx,"Reset:             R",15,5);
+	master->instr = mlx_put_string(master->mlx,"Move:     Arrow Keys",15,25);
+	master->instr = mlx_put_string(master->mlx,"Zoom:         Scroll",15,45);
+	master->instr = mlx_put_string(master->mlx,"Rotate z:        Q/E",15,65);
+	master->instr = mlx_put_string(master->mlx,"Rotate y:        A/D",15,85);
+	master->instr = mlx_put_string(master->mlx,"Rotate x:        W/S",15,105);
+	master->instr = mlx_put_string(master->mlx,"Flatten/raise:   Z/X",15,125);
+	master->instr = mlx_put_string(master->mlx,"Recenter:          T",15,145);
+	master->instr = mlx_put_string(master->mlx,"Change color:      C",15,165);
+	master->instr = mlx_put_string(master->mlx,"Change projection: P",15,185);
+	master->instr = mlx_put_string(master->mlx,"ISOMETRIC           ",15,215);
+	master->instr = mlx_put_string(master->mlx,"TOP VIEW            ",15,235);
+	master->instr = mlx_put_string(master->mlx,"SIDE VIEW           ",15,255);
+	master->instr = mlx_put_string(master->mlx,"CABINET             ",15,275);
+	master->instr = mlx_put_string(master->mlx,"CAVALIER            ",15,295);
 }
 
 static void error(void)
@@ -100,6 +101,8 @@ void	convert_projection(t_map *vmap, int projection, int row, int col)
 	z = &vmap->vmap[row][col].z;
 	if (projection == ISO)
 		conv_to_iso(x, y, z);
+	if (projection == TOP)
+		return;
 	if (projection == SIDE)
 		conv_to_side(y, z);
 	if (projection == CAB)
