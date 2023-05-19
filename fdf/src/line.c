@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:53:32 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/18 19:12:29 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 19:42:05 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ int	get_default_clr(int z, float min_z, float max_z, int flag)
 {
 	double	ratio;
 
-	//printf("MIN Z: %f, MAX Z: %f\n", min_z, max_z);
 	ratio = get_ratio(min_z, max_z, z);
-	//printf("Ratio: %f\n", ratio);
-	
 	if (flag == DEFAULT)
 		return (0xffffffff);
 	if (flag == TOPO)
@@ -64,14 +61,17 @@ int	get_clr(t_line line)
 		ratio = get_ratio(line.x1, line.x2, line.cur_x);
 	else
 		ratio = get_ratio(line.y1, line.y2, line.cur_y);
-	red = do_lerp((line.color1 >> 24) & 0xFF, (line.color2 >> 24) & 0xFF, ratio);
-	green = do_lerp((line.color1 >> 16) & 0xFF, (line.color2 >> 16) & 0xFF, ratio);
-	blue = do_lerp(line.color1 >> 8 & 0xFF, line.color2 >> 8 & 0xFF, ratio);
+	red = do_lerp((line.color1 >> 24) & 0xFF, \
+			(line.color2 >> 24) & 0xFF, ratio);
+	green = do_lerp((line.color1 >> 16) & 0xFF, \
+			(line.color2 >> 16) & 0xFF, ratio);
+	blue = do_lerp(line.color1 >> 8 & 0xFF, \
+			line.color2 >> 8 & 0xFF, ratio);
 	alpha = 255;
 	return ((red << 24) | (green << 16) | (blue << 8) | alpha);
 }
 
-void calc_direction(t_line *line)
+void	calc_direction(t_line *line)
 {
 	if (line->x2 > line->x1)
 		line->flag_x = 1;
@@ -83,9 +83,9 @@ void calc_direction(t_line *line)
 		line->flag_y = -1;
 }
 
-void calc_err(t_line *line, int *cur_p, int delta, int flag)
+void	calc_err(t_line *line, int *cur_p, int delta, int flag)
 {
-	int decision;
+	int	decision;
 
 	if (line->dx > line->dy)
 		decision = line->dx;
@@ -99,9 +99,9 @@ void calc_err(t_line *line, int *cur_p, int delta, int flag)
 	line->err += 2 * delta;
 }
 
-t_line init_vars(t_vector p1, t_vector p2)
+t_line	init_vars(t_vector p1, t_vector p2)
 {
-	t_line line;
+	t_line	line;
 
 	line.x1 = (int)p1.x;
 	line.x2 = (int)p2.x;
@@ -127,9 +127,9 @@ t_line init_vars(t_vector p1, t_vector p2)
 	return (line);
 }
 
-void draw_line(mlx_image_t *img, t_vector p1, t_vector p2)
+void	draw_line(mlx_image_t *img, t_vector p1, t_vector p2)
 {
-	t_line line;
+	t_line	line;
 
 	line = init_vars(p1, p2);
 	if (line.dx > line.dy)
@@ -137,7 +137,8 @@ void draw_line(mlx_image_t *img, t_vector p1, t_vector p2)
 		line.err = 2 * line.dy - line.dx;
 		while (line.cur_x < line.x2)
 		{
-			if ((line.cur_x >= 0 && line.cur_y >= 0) && (line.cur_x < (int)img->width && line.cur_y < (int)img->height))
+			if ((line.cur_x >= 0 && line.cur_y >= 0) && \
+			(line.cur_x < (int)img->width && line.cur_y < (int)img->height))
 				mlx_put_pixel(img, line.cur_x, line.cur_y, get_clr(line));
 			line.cur_x += line.flag_x;
 			calc_err(&line, &line.cur_y, line.dy, line.flag_y);
@@ -148,7 +149,8 @@ void draw_line(mlx_image_t *img, t_vector p1, t_vector p2)
 		line.err = 2 * line.dx - line.dy;
 		while (line.cur_y < line.y2)
 		{
-			if ((line.cur_x >= 0 && line.cur_y >= 0) && (line.cur_x < (int)img->width && line.cur_y < (int)img->height))
+			if ((line.cur_x >= 0 && line.cur_y >= 0) && \
+			(line.cur_x < (int)img->width && line.cur_y < (int)img->height))
 				mlx_put_pixel(img, line.cur_x, line.cur_y, get_clr(line));
 			line.cur_y += line.flag_y;
 			calc_err(&line, &line.cur_x, line.dx, line.flag_x);
@@ -156,10 +158,10 @@ void draw_line(mlx_image_t *img, t_vector p1, t_vector p2)
 	}
 }
 
-void create_raster(mlx_image_t *img, t_map map)
+void	create_raster(mlx_image_t *img, t_map map)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	y = 0;
 	while (y <= map.nrows - 1)
@@ -168,7 +170,7 @@ void create_raster(mlx_image_t *img, t_map map)
 		while (x <= map.ncols - 1)
 		{
 			if (x == map.ncols - 1 && y == map.nrows - 1)
-				break;
+				break ;
 			if (x == map.ncols - 1 || y == map.nrows - 1)
 			{
 				if (x == map.ncols - 1)

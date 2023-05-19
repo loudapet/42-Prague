@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vectors.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:01:19 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 13:44:50 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 20:16:10 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 float	max_alt(t_tab tab)
 {
 	float	max;
-	int y;
-	int x;
+	int		y;
+	int		x;
 	float	zcoor;
 
 	max = tab.tab[0][0][0];
@@ -40,8 +40,8 @@ float	max_alt(t_tab tab)
 float	min_alt(t_tab tab)
 {
 	float	min;
-	int y;
-	int x;
+	int		y;
+	int		x;
 	float	zcoor;
 
 	min = tab.tab[0][0][0];
@@ -65,7 +65,7 @@ float	min_alt(t_tab tab)
 void	print_vectors(t_vector **vmap, int ncols, int nrows)
 {
 	int	j;
-	
+
 	j = 0;
 	ft_printf(" x, ");
 	ft_printf("y, ");
@@ -83,11 +83,9 @@ void	print_vectors(t_vector **vmap, int ncols, int nrows)
 t_vector	**create_vectors(t_map *map, t_vector **vmap, int ***tab, int ncols, int nrow)
 {
 	int			i;
-	//int			clr;
 	t_vector	vector;
 
 	if (map)
-	//clr = 0;
 	i = 0;
 	vmap[nrow] = malloc(ncols * sizeof(t_vector));
 	if (!vmap[nrow])

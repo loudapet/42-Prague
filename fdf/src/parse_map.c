@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:02:33 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 19:04:10 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 20:13:21 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_tab_content(int **map_array, int ncols, int nrows)
 {
 	int	j;
-	
+
 	j = 0;
 	while (j < ncols)
 	{
@@ -27,7 +27,7 @@ void	print_tab_content(int **map_array, int ncols, int nrows)
 
 int	***create_map_array(int ***map_array, char **split_row, int ncols, int row)
 {
-	int	i;
+	int		i;
 	char	**split;
 
 	i = 0;
@@ -41,7 +41,8 @@ int	***create_map_array(int ***map_array, char **split_row, int ncols, int row)
 		if (split[1] != NULL)
 		{
 			map_array[0][row][i] = ft_atoi(split[0]);
-			map_array[1][row][i] = (unsigned int)ft_atoi_base(split[1] + 2, 16) * 256;
+			map_array[1][row][i] = (unsigned int)ft_atoi_base \
+			(split[1] + 2, 16) * 256;
 		}
 		else
 		{
@@ -49,7 +50,6 @@ int	***create_map_array(int ***map_array, char **split_row, int ncols, int row)
 			map_array[1][row][i] = DEFAULT;
 		}
 		free_split(split);
-		//ft_printf("Element saved: %d\n", map_array[0][nrow][i]);
 		i++;
 	}
 	return (map_array);
@@ -87,7 +87,7 @@ int	row_count(const char *path)
 	}
 	free(row);
 	close(map_fd);
-	return (i);	
+	return (i);
 }
 
 static int	validate(int *valid, int new)
@@ -105,7 +105,7 @@ static int	validate(int *valid, int new)
 	return (0);
 }
 
-t_tab *parse_map(const char *path)
+t_tab	*parse_map(const char *path)
 {
 	t_tab	*map;
 	int		map_fd;
@@ -114,7 +114,6 @@ t_tab *parse_map(const char *path)
 	char	*trim_row;
 	int		*validation;
 	int		i;
-
 
 	i = 0;
 	map = malloc(sizeof(t_tab));
@@ -149,10 +148,9 @@ t_tab *parse_map(const char *path)
 			free_split(split_row);
 			map->ncols = -1;
 			map->nrows = i;
-			break;
+			break ;
 		}
 		map->tab = create_map_array(map->tab, split_row, map->ncols, i);
-		//print_tab_content(map->tab[0], map->ncols, i);
 		free(row);
 		free(trim_row);
 		free_split(split_row);

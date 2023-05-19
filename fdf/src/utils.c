@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 11:09:17 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 19:26:19 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 20:15:11 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ double	rad_to_deg(double rad)
 {
 	double	deg;
 
-	deg = rad * 180/M_PI;
+	deg = rad * 180 / M_PI;
 	return (deg);
 }
 
@@ -24,7 +24,7 @@ double	deg_to_rad(double deg)
 {
 	double	rad;
 
-	rad = deg * M_PI/180;
+	rad = deg * M_PI / 180;
 	return (rad);
 }
 
@@ -50,14 +50,14 @@ void	ft_swap(t_line *line)
 	line->color2 = tmp;
 }
 
-int get_rgba(int r, int g, int b, int a)
+int	get_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
 void	reset_img(mlx_image_t *img)
 {
-	int	color;
+	int			color;
 	u_int32_t	x;
 	u_int32_t	y;
 
