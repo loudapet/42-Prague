@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:22:59 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/18 18:02:36 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 12:57:26 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,28 @@ int	topo_palette(double ratio)
 		return (0xE0DED8ff);
 	if (ratio < 0.95)
 		return (0xF5F4F2ff);
-	if (ratio == 1)
+	if (ratio <= 1)
 		return (0xF5F4F2ff);
 	return (0x00000000);
 }
 
 int	rainbow_palette(double ratio)
 {
-	if (ratio < 0.17)
-		return (0x9C4F96ff);
-	if (ratio < 0.34)
-		return (0xFF6355ff);
-	if (ratio < 0.49)
-		return (0xFBA949ff);
-	if (ratio < 0.66)
-		return (0xFAE442ff);
-	if (ratio < 0.83)
-		return (0x8BD448ff);
+	if (ratio < 0.125)
+		return (0xFFADADff);
+	if (ratio < 0.25)
+		return (0xFFD6A5ff);
+	if (ratio < 0.375)
+		return (0xFDFFB6ff);
+	if (ratio < 0.50)
+		return (0xCAFFBFff);
+	if (ratio < 0.625)
+		return (0x9BF6FFff);
+	if (ratio < 0.75)
+		return (0xA0C4FFff);
+	if (ratio < 0.875)
+		return (0xBDB2FFff);
 	if (ratio <= 1)
-		return (0x2AA8F2ff);
+		return (0xFFC6FFff);
 	return (0x00000000);
 }

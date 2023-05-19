@@ -6,13 +6,13 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 17:59:32 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/12 13:31:25 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 13:43:30 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-float	min_x(t_map map)
+/* float	min_x(t_map map)
 {
 	float	min;
 	int y;
@@ -172,4 +172,4 @@ t_limits	get_dimensions(t_map map)
 	limits.y_max = max_y(map);
 	limits.z_max = max_z(map);
 	return(limits);
-}
+} */

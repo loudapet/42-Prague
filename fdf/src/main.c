@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/18 14:33:27 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 13:43:22 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@ void	print_instructions(t_master *master)
 	master->instr = mlx_put_string(master->mlx, "Rotate z:        Q/E",15,65);
 	master->instr = mlx_put_string(master->mlx, "Rotate y:        A/D",15,85);
 	master->instr = mlx_put_string(master->mlx, "Rotate x:        W/S",15,105);
-	master->instr = mlx_put_string(master->mlx, "Recenter:          C",15,125);
-	master->instr = mlx_put_string(master->mlx, "Flatten/raise:	  Z/X",15,145);
-	master->instr = mlx_put_string(master->mlx, "Change projection: P",15,165);
-	master->instr = mlx_put_string(master->mlx, "ISO, SIDE, CAB, CAV",15,195);
+	master->instr = mlx_put_string(master->mlx, "Flatten/raise:   Z/X",15,125);
+	master->instr = mlx_put_string(master->mlx, "Recenter:          T",15,145);
+	master->instr = mlx_put_string(master->mlx, "Change color:      C",15,165);
+	master->instr = mlx_put_string(master->mlx, "Change projection: P",15,185);
+	master->instr = mlx_put_string(master->mlx, "ISOMETRIC           ",15,215);
+	master->instr = mlx_put_string(master->mlx, "SIDE VIEW           ",15,235);
+	master->instr = mlx_put_string(master->mlx, "CABINET             ",15,255);
+	master->instr = mlx_put_string(master->mlx, "CAVALIER            ",15,275);
 }
 
 static void error(void)
@@ -44,11 +48,12 @@ mlx_image_t *init_img(mlx_t *mlx)
 	return (img);
 }
 
-static t_map	*vectdup(t_map *vmap)
+static t_map	*vectdup(t_map *vmap, int **tab)
 {
 	t_map	*dup;
 	int		row;
 	int		col;
+	int		clr;
 
 	dup = malloc(sizeof(t_map));
 	if (!dup)
@@ -67,7 +72,13 @@ static t_map	*vectdup(t_map *vmap)
 			dup->vmap[row][col].x = vmap->vmap[row][col].x;
 			dup->vmap[row][col].y = vmap->vmap[row][col].y;
 			dup->vmap[row][col].z = vmap->vmap[row][col].z;
-			dup->vmap[row][col].color = vmap->vmap[row][col].color;
+			if (tab[row][col] > -4 && tab[row][col] < 0)
+			{
+				clr = vmap->clr_flag;
+				dup->vmap[row][col].color = get_default_clr(dup->vmap[row][col].z, vmap->z_min, vmap->z_max, clr);
+			}
+			else
+				dup->vmap[row][col].color = tab[row][col];
 			col++;
 		}
 		//print_vectors(dup->vmap, vmap->ncols, row);
@@ -105,7 +116,7 @@ void	project(t_master *master)
 	t_camera	*camera;
 	
 	reset_img(master->img);
-	vmap = vectdup(master->vmap);
+	vmap = vectdup(master->vmap, master->map->tab[1]);
 	camera = master->camera;
 	row = 0;
 	while (row < vmap->nrows)
@@ -163,6 +174,7 @@ int32_t main(int argc, const char **argv)
 	mlx_t *mlx;
 	t_master	*master;
 
+
 	if (argc == 2)
 		map = parse_map(argv[1]);
 	if (!map->tab)
@@ -171,7 +183,6 @@ int32_t main(int argc, const char **argv)
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
 		error(); 	
-
 	img = init_img(mlx);
 	master = malloc(sizeof(t_master));
 	if (!master)
@@ -184,7 +195,7 @@ int32_t main(int argc, const char **argv)
 	master->cursor = init_cursor(master);
 	project(master);
 	print_instructions(master);
-	
+
 	mlx_key_hook(mlx, &keyhook, master);
 	mlx_scroll_hook(mlx, &scrollhook, master);
 	mlx_cursor_hook(mlx, &cursor, master);

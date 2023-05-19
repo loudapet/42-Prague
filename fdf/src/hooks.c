@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 11:22:58 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/15 12:24:00 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 13:33:54 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,14 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 			master->camera->z_div = 0.1;
 		project(master);
 	}
-	if (keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS)
+	if (keydata.key == MLX_KEY_C && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	{
+		master->vmap->clr_flag--;
+		if (master->vmap->clr_flag < -3)
+			master->vmap->clr_flag = -1;
+		project(master);
+	}
+	if (keydata.key == MLX_KEY_T && keydata.action == MLX_PRESS)
 	{
 		master->camera->x_offset = 0;
 		master->camera->y_offset = 0;
@@ -187,6 +194,7 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 	{
 		free(master->camera);
 		master->camera = init_camera(master);
+		master->vmap->clr_flag = DEFAULT;
 		project(master);
 	}
 	if (flag)

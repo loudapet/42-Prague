@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:01:19 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/18 19:17:33 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 13:44:50 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ float	max_alt(t_tab tab)
 		}
 		y++;
 	}
-	ft_printf("MAXIMUM Z VAL: %f \n", max);
+	printf("MAXIMUM Z VAL: %f \n", max);
 	return (max);
 }
 
@@ -83,11 +83,11 @@ void	print_vectors(t_vector **vmap, int ncols, int nrows)
 t_vector	**create_vectors(t_map *map, t_vector **vmap, int ***tab, int ncols, int nrow)
 {
 	int			i;
-	int			clr;
+	//int			clr;
 	t_vector	vector;
 
 	if (map)
-	clr = 0;
+	//clr = 0;
 	i = 0;
 	vmap[nrow] = malloc(ncols * sizeof(t_vector));
 	if (!vmap[nrow])
@@ -97,13 +97,7 @@ t_vector	**create_vectors(t_map *map, t_vector **vmap, int ***tab, int ncols, in
 		vector.x = i;
 		vector.y = nrow;
 		vector.z = tab[0][nrow][i];
-		if (tab[1][nrow][i] > -4 && tab[1][nrow][i] < 0)
-		{
-			clr = tab[1][nrow][i];
-			vector.color = get_default_clr(vector.z, map->z_min, map->z_max, clr);
-		}
-		else
-			vector.color = tab[1][nrow][i];
+		vector.color = tab[1][nrow][i];
 		vmap[nrow][i] = vector;
 		i++;
 	}
@@ -132,5 +126,6 @@ t_map	*tab_to_vect(t_tab *tab)
 	}
 	map->ncols = tab->ncols;
 	map->nrows = tab->nrows;
+	map->clr_flag = DEFAULT;
 	return (map);
 }

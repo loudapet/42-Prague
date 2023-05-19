@@ -6,7 +6,7 @@
 #    By: plouda <plouda@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/05/18 17:23:27 by plouda           ###   ########.fr        #
+#    Updated: 2023/05/19 12:54:00 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ OBJS = obj/line.o obj/utils.o obj/parse_map.o obj/vectors.o obj/projections.o \
 
 LIBFTPRINTF = libftprintf
 AR = ar rc
-GCC = gcc -Wall -Wextra -Werror
+GCC = gcc -Wall -Wextra -Werror #-g -fsanitize=address #-static-libsan
 
 HEADERS = -I ./include -I $(MLX_DIR)/include
 MLX_DIR = ./lib/MLX42

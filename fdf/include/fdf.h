@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/18 19:16:37 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 13:45:06 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include "MLX42/MLX42.h"
 # define WIDTH 1600
 # define HEIGHT 900
-# define WHITE 0xffffffff
 
 
 typedef enum	e_color
@@ -67,6 +66,7 @@ typedef struct	s_map
 	int			ncols;
 	float		z_max;
 	float		z_min;
+	int			clr_flag;
 }				t_map;
 
 typedef struct	s_line

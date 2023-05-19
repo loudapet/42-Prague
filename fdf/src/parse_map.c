@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:02:33 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/18 18:27:46 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 13:45:30 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	***create_map_array(int ***map_array, char **split_row, int count, int nrow)
 		else
 		{
 			map_array[0][nrow][i] = ft_atoi(split[0]);
-			map_array[1][nrow][i] = RAINBOW;
+			map_array[1][nrow][i] = DEFAULT;
 		}
 		free_split(split);
 		//ft_printf("Element saved: %d\n", map_array[0][nrow][i]);
@@ -94,6 +94,7 @@ t_tab *parse_map(const char *path)
 	int		map_fd;
 	char	*row;
 	char	**split_row;
+	char	*trim_row;
 	int		i;
 
 	i = 0;
@@ -111,11 +112,13 @@ t_tab *parse_map(const char *path)
 	row = get_next_line(map_fd);
 	while (row)
 	{
-		split_row = ft_split(row, ' ');
+		trim_row = ft_strtrim(row, " \n");
+		split_row = ft_split(trim_row, ' ');
 		map->ncols = col_count(split_row);
 		map->tab = create_map_array(map->tab, split_row, map->ncols, i);
-		print_tab_content(map->tab[1], map->ncols, i);
+		//print_tab_content(map->tab[0], map->ncols, i);
 		free(row);
+		free(trim_row);
 		free_split(split_row);
 		row = get_next_line(map_fd);
 		i++;
