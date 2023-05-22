@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 14:24:57 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 14:57:22 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,6 @@ void	project(t_master *master);
 void calc_direction(t_line *line);
 void calc_err(t_line *line, int *cur_p, int delta, int flag);
 t_line init_vars(t_vector p1, t_vector p2);
-void draw_line(mlx_image_t *img, t_vector p1, t_vector p2);
-void create_raster(mlx_image_t *img, t_map map);
 int	get_default_clr(int z, float min_z, float max_z, int flag);
 int	get_clr(t_line line);
 
@@ -189,6 +187,14 @@ void	change_color(t_master *master);
 void	change_projection(t_master *master);
 void	recenter_camera(t_master *master);
 void	reset(t_master *master);
+
+/* create_raster.c */
+void	create_raster(mlx_image_t *img, t_map map);
+
+/* create_raster_utils.c */
+t_line	init_vars(t_vector p1, t_vector p2);
+void	calc_err(t_line *line, int *cur_p, int delta, int flag);
+void	calc_direction(t_line *line);
 
 /* palette.c */
 int	rainbow_palette(double ratio);

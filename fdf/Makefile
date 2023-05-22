@@ -6,7 +6,7 @@
 #    By: plouda <plouda@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/05/22 14:21:45 by plouda           ###   ########.fr        #
+#    Updated: 2023/05/22 14:54:09 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ OBJS = obj/line.o obj/utils.o obj/parse_map.o obj/vectors.o obj/projections.o \
 		obj/hooks.o obj/ft_atoi_base.o obj/palette.o \
 		obj/projection_handler.o obj/initialize.o obj/cursor.o \
 		obj/scroll.o obj/key_events.o obj/key_events_utils.o \
-		obj/utils_num.o
+		obj/utils_num.o obj/create_raster.o obj/create_raster_utils.o
 
 LIBFTPRINTF = libftprintf
 AR = ar rc
