@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.c                                           :+:      :+:    :+:   */
+/*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:59:30 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 19:36:32 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 10:45:09 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,19 @@ t_camera	*init_camera(t_master *master)
 	if (camera->zoom < 1)
 		camera->zoom = 1;
 	return (camera);
+}
+
+t_cursor	*init_cursor(t_master *master)
+{
+	t_cursor	*cursor;
+	int32_t		x;
+	int32_t		y;
+
+	cursor = (t_cursor *)malloc(sizeof(t_cursor));
+	mlx_get_mouse_pos(master->mlx, &x, &y);
+	cursor->x_cur = x;
+	cursor->y_cur = y;
+	cursor->x_prev = x;
+	cursor->y_prev = y;
+	return (cursor);
 }

@@ -6,13 +6,13 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:22:59 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 12:57:26 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 09:15:11 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	topo_palette(double ratio)
+static int	topo_bottom(double ratio)
 {
 	if (ratio == 0)
 		return (0x8DC1EAff);
@@ -34,6 +34,11 @@ int	topo_palette(double ratio)
 		return (0xE8E1B6ff);
 	if (ratio < 0.50)
 		return (0xDED6A3ff);
+	return (0x00000000);
+}
+
+static int	topo_top(double ratio)
+{
 	if (ratio < 0.55)
 		return (0xD3CA9Dff);
 	if (ratio < 0.60)
@@ -54,6 +59,15 @@ int	topo_palette(double ratio)
 		return (0xF5F4F2ff);
 	if (ratio <= 1)
 		return (0xF5F4F2ff);
+	return (0x00000000);
+}
+
+int	topo_palette(double ratio)
+{
+	if (ratio < 0.50)
+		return (topo_bottom(ratio));
+	else if (ratio <= 1)
+		return (topo_top(ratio));
 	return (0x00000000);
 }
 

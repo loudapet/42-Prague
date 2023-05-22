@@ -3,39 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 11:09:17 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 20:15:11 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 14:27:52 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-double	rad_to_deg(double rad)
-{
-	double	deg;
-
-	deg = rad * 180 / M_PI;
-	return (deg);
-}
-
-double	deg_to_rad(double deg)
-{
-	double	rad;
-
-	rad = deg * M_PI / 180;
-	return (rad);
-}
-
-int	abs_val(int nb)
-{
-	if (nb < 0)
-		nb = -nb;
-	return (nb);
-}
-
-void	ft_swap(t_line *line)
+void	line_swap(t_line *line)
 {
 	int	tmp;
 
@@ -50,12 +27,7 @@ void	ft_swap(t_line *line)
 	line->color2 = tmp;
 }
 
-int	get_rgba(int r, int g, int b, int a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
-}
-
-void	reset_img(mlx_image_t *img)
+static void	fill_black(mlx_image_t *img)
 {
 	int			color;
 	u_int32_t	x;
@@ -73,6 +45,14 @@ void	reset_img(mlx_image_t *img)
 		}
 		x++;
 	}
+}
+
+static void	fill_instructions(mlx_image_t *img)
+{
+	int			color;
+	u_int32_t	x;
+	u_int32_t	y;
+
 	x = 0;
 	while (x < 230)
 	{
@@ -89,4 +69,10 @@ void	reset_img(mlx_image_t *img)
 		}
 		x++;
 	}
+}
+
+void	reset_img(mlx_image_t *img)
+{
+	fill_black(img);
+	fill_instructions(img);
 }

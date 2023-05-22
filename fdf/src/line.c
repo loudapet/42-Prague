@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:53:32 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 19:42:05 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 14:24:50 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,12 @@ t_line	init_vars(t_vector p1, t_vector p2)
 	if (abs_val(line.y2 - line.y1) < abs_val(line.x2 - line.x1))
 	{
 		if (line.x1 > line.x2)
-			ft_swap(&line);
+			line_swap(&line);
 	}
 	else
 	{
 		if (line.y1 > line.y2)
-			ft_swap(&line);
+			line_swap(&line);
 	}
 	calc_direction(&line);
 	line.cur_x = line.x1;

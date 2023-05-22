@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 23:01:28 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 14:24:57 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ typedef enum	e_proj
 	CAB,
 	CAV
 }				t_proj;
+
+typedef enum	e_angle
+{
+	ALPHA,
+	BETA,
+	GAMMA
+}				t_angle;
 
 typedef struct	s_tab
 {
@@ -87,22 +94,6 @@ typedef struct	s_line
 	int	color2;
 }				t_line;
 
-typedef struct	s_mid
-{
-	float	mid_y;
-	float	mid_x;
-	float	mid_z;
-}				t_mid;
-
-typedef struct	s_limits
-{
-	float	x_min;
-	float	y_min;
-	float	x_max;
-	float	y_max;
-	float	z_max;
-}				t_limits;
-
 typedef struct s_camera
 {
 	double			alpha;
@@ -139,9 +130,9 @@ typedef struct	s_master
 
 
 void print_vectors(t_vector **vmap, int ncols, int nrows);
-int get_rgba(int r, int g, int b, int a);
 t_tab *parse_map(const char *path);
 t_map	*tab_to_vect(t_tab *tab);
+t_map	*allocate(int nrows, int ncols);
 
 void	print_tab_content(int **map_array, int ncols, int nrows);
 void	project(t_master *master);
@@ -166,25 +157,20 @@ void	rot_x(float *y, float *z, double alpha);
 void	rot_y(float *x, float *z, double beta);
 void	rot_z(float *x, float *y, double gamma);
 
-/* camera.c */
+/* initialize.c */
 t_camera	*init_camera(t_master *master);
+t_cursor	*init_cursor(t_master *master);
 
 /* hooks.c */
 void	scrollhook(double xdelta, double ydelta, void* param);
 void	keyhook(mlx_key_data_t keydata, void *param);
 void	cursor(double xpos, double ypos, void* param);
 void	resizehook(int32_t width, int32_t height, void* param);
+void	reset_angles(t_camera *camera);
 
 /* utils.c */
 int		abs_val(int nb);
-void	ft_swap(t_line *line);
-float	max_x(t_map map);
-float	min_x(t_map map);
-float	max_y(t_map map);
-float	min_y(t_map map);
-float	max_z(t_map map);
-float	min_z(t_map map);
-t_limits	get_dimensions(t_map map);
+void	line_swap(t_line *line);
 void	free_tab(t_tab tab);
 void	free_split(char **str);
 void	free_map(t_map *map);
@@ -192,9 +178,28 @@ void	reset_img(mlx_image_t *img);
 double	rad_to_deg(double rad);
 double	deg_to_rad(double deg);
 
+/* utils_num.c */
+double	rad_to_deg(double rad);
+double	deg_to_rad(double deg);
+int		abs_val(int nb);
+
+/* key_events_utils.c */
+void	flatten(t_master *master, mlx_key_data_t keydata);
+void	change_color(t_master *master);
+void	change_projection(t_master *master);
+void	recenter_camera(t_master *master);
+void	reset(t_master *master);
+
 /* palette.c */
 int	rainbow_palette(double ratio);
 int	topo_palette(double ratio);
+
+/* projection_handler.c */
+void	scale_and_zoom(t_map *dup, t_camera *camera, int row, int col);
+void	shift_to_origin(t_map *dup, t_camera *camera, int row, int col);
+void	rotate_xyz(t_map *dup, t_camera *camera, int row, int col);
+void	convert_projection(t_map *vmap, t_camera *camera, int row, int col);
+void	recenter(t_map *dup, t_master *master, int row, int col);
 
 /* ft_atoi_base.c */
 int	ft_atoi_base(const char *str, int base);

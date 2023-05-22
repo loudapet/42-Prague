@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vectors.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:01:19 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 23:12:40 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 14:30:44 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,30 +60,11 @@ float	min_alt(t_tab tab)
 	return (min);
 }
 
-void	print_vectors(t_vector **vmap, int ncols, int nrows)
-{
-	int	j;
-
-	j = 0;
-	ft_printf(" x, ");
-	ft_printf("y, ");
-	ft_printf("z \n");
-	while (j < ncols)
-	{
-		printf("(%f, ", vmap[nrows][j].x);
-		printf("%f, ", vmap[nrows][j].y);
-		printf("%f) \n", vmap[nrows][j].z);
-		j++;
-	}
-	write(1, "\n", 1);
-}
-
-t_vector	**create_vectors(t_map *map, t_vector **vmap, int ***tab, int ncols, int nrow)
+t_vector	**create_vectors(t_vector **vmap, int ***tab, int ncols, int nrow)
 {
 	int			i;
 	t_vector	vector;
 
-	if (map)
 	i = 0;
 	vmap[nrow] = malloc(ncols * sizeof(t_vector));
 	if (!vmap[nrow])
@@ -117,7 +98,7 @@ t_map	*tab_to_vect(t_tab *tab)
 	y = 0;
 	while (y < tab->nrows)
 	{
-		map->vmap = create_vectors(map, map->vmap, tab->tab, tab->ncols, y);
+		map->vmap = create_vectors(map->vmap, tab->tab, tab->ncols, y);
 		y++;
 	}
 	map->ncols = tab->ncols;
@@ -125,3 +106,21 @@ t_map	*tab_to_vect(t_tab *tab)
 	map->clr_flag = DEFAULT;
 	return (map);
 }
+
+/* void	print_vectors(t_vector **vmap, int ncols, int nrows)
+{
+	int	j;
+
+	j = 0;
+	ft_printf(" x, ");
+	ft_printf("y, ");
+	ft_printf("z \n");
+	while (j < ncols)
+	{
+		printf("(%f, ", vmap[nrows][j].x);
+		printf("%f, ", vmap[nrows][j].y);
+		printf("%f) \n", vmap[nrows][j].z);
+		j++;
+	}
+	write(1, "\n", 1);
+} */
