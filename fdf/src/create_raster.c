@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:52:17 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 14:53:21 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 16:42:51 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static void	draw_line(mlx_image_t *img, t_vector p1, t_vector p2)
 
 static void	dispatch_draw(t_map *vmap, mlx_image_t *img, int x, int y)
 {
+	if (x == vmap->ncols - 1 && y == vmap->nrows - 1)
+		return ;
 	if (x == vmap->ncols - 1 || y == vmap->nrows - 1)
 	{
 		if (x == vmap->ncols - 1)
@@ -72,6 +74,7 @@ void	create_raster(mlx_image_t *img, t_map map)
 	int	y;
 	int	x;
 
+	ft_printf("nrows: %d\n", map.nrows);
 	y = 0;
 	while (y <= map.nrows - 1)
 	{

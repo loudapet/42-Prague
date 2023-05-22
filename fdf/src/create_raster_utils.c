@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:53:48 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 14:55:46 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 15:53:50 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ t_line	init_vars(t_vector p1, t_vector p2)
 	calc_direction(&line);
 	line.cur_x = line.x1;
 	line.cur_y = line.y1;
+	ft_printf("cur_y: %d\n", line.cur_y);
 	return (line);
 }

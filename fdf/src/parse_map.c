@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:02:33 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 20:13:21 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 16:41:45 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,37 @@ void	print_tab_content(int **map_array, int ncols, int nrows)
 	write(1, "\n", 1);
 }
 
+static void	assign_clr(char **split, int ***map_array, int row, int col)
+{
+	if (split[1] != NULL)
+	{
+		map_array[0][row][col] = ft_atoi(split[0]);
+		map_array[1][row][col] = (unsigned int)ft_atoi_base \
+		(split[1] + 2, 16) * 256;
+	}
+	else
+	{
+		map_array[0][row][col] = ft_atoi(split[0]);
+		map_array[1][row][col] = DEFAULT;
+	}
+}
+
 int	***create_map_array(int ***map_array, char **split_row, int ncols, int row)
 {
-	int		i;
+	int		col;
 	char	**split;
 
-	i = 0;
+	col = 0;
 	map_array[0][row] = malloc(ncols * sizeof(int));
 	map_array[1][row] = malloc(ncols * sizeof(int));
 	if (!map_array[0][row] || !map_array[1][row])
 		return (NULL);
-	while (i < ncols)
+	while (col < ncols)
 	{
-		split = ft_split(split_row[i], ',');
-		if (split[1] != NULL)
-		{
-			map_array[0][row][i] = ft_atoi(split[0]);
-			map_array[1][row][i] = (unsigned int)ft_atoi_base \
-			(split[1] + 2, 16) * 256;
-		}
-		else
-		{
-			map_array[0][row][i] = ft_atoi(split[0]);
-			map_array[1][row][i] = DEFAULT;
-		}
+		split = ft_split(split_row[col], ',');
+		assign_clr(split, map_array, row, col);
 		free_split(split);
-		i++;
+		col++;
 	}
 	return (map_array);
 }
