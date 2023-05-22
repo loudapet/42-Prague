@@ -6,7 +6,7 @@
 #    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/05/19 19:30:38 by plouda           ###   ########.fr        #
+#    Updated: 2023/05/19 22:39:58 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ GCC = gcc -Wall -Wextra -Werror #-g -fsanitize=address #-static-libsan
 
 HEADERS = -I ./include -I $(MLX_DIR)/include
 MLX_DIR = ./lib/MLX42
-MLX_LIB = $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
+MLX_LIB = $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm -Ofast
 MLX_FLAGS = -ldl -lglfw -pthread -lm
 COMPILER_SPEC = -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++
 

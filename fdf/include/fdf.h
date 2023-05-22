@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 19:19:50 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 23:01:28 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ t_camera	*init_camera(t_master *master);
 void	scrollhook(double xdelta, double ydelta, void* param);
 void	keyhook(mlx_key_data_t keydata, void *param);
 void	cursor(double xpos, double ypos, void* param);
+void	resizehook(int32_t width, int32_t height, void* param);
 
 /* utils.c */
 int		abs_val(int nb);

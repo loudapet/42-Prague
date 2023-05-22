@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 11:22:58 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 20:19:15 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 23:04:00 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,4 +202,15 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 	}
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(master->mlx);
+}
+
+void	resizehook(int32_t width, int32_t height, void* param)
+{
+	t_master	*master;
+
+	master = param;
+	mlx_resize_image(master->img, width, height);
+	free(master->camera);
+	master->camera = init_camera(master);
+	project(master);
 }

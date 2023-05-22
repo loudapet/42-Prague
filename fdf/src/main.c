@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 20:10:37 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 23:09:50 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,9 +206,11 @@ int32_t	main(int argc, const char **argv)
 			return (EXIT_FAILURE);
 		}
 		vmap = tab_to_vect(map);
+		//mlx_set_setting(MLX_STRETCH_IMAGE, true);
 		mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 		if (!mlx)
 			error();
+		mlx_set_window_limit(mlx, 250, 350, 4800, 4800);
 		img = init_img(mlx);
 		master = malloc(sizeof(t_master));
 		if (!master)
@@ -224,6 +226,7 @@ int32_t	main(int argc, const char **argv)
 		mlx_key_hook(mlx, &keyhook, master);
 		mlx_scroll_hook(mlx, &scrollhook, master);
 		mlx_cursor_hook(mlx, &cursor, master);
+		mlx_resize_hook(mlx, &resizehook, master);
 		mlx_loop(mlx);
 		mlx_delete_image(master->mlx, img);
 		mlx_terminate(master->mlx);

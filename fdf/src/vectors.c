@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:01:19 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 20:16:10 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/19 23:12:40 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ float	max_alt(t_tab tab)
 		}
 		y++;
 	}
-	printf("MAXIMUM Z VAL: %f \n", max);
 	return (max);
 }
 
@@ -58,7 +57,6 @@ float	min_alt(t_tab tab)
 		}
 		y++;
 	}
-	printf("MINIMUM Z VAL: %f \n", min);
 	return (min);
 }
 
