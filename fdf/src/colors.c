@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line.c                                             :+:      :+:    :+:   */
+/*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:53:32 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 16:42:23 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 22:56:37 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	get_default_clr(int z, float min_z, float max_z, int flag)
 		return (topo_palette(ratio));
 	if (flag == RAINBOW)
 		return (rainbow_palette(ratio));
+	if (flag == SUNRISE)
+		return (sunrise_palette(ratio));
 	return (0x00000000);
 }
 

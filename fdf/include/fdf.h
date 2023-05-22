@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 22:31:22 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 22:56:56 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ typedef enum e_color
 {
 	DEFAULT = -1,
 	TOPO = -2,
-	RAINBOW = -3
+	RAINBOW = -3,
+	SUNRISE = -4
 }				t_color;
 
 typedef enum e_proj
@@ -208,6 +209,7 @@ void		calc_direction(t_line *line);
 /* palette.c */
 int			rainbow_palette(double ratio);
 int			topo_palette(double ratio);
+int			sunrise_palette(double ratio);
 
 /* project_core.c */
 void		scale_and_zoom(t_map *dup, t_camera *camera, int row, int col);

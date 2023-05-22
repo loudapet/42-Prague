@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   palette.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 17:22:59 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 09:15:11 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 22:40:40 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,26 @@ int	rainbow_palette(double ratio)
 		return (0xBDB2FFff);
 	if (ratio <= 1)
 		return (0xFFC6FFff);
+	return (0x00000000);
+}
+
+int	sunrise_palette(double ratio)
+{
+	if (ratio < 0.125)
+		return (0x003f5cff);
+	if (ratio < 0.25)
+		return (0x58508dff);
+	if (ratio < 0.375)
+		return (0x8a508fff);
+	if (ratio < 0.50)
+		return (0xbc5090ff);
+	if (ratio < 0.625)
+		return (0xde5a79ff);
+	if (ratio < 0.75)
+		return (0xff6361ff);
+	if (ratio < 0.875)
+		return (0xff8531ff);
+	if (ratio <= 1)
+		return (0xffa600ff);
 	return (0x00000000);
 }

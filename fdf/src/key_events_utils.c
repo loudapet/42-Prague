@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_events_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:40:52 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 14:02:43 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 22:56:41 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	flatten(t_master *master, mlx_key_data_t keydata)
 void	change_color(t_master *master)
 {
 	master->vmap->clr_flag--;
-	if (master->vmap->clr_flag < -3)
+	if (master->vmap->clr_flag < -4)
 		master->vmap->clr_flag = -1;
 	project(master);
 }
