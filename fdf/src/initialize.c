@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:59:30 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 21:56:57 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 22:16:10 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,23 @@ mlx_image_t	*init_img(mlx_t *mlx)
 	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
 		error();
 	return (img);
+}
+
+t_master	*init_master(mlx_t *mlx, mlx_image_t *img, t_tab *map, t_map *vmap)
+{
+	t_master	*master;
+
+	master = malloc(sizeof(t_master));
+	if (!master)
+	{
+		master = NULL;
+		return (master);
+	}
+	master->mlx = mlx;
+	master->img = img;
+	master->vmap = vmap;
+	master->map = map;
+	master->camera = init_camera(master);
+	master->cursor = init_cursor(master);
+	return (master);
 }
