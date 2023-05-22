@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 11:22:58 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 14:04:58 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 22:03:22 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	resizehook(int32_t width, int32_t height, void *param)
 	if (master->img->width != new_width || master->img->height != new_height)
 	{
 		mlx_resize_image(master->img, width, height);
-		free(master->camera);
-		master->camera = init_camera(master);
 		project(master);
 	}
 }
