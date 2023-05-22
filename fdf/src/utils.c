@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 11:09:17 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 14:27:52 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 17:43:21 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,10 @@ void	reset_img(mlx_image_t *img)
 {
 	fill_black(img);
 	fill_instructions(img);
+}
+
+void	error(void)
+{
+	ft_putstr_fd((char *)mlx_strerror(mlx_errno), 2);
+	exit(EXIT_FAILURE);
 }

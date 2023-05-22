@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:59:30 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 10:45:09 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 17:34:45 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,41 @@ t_cursor	*init_cursor(t_master *master)
 	cursor->x_prev = x;
 	cursor->y_prev = y;
 	return (cursor);
+}
+
+t_tab	*init_tab(const char *path)
+{
+	t_tab	*map;
+
+	map = malloc(sizeof(t_tab));
+	map->nrows = row_count(path);
+	map->ncols = 0;
+	map->map_fd = open(path, O_RDONLY);
+	if (map->map_fd < 0)
+		map->nrows = -1;
+	if (map->nrows <= 0)
+		return (map);
+	map->tab = malloc(2 * sizeof(int **));
+	map->tab[0] = malloc(map->nrows * sizeof(int *));
+	map->tab[1] = malloc(map->nrows * sizeof(int *));
+	map->validation[0] = -1;
+	map->validation[1] = -1;
+	if (!map->tab[0] || !map->tab[1] || !map->tab)
+	{
+		map->tab = NULL;
+		return (map);
+	}
+	return (map);
+}
+
+mlx_image_t	*init_img(mlx_t *mlx)
+{
+	mlx_image_t	*img;
+
+	img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	if (!img)
+		error();
+	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
+		error();
+	return (img);
 }

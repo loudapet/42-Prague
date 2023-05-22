@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 14:57:22 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 17:40:17 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct	s_tab
 	int	***tab;
 	int	nrows;
 	int	ncols;
+	int	map_fd;
+	int	validation[2];
 }				t_tab;
 
 typedef struct	s_vector
@@ -133,9 +135,9 @@ void print_vectors(t_vector **vmap, int ncols, int nrows);
 t_tab *parse_map(const char *path);
 t_map	*tab_to_vect(t_tab *tab);
 t_map	*allocate(int nrows, int ncols);
-
 void	print_tab_content(int **map_array, int ncols, int nrows);
 void	project(t_master *master);
+void	error(void);
 
 /* line.c */
 void calc_direction(t_line *line);
@@ -158,6 +160,8 @@ void	rot_z(float *x, float *y, double gamma);
 /* initialize.c */
 t_camera	*init_camera(t_master *master);
 t_cursor	*init_cursor(t_master *master);
+t_tab		*init_tab(const char *path);
+mlx_image_t	*init_img(mlx_t *mlx);
 
 /* hooks.c */
 void	scrollhook(double xdelta, double ydelta, void* param);
@@ -166,12 +170,18 @@ void	cursor(double xpos, double ypos, void* param);
 void	resizehook(int32_t width, int32_t height, void* param);
 void	reset_angles(t_camera *camera);
 
+/* parse_map_utils.c */
+int	col_count(char **array);
+int	row_count(const char *path);
+int	validate(int *valid, int new);
+
 /* utils.c */
 int		abs_val(int nb);
 void	line_swap(t_line *line);
 void	free_tab(t_tab tab);
 void	free_split(char **str);
 void	free_map(t_map *map);
+void	free_trimmed_split(char *trim, char **split, char *row, int flag);
 void	reset_img(mlx_image_t *img);
 double	rad_to_deg(double rad);
 double	deg_to_rad(double deg);

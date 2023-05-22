@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:52:17 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 16:42:51 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 17:00:19 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	create_raster(mlx_image_t *img, t_map map)
 	int	y;
 	int	x;
 
-	ft_printf("nrows: %d\n", map.nrows);
 	y = 0;
 	while (y <= map.nrows - 1)
 	{

@@ -6,24 +6,11 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:02:33 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 16:41:45 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 17:29:55 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	print_tab_content(int **map_array, int ncols, int nrows)
-{
-	int	j;
-
-	j = 0;
-	while (j < ncols)
-	{
-		ft_printf("%d ", map_array[nrows][j]);
-		j++;
-	}
-	write(1, "\n", 1);
-}
 
 static void	assign_clr(char **split, int ***map_array, int row, int col)
 {
@@ -60,110 +47,43 @@ int	***create_map_array(int ***map_array, char **split_row, int ncols, int row)
 	return (map_array);
 }
 
-int	col_count(char **array)
+static void	create_map(t_tab *map)
 {
-	int	i;
-
-	i = 0;
-	while (*array)
-	{
-		i++;
-		array++;
-	}
-	return (i);
-}
-
-int	row_count(const char *path)
-{
-	int		map_fd;
-	char	*row;
-	int		i;
-
-	i = 0;
-	map_fd = open(path, O_RDONLY);
-	if (map_fd < 0)
-		return (-1);
-	row = get_next_line(map_fd);
-	while (row)
-	{
-		free(row);
-		row = get_next_line(map_fd);
-		i++;
-	}
-	free(row);
-	close(map_fd);
-	return (i);
-}
-
-static int	validate(int *valid, int new)
-{
-	if (valid[0] == -1)
-	{
-		valid[0] = new;
-		valid[1] = new;
-		return (0);
-	}
-	valid[0] = valid[1];
-	valid[1] = new;
-	if (valid[0] != valid[1])
-		return (1);
-	return (0);
-}
-
-t_tab	*parse_map(const char *path)
-{
-	t_tab	*map;
-	int		map_fd;
 	char	*row;
 	char	**split_row;
 	char	*trim_row;
-	int		*validation;
 	int		i;
 
 	i = 0;
-	map = malloc(sizeof(t_tab));
-	map->nrows = row_count(path);
-	map->ncols = 0;
-	map_fd = open(path, O_RDONLY);
-	if (map_fd < 0)
-		map->nrows = -1;
-	if (map->nrows <= 0)
-		return (map);
-	map->tab = malloc(2 * sizeof(int **));
-	map->tab[0] = malloc(map->nrows * sizeof(int *));
-	map->tab[1] = malloc(map->nrows * sizeof(int *));
-	validation = malloc(2 * sizeof(int));
-	if (!map->tab[0] || !map->tab[1] || !map->tab)
-	{
-		map->tab = NULL;
-		free(validation);
-		return (map);
-	}
-	validation[0] = -1;
-	validation[1] = -1;
-	row = get_next_line(map_fd);
+	row = get_next_line(map->map_fd);
 	while (row)
 	{
 		trim_row = ft_strtrim(row, " \n");
 		split_row = ft_split(trim_row, ' ');
 		map->ncols = col_count(split_row);
-		if (validate(validation, map->ncols))
+		if (validate(map->validation, map->ncols))
 		{
-			free(trim_row);
-			free_split(split_row);
+			free_trimmed_split(trim_row, split_row, row, 0);
 			map->ncols = -1;
 			map->nrows = i;
 			break ;
 		}
 		map->tab = create_map_array(map->tab, split_row, map->ncols, i);
-		free(row);
-		free(trim_row);
-		free_split(split_row);
-		row = get_next_line(map_fd);
+		free_trimmed_split(trim_row, split_row, row, 1);
+		row = get_next_line(map->map_fd);
 		i++;
 	}
-	free(validation);
 	free(row);
-	close(map_fd);
+}
+
+t_tab	*parse_map(const char *path)
+{
+	t_tab	*map;
+
+	map = init_tab(path);
+	if (!map || !map->tab)
+		return (map);
+	create_map(map);
+	close(map->map_fd);
 	return (map);
 }

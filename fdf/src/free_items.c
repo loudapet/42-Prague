@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_items.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 17:58:05 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 19:36:54 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 17:30:00 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,12 @@ void	free_map(t_map *map)
 	}
 	free(map->vmap);
 	free(map);
+}
+
+void	free_trimmed_split(char *trim, char **split, char *row, int flag)
+{
+	free(trim);
+	free_split(split);
+	if (flag)
+		free(row);
 }

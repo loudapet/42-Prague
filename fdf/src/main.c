@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 10:47:31 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/22 18:06:43 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,32 +34,14 @@ void	print_instructions(t_master *master)
 	master->instr = mlx_put_string(master->mlx, "CAVALIER           ", x, 295);
 }
 
-static void	error(void)
-{
-	puts(mlx_strerror(mlx_errno));
-	exit(EXIT_FAILURE);
-}
-
-mlx_image_t	*init_img(mlx_t *mlx)
-{
-	mlx_image_t	*img;
-
-	img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	if (!img)
-		error();
-	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
-		error();
-	return (img);
-}
-
-void	copy_vect(t_map *vmap, t_map *dup, int row, int col)
+static void	copy_vect(t_map *vmap, t_map *dup, int row, int col)
 {
 	dup->vmap[row][col].x = vmap->vmap[row][col].x;
 	dup->vmap[row][col].y = vmap->vmap[row][col].y;
 	dup->vmap[row][col].z = vmap->vmap[row][col].z;
 }
 
-void	assign_clr(t_map *dup, int **tab, int row, int col)
+static void	assign_clr(t_map *dup, int **tab, int row, int col)
 {
 	if (tab[row][col] > -4 && tab[row][col] < 0)
 	{
@@ -99,13 +81,6 @@ static t_map	*vectdup(t_map *vmap, int **tab)
 	return (dup);
 }
 
-/*
-1. Scaling/zooming
-2. Making origin 0,0 the middle of the object
-3. Rotating camera (XYZ)
-4. Projecting
-5. Recentering
-*/
 void	project(t_master *master)
 {
 	int			row;
@@ -135,6 +110,84 @@ void	project(t_master *master)
 	free_map(dup);
 }
 
+static int	check_validity(t_tab *map)
+{
+	if (!map->tab || map->ncols <= 0 || map->nrows <= 0)
+	{
+		if (map->nrows == -1)
+		{
+			free(map);
+			write(2, "Invalid file\n", 14);
+		}
+		else if (map->nrows == 0)
+		{
+			free(map);
+			write(2, "Empty file\n", 12);
+		}
+		else if (map->ncols == -1)
+		{
+			write(2, "Invalid map column range\n", 26);
+			free_tab(*map);
+			free(map);
+		}
+		else
+			write(2, "Allocation error\n", 18);
+		return (1);
+	}
+	return (0);
+}
+
+static void	loop(mlx_t *mlx, t_master *master)
+{
+	mlx_key_hook(mlx, &keyhook, master);
+	mlx_scroll_hook(mlx, &scrollhook, master);
+	mlx_cursor_hook(mlx, &cursor, master);
+	mlx_resize_hook(mlx, &resizehook, master);
+	mlx_loop(mlx);
+}
+
+static void	terminate(t_master *master)
+{
+	mlx_delete_image(master->mlx, master->img);
+	mlx_terminate(master->mlx);
+	free_tab(*master->map);
+	free(master->map);
+	free_map(master->vmap);
+	free(master->camera);
+	free(master->cursor);
+	free(master);
+}
+
+t_master	*init_master(mlx_t *mlx, mlx_image_t *img, t_tab *map, t_map *vmap)
+{
+	t_master	*master;
+
+	master = malloc(sizeof(t_master));
+	if (!master)
+	{
+		master = NULL;
+		return (master);
+	}
+	master->mlx = mlx;
+	master->img = img;
+	master->vmap = vmap;
+	master->map = map;
+	master->camera = init_camera(master);
+	master->cursor = init_cursor(master);
+	return (master);
+}
+
+mlx_t	*init_mlx(void)
+{
+	mlx_t		*mlx;
+
+	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
+	if (!mlx)
+		error();
+	mlx_set_window_limit(mlx, 250, 350, 4800, 4800);
+	return (mlx);
+}
+
 int32_t	main(int argc, const char **argv)
 {
 	t_tab		*map;
@@ -146,59 +199,19 @@ int32_t	main(int argc, const char **argv)
 	if (argc == 2)
 	{
 		map = parse_map(argv[1]);
-		if (!map->tab || map->ncols <= 0 || map->nrows <= 0)
-		{
-			if (map->nrows == -1)
-			{
-				free(map);
-				write(2, "Invalid file\n", 14);
-			}
-			else if (map->nrows == 0)
-			{
-				free(map);
-				write(2, "Empty file\n", 12);
-			}
-			else if (map->ncols == -1)
-			{
-				write(2, "Invalid map column range\n", 26);
-				free_tab(*map);
-				free(map);
-			}
-			else
-				write(2, "Allocation error\n", 18);
+		if (check_validity(map))
 			return (EXIT_FAILURE);
-		}
 		vmap = tab_to_vect(map);
-		//mlx_set_setting(MLX_STRETCH_IMAGE, true);
-		mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
-		if (!mlx)
-			error();
-		mlx_set_window_limit(mlx, 250, 350, 4800, 4800);
+		mlx = init_mlx();
 		img = init_img(mlx);
-		master = malloc(sizeof(t_master));
+		master = init_master(mlx, img, map, vmap);
 		if (!master)
 			return (EXIT_FAILURE);
-		master->mlx = mlx;
-		master->img = img;
-		master->vmap = vmap;
-		master->map = map;
-		master->camera = init_camera(master);
-		master->cursor = init_cursor(master);
 		project(master);
 		print_instructions(master);
-		mlx_key_hook(mlx, &keyhook, master);
-		mlx_scroll_hook(mlx, &scrollhook, master);
-		mlx_cursor_hook(mlx, &cursor, master);
-		mlx_resize_hook(mlx, &resizehook, master);
-		mlx_loop(mlx);
-		mlx_delete_image(master->mlx, img);
-		mlx_terminate(master->mlx);
-		free_tab(*map);
-		free(map);
-		free_map(vmap);
-		free(master->camera);
-		free(master->cursor);
-		free(master);
+		loop(mlx, master);
+		terminate(master);
+		return (EXIT_SUCCESS);
 	}
-	return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
 }
