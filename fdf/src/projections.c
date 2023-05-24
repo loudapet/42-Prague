@@ -3,65 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   projections.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 13:30:04 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/15 13:31:00 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/24 09:54:29 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	conv_to_iso(float *x, float *y, float *z)
+void	conv_to_iso(double *x, double *y, double *z)
 {
-	float	prev_x;
-	float	prev_y;
+	double	prev_x;
+	double	prev_y;
+	double	angle;
 
+	angle = deg_to_rad(30);
 	prev_x = *x;
 	prev_y = *y;
-	*x = (prev_x - prev_y) * cos(0.5236);
-	*y = (prev_x + prev_y) * sin(0.5236) - (*z);
+	*x = (prev_x - prev_y) * cos(angle);
+	*y = (prev_x + prev_y) * sin(angle) - (*z);
 }
 
-void	conv_to_side(float *y, float *z)
+void	conv_to_side(double *y, double *z)
 {
-	float	prev_y;
-	float	prev_z;
+	double	angle;
 
-	prev_y = *y;
-	prev_z = *z;
-	*y = prev_y * cos(1.57) - prev_z * sin(1.57);
-	*z = prev_y * sin(1.57) + prev_z * cos(1.57);
+	angle = deg_to_rad(-90);
+	rot_x(y, z, angle);
 }
 
-void	conv_to_cab(float *x, float *y, float *z)
+void	conv_to_cab(double *x, double *y, double *z)
 {
-	float	prev_x;
-	float	prev_y;
-	float	prev_z;
+	double	angle;
 
-	prev_y = *y;
-	prev_z = *z;
-	*y = prev_y * cos(1.57) - prev_z * sin(1.57);
-	*z = prev_y * sin(1.57) + prev_z * cos(1.57);
-	prev_x = *x;
-	prev_y = *y;
-	*x = prev_x + (*z) * cos(1) * 0.5;
-	*y = prev_y + (*z) * sin(1) * 0.5;
+	angle = deg_to_rad(-90);
+	rot_x(y, z, angle);
+	angle = deg_to_rad(45);
+	*x = (*x) + (*z) * cos(angle) * 0.5;
+	*y = (*y) + (*z) * sin(angle) * 0.5;
 }
 
-void	conv_to_cav(float *x, float *y, float *z)
+void	conv_to_cav(double *x, double *y, double *z)
 {
-	float	prev_x;
-	float	prev_y;
-	float	prev_z;
+	double	angle;
 
-	prev_y = *y;
-	prev_z = *z;
-	*y = prev_y * cos(1.57) - prev_z * sin(1.57);
-	*z = prev_y * sin(1.57) + prev_z * cos(1.57);
-	prev_x = *x;
-	prev_y = *y;
-	*x = prev_x + (*z) * cos(1);
-	*y = prev_y + (*z) * sin(1);
+	angle = deg_to_rad(-90);
+	rot_x(y, z, angle);
+	angle = deg_to_rad(45);
+	*x = (*x) + (*z) * cos(angle);
+	*y = (*y) + (*z) * sin(angle);
 }

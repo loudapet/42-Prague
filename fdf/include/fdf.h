@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 22:56:56 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/24 10:31:11 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include <memory.h>
 # include <limits.h>
 # include "MLX42/MLX42.h"
-# define WIDTH 1600
-# define HEIGHT 900
+# define WIDTH 1280
+# define HEIGHT 720
 
 typedef enum e_color
 {
@@ -63,9 +63,9 @@ typedef struct s_tab
 
 typedef struct s_vector
 {
-	float	x;
-	float	y;
-	float	z;
+	double	x;
+	double	y;
+	double	z;
 	int		color;
 }				t_vector;
 
@@ -74,8 +74,8 @@ typedef struct s_map
 	t_vector	**vmap;
 	int			nrows;
 	int			ncols;
-	float		z_max;
-	float		z_min;
+	int			z_max;
+	int			z_min;
 	int			clr_flag;
 }				t_map;
 
@@ -126,10 +126,8 @@ typedef struct s_master
 	t_tab		*map;
 	t_camera	*camera;
 	t_cursor	*cursor;
-	const char	*path;
 }				t_master;
 
-void		print_vectors(t_vector **vmap, int ncols, int nrows);
 t_tab		*parse_map(const char *path);
 t_map		*tab_to_vect(t_tab *tab);
 t_map		*allocate(int nrows, int ncols);
@@ -139,22 +137,20 @@ void		error(void);
 void		print_instructions(t_master *master);
 
 /* line.c */
-void		calc_direction(t_line *line);
-void		calc_err(t_line *line, int *cur_p, int delta, int flag);
 t_line		init_vars(t_vector p1, t_vector p2);
-int			get_default_clr(int z, float min_z, float max_z, int flag);
+int			get_default_clr(int z, int min_z, int max_z, int flag);
 int			get_clr(t_line line);
 
 /* projections.c */
-void		conv_to_iso(float *x, float *y, float *z);
-void		conv_to_side(float *y, float *z);
-void		conv_to_cab(float *x, float *y, float *z);
-void		conv_to_cav(float *x, float *y, float *z);
+void		conv_to_iso(double *x, double *y, double *z);
+void		conv_to_side(double *y, double *z);
+void		conv_to_cab(double *x, double *y, double *z);
+void		conv_to_cav(double *x, double *y, double *z);
 
 /* rotations.c */
-void		rot_x(float *y, float *z, double alpha);
-void		rot_y(float *x, float *z, double beta);
-void		rot_z(float *x, float *y, double gamma);
+void		rot_x(double *y, double *z, double alpha);
+void		rot_y(double *x, double *z, double beta);
+void		rot_z(double *x, double *y, double gamma);
 
 /* initialize.c */
 t_camera	*init_camera(t_master *master);
@@ -177,10 +173,9 @@ int			validate(int *valid, int new);
 
 /* utils.c */
 int			abs_val(int nb);
-void		line_swap(t_line *line);
-void		free_tab(t_tab tab);
+void		free_tab(t_tab *tab);
 void		free_split(char **str);
-void		free_map(t_map *map);
+void		free_map(t_map *vmap);
 void		free_trimmed_split(char *trim, char **split, char *row, int flag);
 void		reset_img(mlx_image_t *img);
 double		rad_to_deg(double rad);
@@ -199,12 +194,10 @@ void		recenter_camera(t_master *master);
 void		reset(t_master *master);
 
 /* create_raster.c */
-void		create_raster(mlx_image_t *img, t_map map);
+void		create_raster(mlx_image_t *img, t_map vmap);
 
 /* create_raster_utils.c */
 t_line		init_vars(t_vector p1, t_vector p2);
-void		calc_err(t_line *line, int *cur_p, int delta, int flag);
-void		calc_direction(t_line *line);
 
 /* palette.c */
 int			rainbow_palette(double ratio);

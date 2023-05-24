@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 17:27:06 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 17:29:25 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/23 11:17:49 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ int	row_count(const char *path)
 	return (i);
 }
 
+/*
+This a simple check of map's rectangularity. Two neigboring values
+at the end of both rows are always compared. If their value doesn't match,
+it means that one row is shorter than the other, and the program ends.
+*/
 int	validate(int *valid, int new)
 {
 	if (valid[0] == -1)

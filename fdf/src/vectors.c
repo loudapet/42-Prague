@@ -3,80 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   vectors.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:01:19 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 14:30:44 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/24 08:17:43 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-float	max_alt(t_tab tab)
+int	max_alt(t_tab tab)
 {
-	float	max;
-	int		y;
-	int		x;
-	float	zcoor;
+	int		max;
+	int		row;
+	int		col;
+	int		zcoor;
 
 	max = tab.tab[0][0][0];
-	y = 0;
-	while (y < tab.nrows)
+	row = 0;
+	while (row < tab.nrows)
 	{
-		x = 0;
-		while (x < tab.ncols)
+		col = 0;
+		while (col < tab.ncols)
 		{
-			zcoor = tab.tab[0][y][x];
+			zcoor = tab.tab[0][row][col];
 			if (zcoor > max)
 				max = zcoor;
-			x++;
+			col++;
 		}
-		y++;
+		row++;
 	}
 	return (max);
 }
 
-float	min_alt(t_tab tab)
+int	min_alt(t_tab tab)
 {
-	float	min;
-	int		y;
-	int		x;
-	float	zcoor;
+	int		min;
+	int		row;
+	int		col;
+	int		zcoor;
 
 	min = tab.tab[0][0][0];
-	y = 0;
-	while (y < tab.nrows)
+	row = 0;
+	while (row < tab.nrows)
 	{
-		x = 0;
-		while (x < tab.ncols)
+		col = 0;
+		while (col < tab.ncols)
 		{
-			zcoor = tab.tab[0][y][x];
+			zcoor = tab.tab[0][row][col];
 			if (zcoor < min)
 				min = zcoor;
-			x++;
+			col++;
 		}
-		y++;
+		row++;
 	}
 	return (min);
 }
 
-t_vector	**create_vectors(t_vector **vmap, int ***tab, int ncols, int nrow)
+t_vector	**create_vectors(t_vector **vmap, int ***tab, int ncols, int row)
 {
-	int			i;
+	int			col;
 	t_vector	vector;
 
-	i = 0;
-	vmap[nrow] = malloc(ncols * sizeof(t_vector));
-	if (!vmap[nrow])
+	col = 0;
+	vmap[row] = malloc(ncols * sizeof(t_vector));
+	if (!vmap[row])
 		return (NULL);
-	while (i < ncols)
+	while (col < ncols)
 	{
-		vector.x = i;
-		vector.y = nrow;
-		vector.z = tab[0][nrow][i];
-		vector.color = tab[1][nrow][i];
-		vmap[nrow][i] = vector;
-		i++;
+		vector.x = col;
+		vector.y = row;
+		vector.z = tab[0][row][col];
+		vector.color = tab[1][row][col];
+		vmap[row][col] = vector;
+		col++;
 	}
 	return (vmap);
 }
@@ -84,7 +84,7 @@ t_vector	**create_vectors(t_vector **vmap, int ***tab, int ncols, int nrow)
 t_map	*tab_to_vect(t_tab *tab)
 {
 	t_map		*map;
-	int			y;
+	int			row;
 
 	map = malloc(sizeof(t_map));
 	map->vmap = malloc(sizeof(t_vector *) * tab->nrows);
@@ -95,11 +95,11 @@ t_map	*tab_to_vect(t_tab *tab)
 	}
 	map->z_max = max_alt(*tab);
 	map->z_min = min_alt(*tab);
-	y = 0;
-	while (y < tab->nrows)
+	row = 0;
+	while (row < tab->nrows)
 	{
-		map->vmap = create_vectors(map->vmap, tab->tab, tab->ncols, y);
-		y++;
+		map->vmap = create_vectors(map->vmap, tab->tab, tab->ncols, row);
+		row++;
 	}
 	map->ncols = tab->ncols;
 	map->nrows = tab->nrows;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cursor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 11:34:50 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 14:13:14 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/23 10:27:58 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	update_cursor(t_cursor *cursor, double xpos, double ypos)
+static void	update_cursor_position(t_cursor *cursor, double xpos, double ypos)
 {
 	cursor->x_prev = cursor->x_cur;
 	cursor->y_prev = cursor->y_cur;
@@ -49,7 +49,7 @@ void	cursor(double xpos, double ypos, void *param)
 	t_master	*master;
 
 	master = param;
-	update_cursor(master->cursor, xpos, ypos);
+	update_cursor_position(master->cursor, xpos, ypos);
 	if (mlx_is_mouse_down(master->mlx, MLX_MOUSE_BUTTON_LEFT))
 		translate(master, xpos, ypos);
 	if (mlx_is_mouse_down(master->mlx, MLX_MOUSE_BUTTON_RIGHT))

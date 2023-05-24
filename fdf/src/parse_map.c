@@ -3,15 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:02:33 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 17:29:55 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/23 11:28:52 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
+First two-dimensional array is used for vector creation. The second array
+is used for color handling.
+If a color is pre-defined in the file, its value is saved in the second array
+at its corresponding position, which can be later mapped to a specific position
+vector. If the color is not pre-defined, a flag is raised in its stead,
+indicating that the vector's color may be changed.
+This enables changing only
+certain parts of a wireframe, but it also prevents changes from taking place
+at positions where the color is pre-defined.
+*/
 static void	assign_clr(char **split, int ***map_array, int row, int col)
 {
 	if (split[1] != NULL)
@@ -47,6 +58,10 @@ int	***create_map_array(int ***map_array, char **split_row, int ncols, int row)
 	return (map_array);
 }
 
+/*
+Loops through the map file and creates a three-dimensional array out of it.
+During the creation, it also checks whether all rows are of equal length.
+*/
 static void	create_map(t_tab *map)
 {
 	char	*row;

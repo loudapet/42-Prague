@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 22:22:51 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/24 08:37:42 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ static int	check_validity(t_tab *map)
 		else if (map->ncols == -1)
 		{
 			write(2, "Invalid map column range\n", 26);
-			free_tab(*map);
-			free(map);
+			free_tab(map);
 		}
 		else
 			write(2, "Allocation error\n", 18);
@@ -52,8 +51,7 @@ static void	terminate(t_master *master)
 {
 	mlx_delete_image(master->mlx, master->img);
 	mlx_terminate(master->mlx);
-	free_tab(*master->map);
-	free(master->map);
+	free_tab(master->map);
 	free_map(master->vmap);
 	free(master->camera);
 	free(master->cursor);
@@ -64,10 +62,11 @@ mlx_t	*init_mlx(void)
 {
 	mlx_t		*mlx;
 
+	//mlx_set_setting(MLX_MAXIMIZED, 1);
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
 		error();
-	mlx_set_window_limit(mlx, 250, 350, 4800, 4800);
+	mlx_set_window_limit(mlx, 250, 350, 10000, 10000);
 	return (mlx);
 }
 

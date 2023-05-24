@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 10:59:30 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 22:16:10 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/24 08:41:07 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ mlx_image_t	*init_img(mlx_t *mlx)
 {
 	mlx_image_t	*img;
 
-	img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	img = mlx_new_image(mlx, mlx->width, mlx->height);
 	if (!img)
 		error();
 	if (mlx_image_to_window(mlx, img, 0, 0) < 0)

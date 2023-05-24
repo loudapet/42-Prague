@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   projection_handler.c                               :+:      :+:    :+:   */
+/*   project_core.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 10:12:06 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 14:13:34 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/24 09:27:08 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	rotate_xyz(t_map *dup, t_camera *camera, int row, int col)
 
 void	convert_projection(t_map *dup, t_camera *camera, int row, int col)
 {
-	float	*x;
-	float	*y;
-	float	*z;
+	double	*x;
+	double	*y;
+	double	*z;
 
 	x = &dup->vmap[row][col].x;
 	y = &dup->vmap[row][col].y;

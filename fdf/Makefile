@@ -6,18 +6,19 @@
 #    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/05/22 22:57:13 by plouda           ###   ########.fr        #
+#    Updated: 2023/05/24 10:22:10 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 OBJS = obj/colors.o obj/utils.o obj/parse_map.o obj/vectors.o obj/projections.o \
 		obj/free_items.o obj/main.o obj/rotations.o obj/allocate.o \
-		obj/hooks.o obj/ft_atoi_base.o obj/palette.o \
+		obj/ft_atoi_base.o obj/palette.o \
 		obj/project_core.o obj/project.o obj/initialize.o obj/cursor.o \
-		obj/scroll.o obj/key_events.o obj/key_events_utils.o \
+		obj/scroll.o obj/key_events.o obj/key_events_actions.o \
 		obj/utils_num.o obj/create_raster.o obj/create_raster_utils.o \
-		obj/parse_map_utils.o obj/print_instructions.o
+		obj/parse_map_utils.o obj/print_instructions.o obj/reset_angles.o \
+		obj/resize.o
 
 LIBFTPRINTF = libftprintf
 AR = ar rc

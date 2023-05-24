@@ -3,16 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   create_raster_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:53:48 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 17:00:32 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/23 09:38:35 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	calc_direction(t_line *line)
+static void	line_swap(t_line *line)
+{
+	int	tmp;
+
+	tmp = line->x1;
+	line->x1 = line->x2;
+	line->x2 = tmp;
+	tmp = line->y1;
+	line->y1 = line->y2;
+	line->y2 = tmp;
+	tmp = line->color1;
+	line->color1 = line->color2;
+	line->color2 = tmp;
+}
+
+static void	calc_direction(t_line *line)
 {
 	if (line->x2 > line->x1)
 		line->flag_x = 1;
@@ -24,22 +39,14 @@ void	calc_direction(t_line *line)
 		line->flag_y = -1;
 }
 
-void	calc_err(t_line *line, int *cur_p, int delta, int flag)
-{
-	int	decision;
+/*
+Line swap is occasionally performed because the algorithm
+can only handle "bottom left-top right" drawing in its default form.
 
-	if (line->dx > line->dy)
-		decision = line->dx;
-	else
-		decision = line->dy;
-	if (line->err > 0)
-	{
-		*cur_p += flag;
-		line->err -= 2 * decision;
-	}
-	line->err += 2 * delta;
-}
-
+The decision variable (dx/dy) doesn't change after this point,
+so its value determines the path the algorithm takes for its
+further computations.
+*/
 t_line	init_vars(t_vector p1, t_vector p2)
 {
 	t_line	line;
@@ -52,7 +59,7 @@ t_line	init_vars(t_vector p1, t_vector p2)
 	line.dy = abs_val(line.y2 - line.y1);
 	line.color1 = p1.color;
 	line.color2 = p2.color;
-	if (abs_val(line.y2 - line.y1) < abs_val(line.x2 - line.x1))
+	if (line.dx > line.dy)
 	{
 		if (line.x1 > line.x2)
 			line_swap(&line);

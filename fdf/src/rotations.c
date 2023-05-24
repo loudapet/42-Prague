@@ -3,37 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   rotations.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 13:32:40 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/15 13:33:28 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/24 08:14:36 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	rot_x(float *y, float *z, double alpha)
+void	rot_x(double *y, double *z, double alpha)
 {
-	float	prev_y;
+	double	prev_y;
 
 	prev_y = *y;
 	*y = prev_y * cos(alpha) + (*z) * sin(alpha);
 	*z = -prev_y * sin(alpha) + (*z) * cos(alpha);
 }
 
-void	rot_y(float *x, float *z, double beta)
+void	rot_y(double *x, double *z, double beta)
 {
-	float	prev_x;
+	double	prev_x;
 
 	prev_x = *x;
 	*x = prev_x * cos(beta) + (*z) * sin(beta);
 	*z = -prev_x * sin(beta) + (*z) * cos(beta);
 }
 
-void	rot_z(float *x, float *y, double gamma)
+void	rot_z(double *x, double *y, double gamma)
 {
-	float	prev_x;
-	float	prev_y;
+	double	prev_x;
+	double	prev_y;
 
 	prev_x = *x;
 	prev_y = *y;

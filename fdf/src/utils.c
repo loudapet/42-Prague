@@ -6,26 +6,11 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 11:09:17 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 21:56:53 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/23 08:41:41 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	line_swap(t_line *line)
-{
-	int	tmp;
-
-	tmp = line->x1;
-	line->x1 = line->x2;
-	line->x2 = tmp;
-	tmp = line->y1;
-	line->y1 = line->y2;
-	line->y2 = tmp;
-	tmp = line->color1;
-	line->color1 = line->color2;
-	line->color2 = tmp;
-}
 
 static void	fill_black(mlx_image_t *img)
 {

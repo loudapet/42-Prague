@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:53:32 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/22 22:56:37 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/24 08:18:36 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,15 @@ static double	get_ratio(int start, int finish, int cur)
 	return (ratio);
 }
 
-int	get_default_clr(int z, float min_z, float max_z, int flag)
-{
-	double	ratio;
-
-	ratio = get_ratio(min_z, max_z, z);
-	if (flag == DEFAULT)
-		return (0xffffffff);
-	if (flag == TOPO)
-		return (topo_palette(ratio));
-	if (flag == RAINBOW)
-		return (rainbow_palette(ratio));
-	if (flag == SUNRISE)
-		return (sunrise_palette(ratio));
-	return (0x00000000);
-}
-
 static int	do_lerp(int start, int finish, double ratio)
 {
 	return ((int)start + ratio * (finish - start));
 }
 
 /*
-** Quadrant 1, 4, 5, 8(delta.x > delta.y): sample by x
-** Quadrant 2, 3, 6, 7(delta.x < delta.y): sample by y
+Computes the color of every pixel using linear interpolation.
 
-In a nutshell, “& 0xff” effectively masks the variable so it leaves 
+Note: “& 0xff” effectively masks the variable so it leaves 
 only the value in the last 8 bits, and ignores all the rest of the bits.
 */
 
@@ -71,4 +54,20 @@ int	get_clr(t_line line)
 			line.color2 >> 8 & 0xFF, ratio);
 	alpha = 255;
 	return ((red << 24) | (green << 16) | (blue << 8) | alpha);
+}
+
+int	get_default_clr(int z, int min_z, int max_z, int flag)
+{
+	double	ratio;
+
+	ratio = get_ratio(min_z, max_z, z);
+	if (flag == DEFAULT)
+		return (0xffffffff);
+	if (flag == TOPO)
+		return (topo_palette(ratio));
+	if (flag == RAINBOW)
+		return (rainbow_palette(ratio));
+	if (flag == SUNRISE)
+		return (sunrise_palette(ratio));
+	return (0x00000000);
 }
