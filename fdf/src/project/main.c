@@ -6,7 +6,7 @@
 /*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:07:29 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/24 08:37:42 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/24 13:47:07 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ mlx_t	*init_mlx(void)
 {
 	mlx_t		*mlx;
 
-	//mlx_set_setting(MLX_MAXIMIZED, 1);
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)
 		error();

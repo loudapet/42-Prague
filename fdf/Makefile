@@ -3,26 +3,48 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: plouda <plouda@student.42.fr>              +#+  +:+       +#+         #
+#    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/05/24 11:26:04 by plouda           ###   ########.fr        #
+#    Updated: 2023/05/24 13:37:01 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
-OBJS = obj/colors.o obj/utils.o obj/parse_map.o obj/vectors.o obj/projections.o \
-		obj/free_items.o obj/main.o obj/rotations.o obj/allocate.o \
-		obj/ft_atoi_base.o obj/palette.o \
-		obj/project_core.o obj/project.o obj/initialize.o obj/cursor.o \
-		obj/scroll.o obj/key_events.o obj/key_events_actions.o \
-		obj/utils_num.o obj/create_raster.o obj/create_raster_utils.o \
-		obj/parse_map_utils.o obj/print_instructions.o obj/reset_angles.o \
-		obj/resize.o
+SRCS =	colors/colors.c \
+		colors/palette.c \
+		hooks/cursor.c \
+		hooks/key_events_actions.c \
+		hooks/key_events.c \
+		hooks/reset_angles.c \
+		hooks/resize.c \
+		hooks/scroll.c \
+		utils/allocate.c \
+		utils/create_raster_utils.c \
+		utils/free_items.c \
+		utils/ft_atoi_base.c \
+		utils/initialize.c \
+		utils/parse_map_utils.c \
+		utils/utils_num.c \
+		utils/utils.c \
+		project/create_raster.c \
+		project/main.c \
+		project/parse_map.c \
+		project/print_instructions.c \
+		project/project_core.c \
+		project/project.c \
+		project/projections.c \
+		project/rotations.c \
+		project/vectors.c
+
+BUILD_DIR = ./obj
+OBJS = $(addprefix $(BUILD_DIR)/, $(SRCS))
+OBJS := $(OBJS:%.c=%.o)
+SRCS := $(addprefix $(SRCS_DIR)/, $(SRCS))
 
 LIBFTPRINTF = libftprintf
 AR = ar rc
-GCC = gcc -Wall -Wextra -Werror #-g -fsanitize=address #-static-libsan
+GCC = gcc -Wall -Wextra -Werror
 
 HEADERS = -I ./include -I $(MLX_DIR)/include
 MLX_DIR = ./lib/MLX42
@@ -42,6 +64,10 @@ obj/%.o: src/%.c | objdir
 
 objdir:
 	mkdir -p obj
+	mkdir -p obj/colors
+	mkdir -p obj/utils
+	mkdir -p obj/hooks
+	mkdir -p obj/project
 
 $(MLX_LIB):
 	cmake $(MLX_DIR) $(COMPILER_SPEC) -B $(MLX_DIR)/build

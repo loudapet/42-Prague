@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:01:07 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/24 11:45:33 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/24 13:47:28 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ void		reset_img(mlx_image_t *img);
 void		error(void);
 
 /* vectors.c */
-t_map	*tab_to_vect(t_tab *tab);
+t_map		*tab_to_vect(t_tab *tab);
 t_vector	**create_vectors(t_vector **vmap, int ***tab, int ncols, int row);
 
 #endif
