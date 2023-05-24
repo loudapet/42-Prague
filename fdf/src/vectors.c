@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vectors.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:01:19 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/24 08:17:43 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/24 11:43:46 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	max_alt(t_tab tab)
+static int	max_alt(t_tab tab)
 {
 	int		max;
 	int		row;
@@ -36,7 +36,7 @@ int	max_alt(t_tab tab)
 	return (max);
 }
 
-int	min_alt(t_tab tab)
+static int	min_alt(t_tab tab)
 {
 	int		min;
 	int		row;

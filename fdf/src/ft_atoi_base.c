@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:45:24 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/19 19:37:03 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/24 11:32:22 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-char	to_lower(char c)
+static char	to_lower(char c)
 {
 	if (c >= 'A' && c <= 'Z')
 		return (c + ('a' - 'A'));
 	return (c);
 }
 
-int	get_digit(char c, int base)
+static int	get_digit(char c, int base)
 {
 	int	max_digit;
 

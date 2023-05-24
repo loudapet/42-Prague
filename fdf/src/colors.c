@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:53:32 by plouda            #+#    #+#             */
-/*   Updated: 2023/05/24 08:18:36 by plouda           ###   ########.fr       */
+/*   Updated: 2023/05/24 11:33:22 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ Computes the color of every pixel using linear interpolation.
 Note: “& 0xff” effectively masks the variable so it leaves 
 only the value in the last 8 bits, and ignores all the rest of the bits.
 */
-
 int	get_clr(t_line line)
 {
 	double	ratio;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: plouda <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: plouda <plouda@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 15:05:09 by plouda            #+#    #+#              #
-#    Updated: 2023/05/24 10:22:10 by plouda           ###   ########.fr        #
+#    Updated: 2023/05/24 11:26:04 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,11 @@ $(NAME): $(OBJS)
 	mv libftprintf/libftprintf.a .
 	$(GCC) $(OBJS) $(LIBFTPRINTF).a $(MLX_LIB) -o $(NAME)
 
-obj/%.o: src/%.c
+obj/%.o: src/%.c | objdir
+	$(GCC) -c $^ $(HEADERS) -o $@
+
+objdir:
 	mkdir -p obj
-	$(GCC) -c $< $(HEADERS) -o $@
 
 $(MLX_LIB):
 	cmake $(MLX_DIR) $(COMPILER_SPEC) -B $(MLX_DIR)/build
