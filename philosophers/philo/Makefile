@@ -6,12 +6,13 @@
 #    By: plouda <plouda@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 10:27:43 by plouda            #+#    #+#              #
-#    Updated: 2023/05/26 11:08:19 by plouda           ###   ########.fr        #
+#    Updated: 2023/06/12 10:17:52 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
-SRCS = test.c
+SRCS =	philo.c \
+		utils.c
 
 BUILD_DIR = ./build
 OBJS = $(addprefix $(BUILD_DIR)/, $(SRCS))
@@ -19,7 +20,7 @@ OBJS := $(OBJS:%.c=%.o)
 
 GCC = gcc -Wall -Wextra -Werror -lpthread
 
-HEADERS = -I ./philo.h
+HEADERS = -I ../philo.h
 
 all: $(NAME)
 
