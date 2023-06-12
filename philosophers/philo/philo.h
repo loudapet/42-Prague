@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 09:52:52 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/12 13:37:48 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/12 14:06:26 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 typedef struct	s_philo
 {
-	int	tid;
+	pthread_t	tid;
 	int	seat;
 	int	lfork;
 	int	rfork;

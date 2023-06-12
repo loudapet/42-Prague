@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 09:35:36 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/12 13:50:40 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/12 14:33:18 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,28 @@ t_env	*init_env(int argc, const char **argv)
 	return (env);
 }
 
+void	*dinner(void *param)
+{
+	t_env	*env;
+	env = param;
+	
+	if (env)
+		printf("Hello thread!\n");
+	return (NULL);
+}
+
 void	start_cycle(t_env *env)
 {
-	if (env)
-		return ;
+	int	i;
+
+	i = 0;
+	env->start_time = get_time();
+	while (i < env->count)
+	{
+		pthread_create(&env->philos[i].tid, NULL, &dinner, &env);
+		i++;
+	}
+	
 }
 
 // protecc mallocs!
@@ -83,7 +101,6 @@ int	main(int argc, const char **argv)
 	if (argc == 5 || argc == 6)
 	{
 		env = init_env(argc, argv);
-		env->start_time = get_time();
 		start_cycle(env);
 	}
 }
