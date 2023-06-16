@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 09:40:41 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/16 09:41:28 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/16 10:19:02 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	init_mutexes(t_env *env)
 		i++;
 	}
 	pthread_mutex_init(&env->write, NULL);
-	pthread_mutex_init(&env->eating, NULL);
+	pthread_mutex_init(&env->eat, NULL);
 }
 
 static void	init_philos(t_env *env)
@@ -38,6 +38,7 @@ static void	init_philos(t_env *env)
 		env->philos[i].rfork = i;
 		if (env->philos[i].rfork == 0)
 			env->philos[i].rfork = env->count;
+		env->philos[i].env = env;
 		i++;
 	}	
 }
