@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 09:52:52 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/12 14:06:26 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/16 09:41:12 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@
 
 typedef struct	s_philo
 {
-	pthread_t	tid;
-	int	seat;
-	int	lfork;
-	int	rfork;
+	pthread_t		tid;
+	int				seat;
+	int				lfork;
+	int				rfork;
+	unsigned long	recent_meal;
 }				t_philo;
 
 typedef struct	s_env
@@ -37,8 +38,11 @@ typedef struct	s_env
 	int				limit;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write;
+	pthread_mutex_t	eating;
 }				t_env;
 
 int	ft_atoi(const char *nptr);
+unsigned long	get_time(void);
+t_env	*init_env(int argc, const char **argv);
 
 #endif

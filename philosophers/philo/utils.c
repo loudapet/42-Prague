@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 10:01:14 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/12 10:01:53 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/16 09:40:10 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,14 @@ int	ft_atoi(const char *nptr)
 		i++;
 	}
 	return (flag * res);
+}
+
+unsigned long	get_time(void)
+{
+	struct timeval	time;
+	int				ms;
+
+	gettimeofday(&time, NULL);
+	ms = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (ms);
 }
