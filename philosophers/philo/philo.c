@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 09:35:36 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/16 11:23:53 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/16 12:30:22 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,22 @@
 
 void	*philo_routine(void *param)
 {
+	int i;
 	t_philo	*philo;
 	t_env	*env;
 	
+	i = 0;
 	philo = param;
 	env = philo->env;
 
-	//printf("Hello thread ID %lu!\n", philo->tid);
-	printf("Hello thread no. %i!\n", philo->env->test);
-	pthread_mutex_unlock(&env->write);
+	if (philo->seat % 2 && env->count > 1)
+		suspend(env->time_to_eat);
+	while (i < 100)
+	{
+		p_eat(philo);
+		p_sleep(philo);
+		p_think(philo);
+	}
 	return (NULL);
 }
 
@@ -62,9 +69,6 @@ void	create_threads(t_env *env)
 	while (i < env->count)
 	{
 		env->philos[i].recent_meal = get_time();
-		pthread_mutex_lock(&env->write);
-		env->test = i;
-		printf("I am a thread no. %i\n", i);
 		pthread_create(&env->philos[i].tid, NULL, &philo_routine, &env->philos[i]);
 		i++;
 	}

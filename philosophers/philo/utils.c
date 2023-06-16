@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 10:01:14 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/16 10:40:52 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/16 12:30:45 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,15 @@ unsigned long	get_time(void)
 	gettimeofday(&time, NULL);
 	ms = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	return (ms);
+}
+
+void	suspend(int duration)
+{
+	unsigned long	start_time;
+
+	start_time = get_time();
+	while (get_time() - start_time < (unsigned long)duration)
+		usleep(1);
 }
 
 void	free_memory(t_env *env)
