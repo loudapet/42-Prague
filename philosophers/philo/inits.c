@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 09:40:41 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/16 10:19:02 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/19 09:58:10 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ static void	init_philos(t_env *env)
 	while (i < env->count)
 	{
 		env->philos[i].seat = i + 1;
-		env->philos[i].lfork = i + 1;
-		env->philos[i].rfork = i;
-		if (env->philos[i].rfork == 0)
-			env->philos[i].rfork = env->count;
+		env->philos[i].lfork = i;
+		env->philos[i].rfork = i - 1;
+		if (env->philos[i].rfork == -1)
+			env->philos[i].rfork = env->count - 1;
 		env->philos[i].env = env;
+		env->philos[i].course = 0;
 		i++;
 	}	
 }
@@ -56,6 +57,9 @@ t_env	*init_env(int argc, const char **argv)
 	env->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		env->limit = ft_atoi(argv[5]);
+	else
+		env->limit = 0;
+	env->stop = 0;
 	init_mutexes(env);
 	init_philos(env);
 	

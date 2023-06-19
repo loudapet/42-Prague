@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 09:35:36 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/16 12:30:22 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/19 13:19:25 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,17 @@ void	*philo_routine(void *param)
 	i = 0;
 	philo = param;
 	env = philo->env;
-
 	if (philo->seat % 2 && env->count > 1)
+	{
+		p_think(philo);
 		suspend(env->time_to_eat);
-	while (i < 100)
+	}
+	while (!env->stop)
 	{
 		p_eat(philo);
 		p_sleep(philo);
 		p_think(philo);
+		i++;
 	}
 	return (NULL);
 }
@@ -68,10 +71,12 @@ void	create_threads(t_env *env)
 	env->start_time = get_time();
 	while (i < env->count)
 	{
-		env->philos[i].recent_meal = get_time();
+		env->philos[i].last_meal = get_time();
 		pthread_create(&env->philos[i].tid, NULL, &philo_routine, &env->philos[i]);
 		i++;
 	}
+	p_die(env->philos, env);
+	pthread_mutex_unlock(&env->write);
 }
 
 // protecc mallocs!
@@ -83,6 +88,7 @@ int	main(int argc, const char **argv)
 		env = init_env(argc, argv);
 		create_threads(env);
 		join_threads(env);
+		//printf("Joined.\n");
 		free_memory(env);
 	}
 }
