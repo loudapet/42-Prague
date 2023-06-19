@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 09:40:41 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/19 09:58:10 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/19 15:10:11 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ t_env	*init_env(int argc, const char **argv)
 		env->limit = ft_atoi(argv[5]);
 	else
 		env->limit = 0;
-	env->stop = 0;
+	env->sated = 0;
+	env->death = 0;
 	init_mutexes(env);
 	init_philos(env);
 	

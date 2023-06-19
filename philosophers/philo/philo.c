@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 09:35:36 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/19 13:19:25 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/19 15:13:30 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*philo_routine(void *param)
 		p_think(philo);
 		suspend(env->time_to_eat);
 	}
-	while (!env->stop)
+	while (!env->death && !env->sated)
 	{
 		p_eat(philo);
 		p_sleep(philo);

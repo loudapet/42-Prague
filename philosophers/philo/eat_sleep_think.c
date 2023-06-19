@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 12:01:00 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/19 13:20:53 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/19 15:15:36 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	print_status(char *msg, t_philo *philo, int lock)
 
 	timestamp = get_time() - philo->env->start_time;
 	pthread_mutex_lock(&philo->env->write);
-	if (!philo->env->stop)
-		printf("%-8lu %i %s\n", timestamp, philo->seat, msg);
+	if (!philo->env->death && !philo->env->sated)
+		printf("%-10lu %i %s\n", timestamp, philo->seat, msg);
 	if (lock == 1)
 	{
 		//printf("Unlocking ...\n");
@@ -65,25 +65,26 @@ void	p_die(t_philo *philo, t_env *env)
 {
 	int	i;
 
-	while (1)
+	while (!env->sated)
 	{
 		i = 0;
-		while (i < env->count && env->stop == 0)
+		while (i < env->count && env->death == 0)
 		{
 			pthread_mutex_lock(&env->eat);
 			if (get_time() - philo[i].last_meal \
 				>= (unsigned long)env->time_to_die)
 			{
 				print_status("died", &philo[i], 0);
-				env->stop = 1;
+				env->death = 1;
 			}
 			pthread_mutex_unlock(&env->eat);
 			i++;
 		}
-		if (env->stop)
+		if (env->death)
 			return ;
 		i = 0;
 		while (env->limit && i < env->count && philo[i].course >= env->limit)
 			i++;
+		env->sated = (i == env->count);
 	}
 }

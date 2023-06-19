@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 10:01:14 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/19 13:26:14 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/19 13:29:20 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	suspend(int duration)
 
 	start_time = get_time();
 	while (get_time() - start_time < (unsigned long)duration)
-		usleep(2);
+		usleep(1);
 }
 
 void	free_memory(t_env *env)

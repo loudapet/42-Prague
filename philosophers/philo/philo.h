@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 09:52:52 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/19 10:06:05 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/19 15:09:42 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ typedef struct	s_env
 	int				time_to_sleep;
 	unsigned long	start_time;
 	int				limit;
-	int				stop;
+	int				sated;
+	int				death;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write;
 	pthread_mutex_t	eat;
