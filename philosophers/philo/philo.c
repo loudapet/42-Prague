@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 09:35:36 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/20 12:51:05 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/20 13:48:07 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,15 @@ void	join_threads(t_env *env)
 	int	i;
 
 	i = 0;
-	while (i < env->count)
+	if (env->count == 1)
+		pthread_detach(env->philos[0].tid);
+	else
 	{
-		pthread_join(env->philos[i].tid, NULL);
-		i++;
+		while (i < env->count)
+		{
+			pthread_join(env->philos[i].tid, NULL);
+			i++;
+		}
 	}
 	i = 0;
 	while (i < env->count)
@@ -63,7 +68,7 @@ void	join_threads(t_env *env)
 	pthread_mutex_destroy(&env->eat);
 }
 
-void	create_threads(t_env *env)
+int	create_threads(t_env *env)
 {
 	int	i;
 
@@ -72,11 +77,14 @@ void	create_threads(t_env *env)
 	while (i < env->count)
 	{
 		env->philos[i].last_meal = get_time();
-		pthread_create(&env->philos[i].tid, NULL, &philo_routine, &env->philos[i]);
+		if (pthread_create(&env->philos[i].tid, NULL, \
+			&philo_routine, &env->philos[i]))
+			return (1);
 		i++;
 	}
 	p_die(env->philos, env);
 	pthread_mutex_unlock(&env->write);
+	return (0);
 }
 
 int	main(int argc, const char **argv)
@@ -93,7 +101,8 @@ int	main(int argc, const char **argv)
 		}
 		if (init_env(env, argc, argv))
 			return (1);
-		create_threads(env);
+		if(create_threads(env))
+			return (throw_error(RUNTIME_ERROR));
 		join_threads(env);
 		free_memory(env);
 	}
