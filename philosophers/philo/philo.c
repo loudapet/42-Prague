@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 09:35:36 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/19 15:13:30 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/20 12:51:05 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,25 @@ void	create_threads(t_env *env)
 	pthread_mutex_unlock(&env->write);
 }
 
-// protecc mallocs!
 int	main(int argc, const char **argv)
 {
 	t_env	*env;
+
 	if (argc == 5 || argc == 6)
 	{
-		env = init_env(argc, argv);
+		env = malloc(sizeof(t_env));
+		if (!env)
+		{
+			env = NULL;
+			return (throw_error(ALLOCATION_ERROR));
+		}
+		if (init_env(env, argc, argv))
+			return (1);
 		create_threads(env);
 		join_threads(env);
-		//printf("Joined.\n");
 		free_memory(env);
 	}
+	else
+		print_usage();
+	return (0);
 }

@@ -6,11 +6,23 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 10:01:14 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/19 13:29:20 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/20 11:10:04 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	print_status(char *msg, t_philo *philo, int lock)
+{
+	unsigned long	timestamp;
+
+	timestamp = get_time() - philo->env->start_time;
+	pthread_mutex_lock(&philo->env->write);
+	if (!philo->env->death && !philo->env->sated)
+		printf("\e[38;5;95m%-15lu\e[1;38;5;252m %i\e[0m %s\e[0m\n", timestamp, philo->seat, msg);
+	if (lock == 1)
+		pthread_mutex_unlock(&philo->env->write);
+}
 
 int	ft_atoi(const char *nptr)
 {
