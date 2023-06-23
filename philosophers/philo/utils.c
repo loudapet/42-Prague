@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 10:01:14 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/20 11:10:04 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/23 12:11:30 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	print_status(char *msg, t_philo *philo, int lock)
 	timestamp = get_time() - philo->env->start_time;
 	pthread_mutex_lock(&philo->env->write);
 	if (!philo->env->death && !philo->env->sated)
-		printf("\e[38;5;95m%-15lu\e[1;38;5;252m %i\e[0m %s\e[0m\n", timestamp, philo->seat, msg);
+		printf("\e[38;5;95m%-15lu\e[1;38;5;252m %i\e[0m %s\e[0m\n", \
+		timestamp, philo->seat, msg);
 	if (lock == 1)
 		pthread_mutex_unlock(&philo->env->write);
 }
@@ -74,4 +75,5 @@ void	free_memory(t_env *env)
 	free(env->philos);
 	free(env->forks);
 	free(env);
+	env = NULL;
 }

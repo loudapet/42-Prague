@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:25:09 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/20 13:36:54 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/23 12:10:58 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	throw_error(int error_type)
 	}
 	else if (error_type == RUNTIME_ERROR)
 		write(2, "\e[91mError occurred at runtime. Please try again.\n", 51);
-	else if(error_type == ALLOCATION_ERROR)
+	else if (error_type == ALLOCATION_ERROR)
 		write(2, "\e[91mFailed to allocate memory. Please try again.", 50);
 	return (1);
 }

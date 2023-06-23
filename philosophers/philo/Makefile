@@ -6,7 +6,7 @@
 #    By: plouda <plouda@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 10:27:43 by plouda            #+#    #+#              #
-#    Updated: 2023/06/20 11:57:57 by plouda           ###   ########.fr        #
+#    Updated: 2023/06/23 10:26:24 by plouda           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ SRCS =	philo.c \
 		utils.c \
 		inits.c \
 		eat_sleep_think_die.c \
-		errors.c
+		errors.c \
+		validation.c
 
 BUILD_DIR = ./build
 OBJS = $(addprefix $(BUILD_DIR)/, $(SRCS))

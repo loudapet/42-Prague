@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 09:40:41 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/20 13:16:32 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/23 12:12:14 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	init_mutexes(t_env *env)
 
 static void	init_philos(t_env *env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < env->count)
@@ -80,18 +80,15 @@ int	set_times(t_env *env, int argc, const char **argv)
 		env->limit = ft_atoi(argv[5]);
 	else
 		env->limit = 0;
-	if (env->count < 1 || env->time_to_die < 0 
-		|| env->time_to_eat < 0 || env->time_to_sleep < 0 
+	if (env->count < 1 || env->time_to_die < 0
+		|| env->time_to_eat < 0 || env->time_to_sleep < 0
 		|| env->limit < 0)
-	{
-		free_memory(env);
 		return (VALIDATION_ERROR);
-	}
 	return (SUCCESS);
 }
 
 // check is_int beforehand!
-int	init_env(t_env *env, int argc, const char **argv)
+int	set_env(t_env *env, int argc, const char **argv)
 {
 	int		count;
 
@@ -100,7 +97,10 @@ int	init_env(t_env *env, int argc, const char **argv)
 	if (!env)
 		return (throw_error(ALLOCATION_ERROR));
 	if (set_times(env, argc, argv))
+	{
+		free_memory(env);
 		return (throw_error(VALIDATION_ERROR));
+	}
 	if (init_mutexes(env))
 	{
 		free_memory(env);

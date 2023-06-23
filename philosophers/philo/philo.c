@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 09:35:36 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/20 13:48:07 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/23 10:37:54 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	*philo_routine(void *param)
 {
-	int i;
+	int		i;
 	t_philo	*philo;
 	t_env	*env;
-	
+
 	i = 0;
 	philo = param;
 	env = philo->env;
@@ -87,21 +87,30 @@ int	create_threads(t_env *env)
 	return (0);
 }
 
+t_env	*init_env(void)
+{
+	t_env	*env;
+
+	env = malloc(sizeof(t_env));
+	if (!env)
+		env = NULL;
+	return (env);
+}
+
 int	main(int argc, const char **argv)
 {
 	t_env	*env;
 
 	if (argc == 5 || argc == 6)
 	{
-		env = malloc(sizeof(t_env));
+		if (!is_int(argc, argv))
+			return (throw_error(VALIDATION_ERROR));
+		env = init_env();
 		if (!env)
-		{
-			env = NULL;
 			return (throw_error(ALLOCATION_ERROR));
-		}
-		if (init_env(env, argc, argv))
+		if (set_env(env, argc, argv))
 			return (1);
-		if(create_threads(env))
+		if (create_threads(env))
 			return (throw_error(RUNTIME_ERROR));
 		join_threads(env);
 		free_memory(env);
