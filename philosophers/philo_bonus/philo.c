@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 09:35:36 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/23 10:37:54 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/26 17:28:53 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,21 @@
 
 void	*philo_routine(void *param)
 {
-	int		i;
-	t_philo	*philo;
-	t_env	*env;
+	int			i;
+	t_philo		*philo;
+	pthread_t	death;
 
 	i = 0;
 	philo = param;
-	env = philo->env;
-	if (philo->seat % 2 && env->count > 1)
-	{
-		p_think(philo);
-		suspend(env->time_to_eat);
-	}
-	while (!env->death && !env->sated)
+	pthread_create(&death, NULL, &p_die, philo);
+	while (!philo->env->sated && !philo->env->died)
 	{
 		p_eat(philo);
 		p_sleep(philo);
 		p_think(philo);
 		i++;
 	}
+	pthread_detach(death);
 	return (NULL);
 }
 
@@ -43,32 +39,26 @@ void	*philo_routine(void *param)
 	pthread_cond_timedwait() or pthread_cond_wait() call by another thread,
 	results in undefined behavior.
 */
-void	join_threads(t_env *env)
+void	kill_processes(t_env *env)
 {
 	int	i;
 
 	i = 0;
-	if (env->count == 1)
-		pthread_detach(env->philos[0].tid);
-	else
-	{
-		while (i < env->count)
-		{
-			pthread_join(env->philos[i].tid, NULL);
-			i++;
-		}
-	}
-	i = 0;
 	while (i < env->count)
-	{
-		pthread_mutex_destroy(&env->forks[i]);
-		i++;
-	}
-	pthread_mutex_destroy(&env->write);
-	pthread_mutex_destroy(&env->eat);
+		kill(env->philos[i++].pid, SIGKILL);
+	sem_close(env->forks);
+	sem_close(env->eat);
+	sem_close(env->write);
+	sem_close(env->death);
+	sem_close(env->stop);
+	sem_unlink("Forks");
+	sem_unlink("Eat");
+	sem_unlink("Write");
+	sem_unlink("Death");
+	sem_unlink("Stop");
 }
 
-int	create_threads(t_env *env)
+int	create_processes(t_env *env)
 {
 	int	i;
 
@@ -77,13 +67,27 @@ int	create_threads(t_env *env)
 	while (i < env->count)
 	{
 		env->philos[i].last_meal = get_time();
-		if (pthread_create(&env->philos[i].tid, NULL, \
-			&philo_routine, &env->philos[i]))
-			return (1);
+		env->philos[i].pid = fork();
+		if (!env->philos[i].pid)
+		{
+			philo_routine(&env->philos[i]);
+			exit (0);
+		}
 		i++;
+		//usleep(100);
 	}
-	p_die(env->philos, env);
-	pthread_mutex_unlock(&env->write);
+	i = 0;
+	waitpid(-1, NULL, 0);
+	while (i < env->count)
+	{
+		kill(env->philos[i++].pid, SIGKILL);
+		/* waitpid(-1, NULL, 0);
+		write(2, "Hello\n", 7);
+		if (i == env->count - 1)
+			sem_post(env->stop);
+		i++; */
+	}
+	//sem_post(env->write);
 	return (0);
 }
 
@@ -110,9 +114,11 @@ int	main(int argc, const char **argv)
 			return (throw_error(ALLOCATION_ERROR));
 		if (set_env(env, argc, argv))
 			return (1);
-		if (create_threads(env))
+		sem_wait(env->stop);
+		if (create_processes(env))
 			return (throw_error(RUNTIME_ERROR));
-		join_threads(env);
+		//sem_wait(env->stop);
+		//kill_processes(env);
 		free_memory(env);
 	}
 	else

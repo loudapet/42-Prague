@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 09:52:52 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/23 15:01:50 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/26 14:18:31 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@
 # include <fcntl.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <semaphore.h>
+# include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -29,7 +32,7 @@ struct	s_env;
 /**
  * Contains all information pertaining to a philosopher.
  * 
- * @param tid thread ID
+ * @param pid process ID
  * @param env pointer to the environment structure
  * @param seat identifier of a philosopher, starting from 1
  * @param lfork identifier of the fork located left of the philosopher
@@ -39,7 +42,7 @@ struct	s_env;
  */
 typedef struct s_philo
 {
-	pthread_t		tid;
+	pthread_t		pid;
 	struct s_env	*env;
 	int				seat;
 	int				lfork;
@@ -79,10 +82,12 @@ typedef struct s_env
 	unsigned long	start_time;
 	int				limit;
 	int				sated;
-	int				death;
-	sem_t	*forks;
-	sem_t	*write;
-	sem_t	*eat;
+	int				died;
+	sem_t			*stop;
+	sem_t			*death;
+	sem_t			*forks;
+	sem_t			*write;
+	sem_t			*eat;
 }				t_env;
 
 typedef enum e_error
@@ -153,7 +158,8 @@ void			p_think(t_philo *philo);
  * @param philo Pointer to the philosopher array.
  * @param env Pointer to the environment struct.
  */
-void			p_die(t_philo *philos, t_env *env);
+void			*p_die(void *param);
+//void			p_die(t_philo *philos, t_env *env);
 
 /**
  * @brief Check if all philosophers are sated.

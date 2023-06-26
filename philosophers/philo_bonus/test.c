@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 14:57:19 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/23 16:19:23 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/26 10:13:35 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	main(void)
 	perror("Error");
 	i = 0;
 	sem = sem_open("SEM_B", O_CREAT, 00644, 1);
-	perror("Error");
 	perror("Error");
 	while (i < 10)
 	{

@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 12:01:00 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/23 12:10:38 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/26 17:12:17 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,19 @@
 */
 void	p_eat(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->env->forks[philo->lfork]);
+	sem_wait(philo->env->eat);
+	sem_wait(philo->env->forks);
 	print_status("\e[38;5;103mhas taken a fork", philo, UNLOCK);
-	pthread_mutex_lock(&philo->env->forks[philo->rfork]);
+	sem_wait(philo->env->forks);
 	print_status("\e[38;5;103mhas taken a fork", philo, UNLOCK);
-	pthread_mutex_lock(&philo->env->eat);
+	//sem_wait(philo->env->eat) > position prevents deadlock in case everyone grabs one fork;
 	print_status("\e[38;5;202mis eating", philo, UNLOCK);
 	philo->last_meal = get_time();
-	pthread_mutex_unlock(&philo->env->eat);
+	sem_post(philo->env->eat);
 	suspend(philo->env->time_to_eat);
 	philo->course++;
-	pthread_mutex_unlock(&philo->env->forks[philo->lfork]);
-	pthread_mutex_unlock(&philo->env->forks[philo->rfork]);
+	sem_post(philo->env->forks);
+	sem_post(philo->env->forks);
 }
 
 void	p_sleep(t_philo *philo)
@@ -45,38 +46,45 @@ void	p_think(t_philo *philo)
 	print_status("\e[38;5;102mis thinking", philo, UNLOCK);
 }
 
-void	is_sated(t_philo *philos, t_env *env)
+void	is_sated(t_philo *philo, t_env *env)
 {
-	int	i;
-
-	i = 0;
-	while (env->limit && i < env->count
-		&& philos[i].course >= env->limit)
-		i++;
-	env->sated = (i == env->count);
+	if (env->limit && philo->course >= env->limit)
+		env->sated = 1;
 }
 
-void	p_die(t_philo *philos, t_env *env)
+void	*p_die(void *param)
 {
-	int	i;
+	t_philo	*philo;
+	t_env	*env;
 
-	while (!env->sated)
+	philo = param;
+	env = philo->env;
+	while (1)
 	{
-		i = 0;
-		while (i < env->count && env->death == 0)
+		sem_wait(env->death);
+		//sem_wait(env->eat);
+		if (get_time() - philo->last_meal \
+			>= (unsigned long)env->time_to_die)
 		{
-			pthread_mutex_lock(&env->eat);
-			if (get_time() - philos[i].last_meal \
-				>= (unsigned long)env->time_to_die)
-			{
-				print_status("\e[1;38;5;207mdied", &philos[i], LOCK);
-				env->death = 1;
-			}
-			pthread_mutex_unlock(&env->eat);
-			i++;
+			print_status("\e[1;38;5;207mdied", philo, LOCK);
+			sem_post(env->stop);
+			//sem_post(env->eat);
+			env->died = 1;
+			exit (0);
+			return (NULL);
 		}
-		if (env->death)
-			return ;
-		is_sated(philos, env);
+		sem_post(env->death);
+		sem_wait(env->death);
+		is_sated(philo, env);
+		if (env->sated)
+		{
+			//sem_wait(philo->env->write);
+			sem_post(env->death);
+			//sem_post(env->stop);
+			return (NULL);
+		}
+		sem_post(env->death);
 	}
+	return (NULL);
 }
+

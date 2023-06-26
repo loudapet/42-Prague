@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 09:40:41 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/23 16:25:47 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/26 13:34:25 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,26 @@ t_env	*alloc_memory(t_env *env, int count)
 	return (env);
 }
 
+//change docu for semaphores in header
 int	init_semaphores(t_env *env)
 {
+	sem_unlink("Forks");
+	sem_unlink("Eat");
+	sem_unlink("Write");
+	sem_unlink("Death");
+	sem_unlink("Stop");
 	env->forks = sem_open("Forks", O_CREAT, 00644, env->count);
 	env->eat = sem_open("Eat", O_CREAT, 00644, 1);
 	env->write = sem_open("Write", O_CREAT, 00644, 1);
+	env->death = sem_open("Death", O_CREAT, 00644, 1);
+	env->stop = sem_open("Stop", O_CREAT, 00644, 1);
+	return (0);
 }
 
 int	set_times(t_env *env, int argc, const char **argv)
 {
 	env->sated = 0;
-	env->death = 0;
+	env->died = 0;
 	env->time_to_die = ft_atoi(argv[2]);
 	env->time_to_eat = ft_atoi(argv[3]);
 	env->time_to_sleep = ft_atoi(argv[4]);
