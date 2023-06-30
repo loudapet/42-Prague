@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 09:40:41 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/26 13:34:25 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/30 14:22:57 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 static void	init_philos(t_env *env)
 {
@@ -20,10 +20,6 @@ static void	init_philos(t_env *env)
 	while (i < env->count)
 	{
 		env->philos[i].seat = i + 1;
-		// env->philos[i].lfork = i;
-		// env->philos[i].rfork = i - 1;
-		// if (env->philos[i].rfork == -1)
-		// 	env->philos[i].rfork = env->count - 1;
 		env->philos[i].env = env;
 		env->philos[i].course = 0;
 		i++;

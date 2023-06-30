@@ -3,61 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 09:35:36 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/26 17:28:53 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/30 14:35:07 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
+/*
+./philo 1 800 200 200 - Philosopher should not eat and should die.
+./philo 5 800 200 200 - No Philosopher should die.
+./philo 5 800 200 200 7 - No Philosopher should die and the simulation
+	should stop when every philosopher has eaten at least 7 times.
+./philo 4 410 200 200 - No Philosopher should die.
+./philo 4 310 200 100 - One Philosopher should die.
+./philo 3 400 150 200 1 - One Philosopher should die under normal circumstances,
+but won't due to implementation limits.
+*/
 void	*philo_routine(void *param)
 {
-	int			i;
 	t_philo		*philo;
 	pthread_t	death;
 
-	i = 0;
 	philo = param;
 	pthread_create(&death, NULL, &p_die, philo);
+	pthread_detach(death);
+	if (philo->seat % 2 && philo->env->count > 1)
+	{
+		p_think(philo);
+		suspend(philo->env->time_to_eat);
+	}
 	while (!philo->env->sated && !philo->env->died)
 	{
 		p_eat(philo);
+		if (philo->env->sated)
+			exit (SATED);
 		p_sleep(philo);
+		if (philo->env->sated)
+			exit (SATED);
 		p_think(philo);
-		i++;
+		if (philo->env->sated)
+			exit (SATED);
 	}
-	pthread_detach(death);
 	return (NULL);
 }
 
-/*
-	It shall be safe to destroy an initialized mutex that is unlocked.  At‐
-	tempting  to  destroy a locked mutex, or a mutex that another thread is
-	attempting  to  lock,  or  a  mutex   that   is   being   used   in   a
-	pthread_cond_timedwait() or pthread_cond_wait() call by another thread,
-	results in undefined behavior.
-*/
-void	kill_processes(t_env *env)
-{
-	int	i;
-
-	i = 0;
-	while (i < env->count)
-		kill(env->philos[i++].pid, SIGKILL);
-	sem_close(env->forks);
-	sem_close(env->eat);
-	sem_close(env->write);
-	sem_close(env->death);
-	sem_close(env->stop);
-	sem_unlink("Forks");
-	sem_unlink("Eat");
-	sem_unlink("Write");
-	sem_unlink("Death");
-	sem_unlink("Stop");
-}
-
+// usleep(100) as a bumper
 int	create_processes(t_env *env)
 {
 	int	i;
@@ -66,28 +59,16 @@ int	create_processes(t_env *env)
 	env->start_time = get_time();
 	while (i < env->count)
 	{
-		env->philos[i].last_meal = get_time();
 		env->philos[i].pid = fork();
 		if (!env->philos[i].pid)
 		{
+			env->philos[i].last_meal = get_time();
 			philo_routine(&env->philos[i]);
-			exit (0);
+			usleep(100);
 		}
 		i++;
-		//usleep(100);
 	}
-	i = 0;
-	waitpid(-1, NULL, 0);
-	while (i < env->count)
-	{
-		kill(env->philos[i++].pid, SIGKILL);
-		/* waitpid(-1, NULL, 0);
-		write(2, "Hello\n", 7);
-		if (i == env->count - 1)
-			sem_post(env->stop);
-		i++; */
-	}
-	//sem_post(env->write);
+	check_exit_status(env);
 	return (0);
 }
 
@@ -114,11 +95,10 @@ int	main(int argc, const char **argv)
 			return (throw_error(ALLOCATION_ERROR));
 		if (set_env(env, argc, argv))
 			return (1);
-		sem_wait(env->stop);
 		if (create_processes(env))
 			return (throw_error(RUNTIME_ERROR));
-		//sem_wait(env->stop);
-		//kill_processes(env);
+		kill_processes(env);
+		close_semaphores(env);
 		free_memory(env);
 	}
 	else

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
+/*   By: plouda <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 09:52:52 by plouda            #+#    #+#             */
-/*   Updated: 2023/06/26 14:18:31 by plouda           ###   ########.fr       */
+/*   Updated: 2023/06/30 14:35:58 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 # include <pthread.h>
 # include <sys/time.h>
 # include <fcntl.h>
@@ -26,6 +26,8 @@
 # include <unistd.h>
 # define LOCK 0
 # define UNLOCK 1
+# define DEAD 10
+# define SATED 20
 
 struct	s_env;
 
@@ -196,5 +198,8 @@ void			print_usage(void);
 void			free_memory(t_env *env);
 int				ft_atoi(const char *nptr);
 int				is_int(int argc, const char **argv);
+void			kill_processes(t_env *env);
+void			close_semaphores(t_env *env);
+void			check_exit_status(t_env *env);
 
 #endif
