@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 10:15:35 by plouda            #+#    #+#             */
-/*   Updated: 2023/07/03 14:21:10 by plouda           ###   ########.fr       */
+/*   Updated: 2023/07/03 14:39:19 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ char	*get_username(void)
 	return (username);
 }
 
+// needs more testing for dirs above home
+// very naive, only works for USER-named dirs
 char	*get_directory(void)
 {
 	char	*abs;
@@ -59,6 +61,12 @@ char	*get_directory(void)
 	username = getenv("USER");
 	abs = getcwd(NULL, 0);
 	home = ft_strnstr(abs, username, ft_strlen(abs));
+	if (home == NULL)
+	{
+		home_dollar = ft_strjoin(abs, "$ ");
+		free(abs);
+		return (home_dollar);
+	}
 	home = home + ft_strlen(username);
 	home = ft_strjoin("~", home);
 	home_dollar = ft_strjoin(home, "$ ");
