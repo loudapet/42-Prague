@@ -6,7 +6,7 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 10:15:35 by plouda            #+#    #+#             */
-/*   Updated: 2023/07/03 14:39:19 by plouda           ###   ########.fr       */
+/*   Updated: 2023/07/03 14:53:28 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	*get_directory(void)
 {
 	char	*abs;
 	char	*home;
+	char	*env_home;
 	char	*username;
 	char	*home_dollar;
 	int		i;
@@ -60,14 +61,19 @@ char	*get_directory(void)
 	i = 0;
 	username = getenv("USER");
 	abs = getcwd(NULL, 0);
-	home = ft_strnstr(abs, username, ft_strlen(abs));
+	env_home = getenv("HOME");
+	if (!strncmp(abs, env_home, ft_strlen(env_home)))
+		home = abs + ft_strlen(env_home);
+	else
+		home = NULL;
+	//home = ft_strnstr(abs, username, ft_strlen(abs));
 	if (home == NULL)
 	{
 		home_dollar = ft_strjoin(abs, "$ ");
 		free(abs);
 		return (home_dollar);
 	}
-	home = home + ft_strlen(username);
+	//home = home + ft_strlen(username);
 	home = ft_strjoin("~", home);
 	home_dollar = ft_strjoin(home, "$ ");
 	free(abs);
