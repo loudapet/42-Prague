@@ -6,11 +6,17 @@
 /*   By: plouda <plouda@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 10:15:35 by plouda            #+#    #+#             */
-/*   Updated: 2023/07/03 14:53:28 by plouda           ###   ########.fr       */
+/*   Updated: 2023/07/06 12:05:55 by plouda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+Use this for valgrind suppression
+valgrind -s --leak-check=full --show-reachable=yes --error-limit=no
+--suppressions=minishell.supp --gen-suppressions=all ./minishell
+*/
 
 size_t	get_hostname_len(char *hostname)
 {
@@ -48,10 +54,9 @@ char	*get_username(void)
 }
 
 // needs more testing for dirs above home
-// very naive, only works for USER-named dirs
 char	*get_directory(void)
 {
-	char	*abs;
+	char	*abs_path;
 	char	*home;
 	char	*env_home;
 	char	*username;
@@ -60,23 +65,21 @@ char	*get_directory(void)
 
 	i = 0;
 	username = getenv("USER");
-	abs = getcwd(NULL, 0);
+	abs_path = getcwd(NULL, 0);
 	env_home = getenv("HOME");
-	if (!strncmp(abs, env_home, ft_strlen(env_home)))
-		home = abs + ft_strlen(env_home);
+	if (!strncmp(abs_path, env_home, ft_strlen(env_home)))
+		home = abs_path + ft_strlen(env_home);
 	else
 		home = NULL;
-	//home = ft_strnstr(abs, username, ft_strlen(abs));
 	if (home == NULL)
 	{
-		home_dollar = ft_strjoin(abs, "$ ");
-		free(abs);
+		home_dollar = ft_strjoin(abs_path, "$ ");
+		free(abs_path);
 		return (home_dollar);
 	}
-	//home = home + ft_strlen(username);
 	home = ft_strjoin("~", home);
 	home_dollar = ft_strjoin(home, "$ ");
-	free(abs);
+	free(abs_path);
 	free(home);
 	return (home_dollar);
 }
